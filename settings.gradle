@@ -1,0 +1,4 @@
+rootProject.name = 'coin-trading'
+include 'modules:trading-data'
+findProject(':modules:trading-data')?.name = 'trading-data'
+
