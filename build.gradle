@@ -7,7 +7,7 @@ compileJava.options.encoding = 'UTF-8'
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
-description = "stock auto trading build"
+description = "coin trading build"
 
 allprojects {
     group 'io.runon.coin.trading'
