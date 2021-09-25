@@ -1,5 +1,5 @@
-# coin-trading
-코인 매매 프로젝트
+# crypto-currency
+암호 화폐 분석 및 매매
 
 # 개발환경
 - open jdk 17

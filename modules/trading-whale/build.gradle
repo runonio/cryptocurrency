@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'io.runon.crypto.currency'
-version '1.0-SNAPSHOT'
+version 'unspecified'
 
 repositories {
     mavenCentral()
