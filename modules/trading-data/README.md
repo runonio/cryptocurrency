@@ -4,6 +4,9 @@
 # 개발환경
 - open jdk 17
 
+# 캔들 데이터 기본형
+캔들시작시간,종가,시가,고가,저가,거래량,거래대금
+
 # communication
 ### blog, homepage
 - [www.seomse.com](https://www.seomse.com/)
