@@ -107,7 +107,7 @@ public class BinanceCandle {
 
         for (int i = 0; i < length ; i++) {
             JSONArray data = array.getJSONArray(i);
-            sb.append("\n").append(data.getLong(0)/1000L)
+            sb.append("\n").append(data.getLong(0))
                     .append(",").append(data.getString(4))
                     .append(",").append(data.getString(1))
                     .append(",").append(data.getString(2))
