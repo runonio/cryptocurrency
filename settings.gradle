@@ -9,6 +9,8 @@ findProject(':exchange-modules:binance-futures-java')?.name = 'binance-futures-j
 
 include 'modules:trading-data'
 findProject(':modules:trading-data')?.name = 'trading-data'
-include 'modules:trading-whale'
-findProject(':modules:trading-whale')?.name = 'trading-whale'
+
+include ':technical-analysis'
+project(':technical-analysis').projectDir = new File(settingsDir,'../trading/modules/technical-analysis')
+
 
