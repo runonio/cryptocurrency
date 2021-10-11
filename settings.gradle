@@ -1,12 +1,5 @@
 rootProject.name = 'cryptocurrency'
 
-include 'exchange-modules:binance-java-api'
-findProject(':exchange-modules:binance-java-api')?.name = 'binance-java-api'
-include 'exchange-modules:huobi-java'
-findProject(':exchange-modules:huobi-java')?.name = 'huobi-java'
-include 'exchange-modules:binance-futures-java'
-findProject(':exchange-modules:binance-futures-java')?.name = 'binance-futures-java'
-
 include 'modules:trading-data'
 findProject(':modules:trading-data')?.name = 'trading-data'
 
