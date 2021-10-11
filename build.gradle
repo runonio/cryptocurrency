@@ -7,10 +7,10 @@ compileJava.options.encoding = 'UTF-8'
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
-description = "crypto-currency analysis and trading"
+description = "cryptocurrency analysis and trading"
 
 allprojects {
-    group 'io.runon.crypto.currency'
+    group 'io.runon.cryptocurrency'
     repositories
             {
                 mavenCentral()

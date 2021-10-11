@@ -1,4 +1,4 @@
-rootProject.name = 'crypto-currency'
+rootProject.name = 'cryptocurrency'
 
 include 'exchange-modules:binance-java-api'
 findProject(':exchange-modules:binance-java-api')?.name = 'binance-java-api'

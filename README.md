@@ -1,4 +1,4 @@
-# crypto-currency
+# cryptocurrency
 암호 화폐 분석 및 매매
 
 - 암호화폐 자동매매와 관련된 기술 모듈들이 제공 됩니다. 
