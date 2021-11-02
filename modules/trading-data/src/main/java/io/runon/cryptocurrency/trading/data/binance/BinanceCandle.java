@@ -1,4 +1,4 @@
-package io.runon.crypto.currency.trading.data.binance;
+package io.runon.cryptocurrency.trading.data.binance;
 
 import com.seomse.commons.utils.FileUtil;
 import com.seomse.crawling.core.http.HttpUrl;

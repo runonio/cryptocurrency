@@ -1,6 +1,6 @@
 package binance;
 
-import io.runon.crypto.currency.trading.data.binance.BinanceCandle;
+import io.runon.cryptocurrency.trading.data.binance.BinanceCandle;
 
 /**
  * 바이낸스 캔들 데이터 내리기
