@@ -7,4 +7,6 @@ include ':technical-analysis'
 project(':technical-analysis').projectDir = new File(settingsDir,'../trading/modules/technical-analysis')
 include 'modules:analysis'
 findProject(':modules:analysis')?.name = 'analysis'
+include 'modules:service'
+findProject(':modules:service')?.name = 'service'
 

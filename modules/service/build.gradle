@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group 'io.runon.cryptocurrency'
+version 'unspecified'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+
+
+
+    implementation group: 'io.lettuce', name: 'lettuce-core', version: '6.1.1.RELEASE'
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '1.28'
+    implementation 'com.seomse.commons:seomse-commons:1.2.5'
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.20'
+}
+
+test {
+    useJUnitPlatform()
+}
