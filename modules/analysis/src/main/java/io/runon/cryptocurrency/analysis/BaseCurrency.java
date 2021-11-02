@@ -1,4 +1,4 @@
-package io.runon.cyptocurrency.analysis;
+package io.runon.cryptocurrency.analysis;
 /**
  * 기준통화
  * @author macle

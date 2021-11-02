@@ -4,4 +4,4 @@
  *
  * @author macle
  */
-package io.runon.cyptocurrency.analysis;
+package io.runon.cryptocurrency.analysis;
