@@ -3,8 +3,6 @@ rootProject.name = 'cryptocurrency'
 include 'modules:trading-data'
 findProject(':modules:trading-data')?.name = 'trading-data'
 
-include ':technical-analysis'
-project(':technical-analysis').projectDir = new File(settingsDir,'../trading/modules/technical-analysis')
 include 'modules:analysis'
 findProject(':modules:analysis')?.name = 'analysis'
 include 'modules:service'
