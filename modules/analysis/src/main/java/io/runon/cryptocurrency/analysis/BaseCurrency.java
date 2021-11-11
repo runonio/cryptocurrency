@@ -6,6 +6,7 @@ package io.runon.cryptocurrency.analysis;
 public enum BaseCurrency {
     USD
     , USDT
+    , BUSD
     , KRW
     , BTC
     , ETH

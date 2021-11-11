@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 /**
  * 마지막 수집주기
@@ -60,23 +61,14 @@ public class LastCollectTime {
     public static void put(LastCollectTime [] lastCollectTimes){
         try (StatefulRedisConnection<String, String> connection =  CryptocurrencyRedis.getRedisClient().connect()) {
 
+            RedisAsyncCommands<String, String> commands = connection.async();
+            commands.setAutoFlushCommands(true);
+
             for(LastCollectTime lastCollectTime : lastCollectTimes) {
 
-                RedisAsyncCommands<String, String> commands = connection.async();
-                commands.setAutoFlushCommands(true);
-                long time;
-                if(lastCollectTime.time == null){
-                    time = System.currentTimeMillis();
-                }else{
-                    time = lastCollectTime.time;
-                }
+                long time = Objects.requireNonNullElseGet(lastCollectTime.time, System::currentTimeMillis);
 
-                long checkTime;
-                if(lastCollectTime.checkTime == null){
-                    checkTime = Times.MINUTE_5;
-                }else{
-                    checkTime = lastCollectTime.checkTime;
-                }
+                long checkTime = Objects.requireNonNullElse(lastCollectTime.checkTime, Times.MINUTE_5);
 
                 Instant i = Instant.ofEpochMilli(time);
 
