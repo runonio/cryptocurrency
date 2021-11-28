@@ -10,6 +10,8 @@ public class RedisConnectFactory {
      * @return RedisConnect
      */
     public static RedisConnect newRedisConnect(){
+        //여기에 클러스터 or 클라이언트 어떤걸로 탈지 소스 넣기
+        
         return new RedisConnectClient();
     }
 
