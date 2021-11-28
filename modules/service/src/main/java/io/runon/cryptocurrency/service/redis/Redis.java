@@ -34,4 +34,14 @@ public class Redis {
     public static RedisFuture<Long> hsetAsync(String key, Map<String, String> map){
         return ServiceRedis.instance.hsetAsync(key, map);
     }
+
+    public static RedisFuture<Long> hdelAsync(String key,  String... fields){
+        return ServiceRedis.instance.hdelAsync(key, fields);
+    }
+
+
+    public static RedisFuture<String> setAsync(String key, String value){
+        return ServiceRedis.instance.setAsync(key, value);
+
+    }
 }

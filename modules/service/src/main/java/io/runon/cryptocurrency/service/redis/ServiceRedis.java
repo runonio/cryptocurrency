@@ -97,6 +97,21 @@ public class ServiceRedis {
 
     }
 
+    public RedisFuture<Long> hdelAsync(String key,  String... fields){
+        synchronized (lock){
+            connect();
+            return asyncHash.hdel(key, fields);
+        }
+
+    }
+
+    public RedisFuture<String> setAsync(String key, String value){
+        synchronized (lock){
+            connect();
+            return asyncString.set(key, value);
+        }
+    }
+
     public String get(String key){
         synchronized (lock){
             connect();
