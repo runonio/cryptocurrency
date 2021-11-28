@@ -26,6 +26,10 @@ public class Redis {
         return ServiceRedis.instance.get(key);
     }
 
+    public static String getAsync(String key) {
+        return ServiceRedis.instance.getAsync(key);
+    }
+
 
     public static RedisFuture<Boolean> hsetAsync(String key, String field, String value){
         return ServiceRedis.instance.hsetAsync(key,field,value);

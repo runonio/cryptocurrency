@@ -112,11 +112,26 @@ public class ServiceRedis {
         }
     }
 
+    public String getAsync(String key) {
+        synchronized (lock) {
+            connect();
+            try {
+
+                RedisFuture<String> value = asyncString.get(key);
+                if(value == null){
+                    return null;
+                }
+                return value.get();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
     public String get(String key){
         synchronized (lock){
             connect();
             return syncString.get(key);
-
         }
     }
 
