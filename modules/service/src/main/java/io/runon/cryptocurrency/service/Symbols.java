@@ -1,8 +1,7 @@
 package io.runon.cryptocurrency.service;
 
 import com.seomse.commons.utils.ExceptionUtil;
-import io.lettuce.core.api.StatefulRedisConnection;
-import io.lettuce.core.api.async.RedisAsyncCommands;
+import io.runon.cryptocurrency.service.redis.Redis;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 
@@ -12,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 문자열과 점수
+ * 암호화폐 거래소 심볼 관련 매소드
  * @author macle
  */
 @Slf4j
@@ -20,11 +19,9 @@ public class Symbols {
 
 
     public static String [] getSymbols(String exchangeId, int rank, String [] defaultSymbols, boolean isTradingPrice){
-        try (StatefulRedisConnection<String, String> connection =  CryptocurrencyRedis.getRedisClient().connect()) {
+        try {
 
-            RedisAsyncCommands<String, String> commands = connection.async();
-            commands.setAutoFlushCommands(true);
-            Map<String, String> map  = commands.hgetall(exchangeId).get();
+            Map<String, String> map  = Redis.hgetallAsync(exchangeId);
             String [] dataArray = map.values().toArray(new String[0]);
 
             TextScore [] textScores = new TextScore[dataArray.length];
@@ -34,7 +31,6 @@ public class Symbols {
                 JSONObject jsonObject = new JSONObject(data);
                 String symbol = jsonObject.getString("symbol");
                 double score;
-
 
                 try {
                     if(isTradingPrice){

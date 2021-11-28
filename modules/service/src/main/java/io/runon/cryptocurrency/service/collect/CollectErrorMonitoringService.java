@@ -2,9 +2,7 @@ package io.runon.cryptocurrency.service.collect;
 
 import com.seomse.commons.service.Service;
 import com.seomse.commons.utils.ExceptionUtil;
-import io.lettuce.core.api.StatefulRedisConnection;
-import io.lettuce.core.api.async.RedisAsyncCommands;
-import io.runon.cryptocurrency.service.CryptocurrencyRedis;
+import io.runon.cryptocurrency.service.redis.Redis;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
@@ -28,31 +26,19 @@ public class CollectErrorMonitoringService extends Service {
     @Override
     public void work() {
 
-        try (StatefulRedisConnection<String, String> connection =  CryptocurrencyRedis.getRedisClient().connect()) {
-            RedisAsyncCommands<String, String> commands = connection.async();
-            commands.setAutoFlushCommands(true);
-
-            Map<String, String> hgetall = commands.hgetall("collect_last_time").get();
-
+        try {
+            Map<String, String> hgetall = Redis.hgetallAsync("collect_last_time");
             Set<String> keys = hgetall.keySet();
-
             long time = System.currentTimeMillis();
-            
             for(String key: keys){
                 String message = hgetall.get(key);
-
                 String [] values = message.split(",");
-                
                 long overTime = Long.parseLong(values[1]) + Long.parseLong(values[2]);
-                
                 if(time > overTime){
                     //에러떨구기
                     log.error("collect error: " +key + ", last date: " + values[0] + " time: " + values[1] );
                 }
-                
-                
             }
-
         }catch(Exception e){
             log.error(ExceptionUtil.getStackTrace(e));
         }
