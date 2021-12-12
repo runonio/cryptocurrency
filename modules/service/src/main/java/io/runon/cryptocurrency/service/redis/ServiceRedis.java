@@ -11,7 +11,6 @@ import io.lettuce.core.pubsub.api.async.RedisPubSubAsyncCommands;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author macle
@@ -90,18 +89,11 @@ public class ServiceRedis {
 
     }
 
-    public void hsetAsync(String key, Map<String, String> map){
+    public RedisFuture<Long> hsetAsync(String key, Map<String, String> map){
         synchronized (lock){
             connect();
-            //치명적 버그발견
-            //map 으로하면 업데이트는 되지않고 insert 만 됨
-            //업데이트 되게 하나씩 데이터를 전송
-            Set<String> dataKeys = map.keySet();
-            for(String dataKey: dataKeys){
-                asyncHash.hset(key,dataKey,map.get(dataKey));
-            }
+            return asyncHash.hset(key,map);
         }
-
     }
 
     public RedisFuture<Long> hdelAsync(String key,  String... fields){
