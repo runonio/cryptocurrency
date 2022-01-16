@@ -2,9 +2,3 @@ rootProject.name = 'cryptocurrency'
 
 include 'modules:trading-data'
 findProject(':modules:trading-data')?.name = 'trading-data'
-
-include 'modules:analysis'
-findProject(':modules:analysis')?.name = 'analysis'
-include 'modules:service'
-findProject(':modules:service')?.name = 'service'
-
