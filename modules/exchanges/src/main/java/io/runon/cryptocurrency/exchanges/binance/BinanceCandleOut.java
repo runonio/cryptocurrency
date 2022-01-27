@@ -1,4 +1,4 @@
-package io.runon.cryptocurrency.trading.data.binance;
+package io.runon.cryptocurrency.exchanges.binance;
 
 import com.seomse.commons.utils.FileUtil;
 import com.seomse.crawling.core.http.HttpUrl;
@@ -8,7 +8,7 @@ import org.json.JSONArray;
  * 바이낸스 캔들 데이터
  * @author macle
  */
-public class BinanceCandle {
+public class BinanceCandleOut {
 
 //      parameter
 //      symbol	STRING	YES
@@ -55,10 +55,10 @@ public class BinanceCandle {
     public static final String CANDLE = "https://api.binance.com/api/v3/klines?symbol=%s&interval=%s";
 
     /**
-     * 
-     * 캔들 데이터를 지정한 파일경로로 추출함
+     *
+     * 캔들 데이터를 지정한 파일경로로 추출함 (csv)
      * 파일은 덮어쓰지 않고 기존파일에 붙여서 내용이 생성됨
-     * 
+     *
      * intervals
      * 1m
      * 3m
@@ -82,7 +82,7 @@ public class BinanceCandle {
      * @param endTime null 가능 설정하지 않으면 최신값 (unix time)
      * @param limit null 가능 default 500 max 1000
      */
-    public static void candleCsvOut(String outPath, String symbol, String interval, Long startTime, Long endTime, Integer limit){
+    public static void csv(String outPath, String symbol, String interval, Long startTime, Long endTime, Integer limit){
 
         StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append(CANDLE.formatted(symbol,interval));
@@ -118,7 +118,7 @@ public class BinanceCandle {
                     .append(",").append(data.getInt(8))
                     .append(",").append(data.getString(9))
                     .append(",").append(data.getString(10))
-                    ;
+            ;
 
         }
 

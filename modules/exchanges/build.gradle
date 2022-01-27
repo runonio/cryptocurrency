@@ -11,6 +11,12 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    implementation 'com.seomse.commons:commons:1.2.6'
+    implementation 'com.seomse.commons:crawling:0.8.7'
+
+    implementation project(path: ':modules:trading')
+
 }
 
 test {
