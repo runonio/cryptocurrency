@@ -1,4 +1,6 @@
 rootProject.name = 'cryptocurrency'
+include 'modules:exchanges'
+findProject(':modules:exchanges')?.name = 'exchanges'
+include 'modules:trading'
+findProject(':modules:trading')?.name = 'trading'
 
-include 'modules:trading-data'
-findProject(':modules:trading-data')?.name = 'trading-data'
