@@ -75,8 +75,8 @@ public abstract class DataStream<T extends Cryptocurrency> {
 
     public abstract T newCryptocurrency(String cryptocurrencyId);
     public abstract SymbolCurrency getSymbolCurrency(String cryptocurrencyId);
-    public abstract void setSymbols(String symbols);
-    public abstract void setCurrencies(String Currencies);
+    public abstract void connect();
+
 
     public long getLastTime() {
         return lastTime;
