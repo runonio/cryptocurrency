@@ -49,7 +49,8 @@ public class DataStreamManager {
         }
     }
 
-    public DataStream<?>[] getStreams() {
+    @SuppressWarnings("rawtypes")
+    public DataStream[] getStreams() {
         return streams;
     }
 

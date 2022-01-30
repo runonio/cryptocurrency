@@ -3,6 +3,7 @@ package example.binance;
 import example.CryptocurrencyImpl;
 import io.runon.cryptocurrency.exchanges.binance.BinanceCandleStream;
 import io.runon.cryptocurrency.exchanges.binance.BinanceMarketSymbol;
+import io.runon.cryptocurrency.trading.service.DataStreamKeepAliveService;
 
 /**
  * 바이낸스 실시간 구현체 예제
@@ -24,5 +25,6 @@ public class BinanceCandleStreamImpl extends BinanceCandleStream<CryptocurrencyI
 
     public static void main(String[] args) {
         new BinanceCandleStreamImpl("binance_candle").connect();
+        new DataStreamKeepAliveService().start();
     }
 }

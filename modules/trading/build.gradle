@@ -2,7 +2,8 @@ plugins {
     id 'java'
 }
 
-version 'unspecified'
+group 'io.runon.cryptocurrency'
+version '0.0.1'
 
 repositories {
     mavenCentral()
@@ -13,9 +14,8 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
     implementation 'com.seomse.commons:commons:1.2.6'
-    implementation 'com.seomse.commons:crawling:0.8.7'
     implementation 'io.runon.trading:technical-analysis:0.0.5'
-
+    implementation 'io.runon.commons:data-service:0.0.6'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
 
