@@ -6,8 +6,7 @@ import lombok.Data;
  * @author macle
  */
 @Data
-public class SymbolCurrency {
+public class MarketSymbol {
+    String market;
     String symbol;
-    BaseCurrency currency;
-
 }

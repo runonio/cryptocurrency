@@ -10,7 +10,7 @@ import java.util.Map;
  * 캔들 혹은 거래데이터 받기 (리얼타임)
  * @author macle
  */
-public abstract class DataStream<T extends Cryptocurrency> {
+public abstract class DataStream<T extends Cryptocurrency> implements AutoCloseable{
 
     protected final Object lock = new Object();
     protected final String streamId;
@@ -19,9 +19,6 @@ public abstract class DataStream<T extends Cryptocurrency> {
         this.streamId = streamId;
         DataStreamManager.getInstance().add(streamId, this);
     }
-
-
-
 
     protected final Map<String, T> cryptocurrencyMap = new HashMap<>();
     protected long lastTime = 0L;
@@ -74,9 +71,8 @@ public abstract class DataStream<T extends Cryptocurrency> {
     }
 
     public abstract T newCryptocurrency(String cryptocurrencyId);
-    public abstract SymbolCurrency getSymbolCurrency(String cryptocurrencyId);
+    public abstract MarketSymbol getMarketSymbol(String cryptocurrencyId);
     public abstract void connect();
-
 
     public long getLastTime() {
         return lastTime;

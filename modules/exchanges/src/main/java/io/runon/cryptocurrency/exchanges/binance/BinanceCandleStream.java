@@ -7,7 +7,7 @@ import com.seomse.commons.utils.ExceptionUtil;
 import com.seomse.crawling.core.http.HttpUrl;
 import io.runon.cryptocurrency.trading.Cryptocurrency;
 import io.runon.cryptocurrency.trading.DataStream;
-import io.runon.cryptocurrency.trading.SymbolCurrency;
+import io.runon.cryptocurrency.trading.MarketSymbol;
 
 import io.runon.trading.technical.analysis.candle.TradeCandle;
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +31,8 @@ public abstract class BinanceCandleStream<T extends Cryptocurrency> extends Data
     }
 
     @Override
-    public SymbolCurrency getSymbolCurrency(String cryptocurrencyId) {
-        return BinanceSymbolCurrency.getSymbolCurrency(cryptocurrencyId);
+    public MarketSymbol getMarketSymbol(String cryptocurrencyId) {
+        return BinanceMarketSymbol.getMarketSymbol(cryptocurrencyId);
     }
 
 
@@ -119,10 +119,7 @@ public abstract class BinanceCandleStream<T extends Cryptocurrency> extends Data
 
     @Override
     public void connect() {
-        if(webSocket != null){
-            try{webSocket.close(1000, null);}catch (Exception e){log.error(ExceptionUtil.getStackTrace(e));}
-            try{client.dispatcher().executorService().shutdown();}catch (Exception e){log.error(ExceptionUtil.getStackTrace(e));}
-        }
+        close();
 
         //noinspection NullableProblems
         WebSocketListener webSocketListener = new WebSocketListener() {
@@ -158,7 +155,9 @@ public abstract class BinanceCandleStream<T extends Cryptocurrency> extends Data
                     tradeCandle.setClose(messageObj.getBigDecimal("c"));
                     tradeCandle.setHigh(messageObj.getBigDecimal("h"));
                     tradeCandle.setLow(messageObj.getBigDecimal("l"));
-
+                    //직전가는 시가로 처리
+                    tradeCandle.setPrevious(tradeCandle.getOpen());
+                    
                     tradeCandle.setTradeCount(messageObj.getInt("n"));
                     tradeCandle.setVolume(messageObj.getBigDecimal("v"));
                     tradeCandle.setTradingPrice(messageObj.getBigDecimal("q"));
@@ -190,10 +189,12 @@ public abstract class BinanceCandleStream<T extends Cryptocurrency> extends Data
         webSocket.send(message);
     }
 
-
-    public static void main(String[] args) {
-
+    @Override
+    public void close(){
+        if(webSocket != null){
+            try{webSocket.close(1000, null);}catch (Exception e){log.error(ExceptionUtil.getStackTrace(e));}
+            try{client.dispatcher().executorService().shutdown();}catch (Exception e){log.error(ExceptionUtil.getStackTrace(e));}
+        }
 
     }
-
 }
