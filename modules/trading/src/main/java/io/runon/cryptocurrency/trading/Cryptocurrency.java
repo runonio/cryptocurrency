@@ -12,8 +12,29 @@ public interface Cryptocurrency {
     void addCandle(TradeCandle tradeCandle);
     void addTrade(Trade trade);
 
+    /**
+     * BTC
+     * ETH
+     * ADA
+     * MAMA
+     * SOL
+     * LUNA
+     * ...
+     * @return symbol
+     */
     String getSymbol();
-    BaseCurrency getBaseCurrency();
+
+    /**
+     *   USD
+     *   USDT
+     *   BUSD
+     *   KRW
+     *   BTC
+     *   ETH
+     *   ...
+     * @return market
+     */
+    String getMarket();
 
     long getLastTime();
 }
