@@ -4,8 +4,10 @@
 # 개발환경
 - open jdk 17
 
-# 캔들 데이터 형 csv
-캔들시작시간(밀리초 유닉스타임)[0],종가[1],시가[2],고가[3],저가[4],직전가[5],거래량[6],거래대금[7],거래횟수[8],매수거래량[9],매수거래대금[10]
+# gradle
+implementation 'io.runon.cryptocurrency:trading:0.0.1'
+- etc
+  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/trading/0.0.1
 
 # communication
 ### blog, homepage

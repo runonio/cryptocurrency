@@ -75,6 +75,7 @@ public class BinanceCandleOut {
      * 3d
      * 1w
      * 1M
+     * 캔들시작시간(밀리초 유닉스타임)[0],종가[1],시가[2],고가[3],저가[4],직전가[5],거래량[6],거래대금[7],거래횟수[8],매수거래량[9],매수거래대금[10]
      * @param outPath 필수 파일 생성경로
      * @param symbol 필수 BTCUSDT, ETHUSDT ...
      * @param interval 필수
