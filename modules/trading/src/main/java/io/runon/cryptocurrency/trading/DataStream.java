@@ -1,8 +1,5 @@
 package io.runon.cryptocurrency.trading;
 
-import io.runon.trading.Trade;
-import io.runon.trading.technical.analysis.candle.TradeCandle;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,19 +20,8 @@ public abstract class DataStream<T extends Cryptocurrency> implements AutoClosea
     protected final Map<String, T> cryptocurrencyMap = new HashMap<>();
     protected long lastTime = 0L;
 
-    public void addCandle(String cryptocurrencyId, TradeCandle tradeCandle){
-        lastTime = System.currentTimeMillis();
-        T cryptocurrency = getOrNewCryptocurrency(cryptocurrencyId);
-        cryptocurrency.addCandle(tradeCandle);
-    }
+    protected T computeIfAbsent(String cryptocurrencyId){
 
-    public void addTrade(String cryptocurrencyId, Trade trade){
-        lastTime = System.currentTimeMillis();
-        T cryptocurrency = getOrNewCryptocurrency(cryptocurrencyId);
-        cryptocurrency.addTrade(trade);
-    }
-
-    private T getOrNewCryptocurrency(String cryptocurrencyId){
         T cryptocurrency = cryptocurrencyMap.get(cryptocurrencyId);
         if(cryptocurrency == null){
             synchronized (lock){

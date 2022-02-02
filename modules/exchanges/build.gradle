@@ -18,6 +18,10 @@ dependencies {
     implementation 'io.runon.trading:technical-analysis:0.0.5'
 
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0-RC1'
+
+    implementation 'io.runon.cryptocurrency:exchange-binance-futures:1.0.9'
+
+
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
 
     implementation project(path: ':modules:trading')

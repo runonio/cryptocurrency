@@ -4,11 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.seomse.commons.utils.ExceptionUtil;
-import com.seomse.crawling.core.http.HttpUrl;
-import io.runon.cryptocurrency.trading.Cryptocurrency;
-import io.runon.cryptocurrency.trading.DataStream;
+import io.runon.cryptocurrency.trading.CryptocurrencyCandle;
+import io.runon.cryptocurrency.trading.DataStreamCandle;
 import io.runon.cryptocurrency.trading.MarketSymbol;
-
 import io.runon.trading.technical.analysis.candle.TradeCandle;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
@@ -21,7 +19,9 @@ import org.json.JSONObject;
  * @author macle
  */
 @Slf4j
-public abstract class BinanceCandleStream<T extends Cryptocurrency> extends DataStream<T> {
+public abstract class BinanceCandleStream<T extends CryptocurrencyCandle> extends DataStreamCandle<T> {
+
+    protected String wssAddress = "wss://stream.binance.com:9443/ws";
 
     /**
      * @param streamId 아이디 (자유지정, 중복안됨)
@@ -34,7 +34,6 @@ public abstract class BinanceCandleStream<T extends Cryptocurrency> extends Data
     public MarketSymbol getMarketSymbol(String cryptocurrencyId) {
         return BinanceMarketSymbol.getMarketSymbol(cryptocurrencyId);
     }
-
 
     private String message = "{\"method\":\"SUBSCRIBE\",\"id\":1,\"params\":[\"btcusdt@kline_1d\"]}";
 
@@ -54,7 +53,6 @@ public abstract class BinanceCandleStream<T extends Cryptocurrency> extends Data
     public void setMessage(String message) {
         this.message = message;
     }
-
 
     private String interval = "1d";
 
@@ -103,15 +101,6 @@ public abstract class BinanceCandleStream<T extends Cryptocurrency> extends Data
         object.add("params", params);
         Gson gson = new Gson();
         message = gson.toJson(object);
-    }
-
-    /**
-     * example [{"symbol":"ETHBTC","price":"0.06529800"},{"symbol":"LTCBTC","price":"0.00287900"}]
-     *
-     * @return json array
-     */
-    public String getAllTicker() {
-        return HttpUrl.get("https://api.binance.com/api/v1/ticker/allPrices");
     }
 
     private WebSocket webSocket = null;
@@ -184,7 +173,7 @@ public abstract class BinanceCandleStream<T extends Cryptocurrency> extends Data
         };
 
         client = new OkHttpClient();
-        Request request = new Request.Builder().url("wss://stream.binance.com:9443/ws").build();
+        Request request = new Request.Builder().url(wssAddress).build();
         webSocket = client.newWebSocket(request, webSocketListener);
         webSocket.send(message);
     }
@@ -195,6 +184,5 @@ public abstract class BinanceCandleStream<T extends Cryptocurrency> extends Data
             try{webSocket.close(1000, null);}catch (Exception e){log.error(ExceptionUtil.getStackTrace(e));}
             try{client.dispatcher().executorService().shutdown();}catch (Exception e){log.error(ExceptionUtil.getStackTrace(e));}
         }
-
     }
 }

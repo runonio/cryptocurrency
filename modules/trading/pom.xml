@@ -6,7 +6,7 @@
 
     <groupId>io.runon.cryptocurrency</groupId>
     <artifactId>trading</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
 
     <name>cryptocurrency-trading</name>
@@ -116,14 +116,10 @@
                     </execution>
                 </executions>
             </plugin>
-
-
         </plugins>
     </build>
 
-
     <dependencies>
-
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
@@ -166,8 +162,6 @@
             <version>1.18.22</version>
             <scope>provided</scope>
         </dependency>
-
-
     </dependencies>
 
 </project>
