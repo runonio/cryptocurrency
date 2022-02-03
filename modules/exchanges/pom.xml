@@ -6,7 +6,7 @@
 
     <groupId>io.runon.cryptocurrency</groupId>
     <artifactId>exchanges</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <packaging>jar</packaging>
 
     <name>cryptocurrency-exchanges</name>
@@ -156,7 +156,7 @@
         <dependency>
             <groupId>io.runon.trading</groupId>
             <artifactId>technical-analysis</artifactId>
-            <version>0.0.5</version>
+            <version>0.0.8</version>
         </dependency>
 
         <dependency>
@@ -171,6 +171,14 @@
             <version>1.0.9</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>io.runon.cryptocurrency</groupId>
+            <artifactId>exchange-houbi</artifactId>
+            <version>2.0.3</version>
+        </dependency>
+
+
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -182,6 +190,14 @@
             <artifactId>okhttp</artifactId>
             <version>4.10.0-RC1</version>
         </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+            <version>2.6.3</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.projectlombok</groupId>

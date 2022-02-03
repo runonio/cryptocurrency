@@ -32,7 +32,7 @@ public abstract class BinanceCandleStream<T extends CryptocurrencyCandle> extend
 
     @Override
     public MarketSymbol getMarketSymbol(String cryptocurrencyId) {
-        return BinanceMarketSymbol.getMarketSymbol(cryptocurrencyId);
+        return BinanceExchange.getMarketSymbol(cryptocurrencyId);
     }
 
     private String message = "{\"method\":\"SUBSCRIBE\",\"id\":1,\"params\":[\"btcusdt@kline_1d\"]}";
@@ -83,16 +83,16 @@ public abstract class BinanceCandleStream<T extends CryptocurrencyCandle> extend
     /**
      * message
      * @param symbols btc,eth... or BTC,ETH...
-     * @param currencies usdt,usd,btc... or USDT,USD,BTC...
+     * @param markets usdt,usd,btc... or USDT,USD,BTC...
      */
-    public void setMessage(String symbols, String currencies){
+    public void setMessage(String symbols, String markets){
         String [] symbolArray = symbols.toLowerCase().split(",");
-        String [] currencyArray = currencies.toLowerCase().split(",");
+        String [] marketArray = markets.toLowerCase().split(",");
 
         JsonArray params = new JsonArray();
         for(String symbol : symbolArray){
-            for(String currency : currencyArray){
-                params.add(symbol + currency + "@kline_" + interval);
+            for(String market : marketArray){
+                params.add(symbol + market + "@kline_" + interval);
             }
         }
         JsonObject object = new JsonObject();

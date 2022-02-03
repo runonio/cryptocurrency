@@ -9,9 +9,9 @@
 
 
 # gradle
-implementation 'io.runon.cryptocurrency:exchanges:0.0.2'
+implementation 'io.runon.cryptocurrency:exchanges:0.0.3'
 - etc
-  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/exchanges/0.0.2
+  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/exchanges/0.0.3
 
 
 # communication
