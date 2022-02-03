@@ -2,7 +2,6 @@ package example.binance;
 
 import example.CryptocurrencyCandleImpl;
 import io.runon.cryptocurrency.exchanges.binance.BinanceCandleStream;
-import io.runon.cryptocurrency.exchanges.binance.BinanceMarketSymbol;
 import io.runon.cryptocurrency.trading.service.DataStreamKeepAliveService;
 
 /**
@@ -19,7 +18,7 @@ public class BinanceCandleStreamImpl extends BinanceCandleStream<CryptocurrencyC
 
     @Override
     public CryptocurrencyCandleImpl newCryptocurrency(String cryptocurrencyId) {
-        return new CryptocurrencyCandleImpl(BinanceMarketSymbol.getMarketSymbol(cryptocurrencyId));
+        return new CryptocurrencyCandleImpl(getMarketSymbol(cryptocurrencyId));
     }
 
     public static void main(String[] args) {

@@ -1,13 +1,18 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
+import com.binance.client.SyncRequestClient;
+import com.binance.client.model.market.MarkPrice;
+import com.seomse.crawling.core.http.HttpUrl;
 import io.runon.cryptocurrency.trading.MarketSymbol;
 import io.runon.cryptocurrency.trading.exception.IdNotPatternException;
+
+import java.util.List;
 
 /**
  * 바이낸스 심볼과 통화 분리
  * @author macle
  */
-public class BinanceMarketSymbol {
+public class BinanceExchange {
 
     public static MarketSymbol getMarketSymbol(String cryptocurrencyId) {
         MarketSymbol marketSymbol = new MarketSymbol();
@@ -34,4 +39,21 @@ public class BinanceMarketSymbol {
 
         return marketSymbol;
     }
+
+    /**
+     * example [{"symbol":"ETHBTC","price":"0.06529800"},{"symbol":"LTCBTC","price":"0.00287900"}]
+     * @return json array
+     */
+    public String getTickers() {
+        return HttpUrl.get("https://api.binance.com/api/v1/ticker/allPrices");
+    }
+
+    public List<MarkPrice> getFuturesTickers() {
+        return getFuturesTickers("");
+    }
+
+    public List<MarkPrice> getFuturesTickers(String symbol) {
+        return SyncRequestClient.create().getMarkPrice(symbol);
+    }
+
 }
