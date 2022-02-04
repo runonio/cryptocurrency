@@ -1,7 +1,6 @@
 package example.bithumb;
 
 import example.CryptocurrencyTradeImpl;
-import example.coinbase.CoinbaseTradeStreamImpl;
 import io.runon.cryptocurrency.exchanges.bithumb.BithumbTradeStream;
 import io.runon.cryptocurrency.trading.service.DataStreamKeepAliveService;
 
