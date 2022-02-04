@@ -55,7 +55,6 @@ public class OkxExchange {
                 idList.add(id);
             }
         }
-
         return idList.toArray(new String[0]);
     }
 

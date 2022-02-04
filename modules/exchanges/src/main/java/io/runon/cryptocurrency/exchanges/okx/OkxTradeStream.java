@@ -19,7 +19,7 @@ import java.math.BigDecimal;
  * https://www.okx.com/docs-v5/en/#websocket-api-subscribe
  * @author macle
  */
-public abstract class OkxTradeStream  <T extends CryptocurrencyTrade> extends DataStreamTrade<T> {
+public abstract class OkxTradeStream <T extends CryptocurrencyTrade> extends DataStreamTrade<T> {
 
     public OkxTradeStream(String streamId) {
         super(streamId);
@@ -102,6 +102,4 @@ public abstract class OkxTradeStream  <T extends CryptocurrencyTrade> extends Da
     public void close(){
         try {if(webSocketHandler != null) {webSocketHandler.close();webSocketHandler = null;}} catch (Exception ignore){}
     }
-
-
 }
