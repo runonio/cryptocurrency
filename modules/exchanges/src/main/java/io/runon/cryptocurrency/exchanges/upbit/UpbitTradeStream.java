@@ -46,7 +46,7 @@ public abstract class UpbitTradeStream <T extends CryptocurrencyTrade> extends D
             @Override
             public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
 
-                if(!isConnect()){
+                if(isClose()){
                     return;
                 }
 

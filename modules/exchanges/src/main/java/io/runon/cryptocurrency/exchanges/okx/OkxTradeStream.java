@@ -47,7 +47,7 @@ public abstract class OkxTradeStream <T extends CryptocurrencyTrade> extends Dat
             @Override
             public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
 
-                if(!isConnect()){
+                if(isClose()){
                     return;
                 }
 

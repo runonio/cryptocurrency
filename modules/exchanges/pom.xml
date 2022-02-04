@@ -6,7 +6,7 @@
 
     <groupId>io.runon.cryptocurrency</groupId>
     <artifactId>exchanges</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.8</version>
     <packaging>jar</packaging>
 
     <name>cryptocurrency-exchanges</name>

@@ -46,7 +46,7 @@ public abstract class CoinbaseTradeStream <T extends CryptocurrencyTrade> extend
             @Override
             public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
 
-                if(!isConnect()){
+                if(isClose()){
                     return;
                 }
 

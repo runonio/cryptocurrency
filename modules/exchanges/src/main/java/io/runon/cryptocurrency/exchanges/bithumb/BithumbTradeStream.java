@@ -46,7 +46,7 @@ public abstract class BithumbTradeStream <T extends CryptocurrencyTrade> extends
             @Override
             public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
 
-                if(!isConnect()){
+                if(isClose()){
                     return;
                 }
 

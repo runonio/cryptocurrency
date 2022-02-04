@@ -78,18 +78,18 @@ public abstract class FtxTradeStream <T extends CryptocurrencyTrade> extends Dat
 
                     //noinspection ConditionalBreakInInfiniteLoop
                     for(;;){
-                        if(!isConnect()){
+                        if(isClose()){
                             break;
                         }
                         try {
-                            webSocketSession.sendMessage(new TextMessage("{\"op\": \"ping\"}"));
-                        } catch (IOException e) {
-                            log.error(ExceptionUtil.getStackTrace(e));
-                        }
+                            if(webSocketSession != null && webSocketSession.isOpen()) {
+                                webSocketSession.sendMessage(new TextMessage("{\"op\": \"ping\"}"));
+                            }
+                        } catch (Exception ignore) {}
 
                         try {
                             //noinspection BusyWait
-                            Thread.sleep(5000L);
+                            Thread.sleep(12000L);
                         } catch (InterruptedException ignore) {}
 
                     }
@@ -99,7 +99,7 @@ public abstract class FtxTradeStream <T extends CryptocurrencyTrade> extends Dat
 
             @Override
             public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
-                if(!isConnect()){
+                if(isClose()){
                     return;
                 }
 
