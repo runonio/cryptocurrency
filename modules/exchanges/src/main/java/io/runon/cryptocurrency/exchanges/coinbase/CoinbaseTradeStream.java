@@ -84,6 +84,10 @@ public abstract class CoinbaseTradeStream <T extends CryptocurrencyTrade> extend
         return DelimiterMarketSymbol.leftSymbol("-",cryptocurrencyId);
     }
 
+    public void setReConnect(boolean reConnect) {
+        webSocketHandler.setReConnect(reConnect);
+    }
+
     @Override
     public void close(){
         try {if(webSocketHandler != null) {webSocketHandler.close();webSocketHandler = null;}} catch (Exception ignore){}

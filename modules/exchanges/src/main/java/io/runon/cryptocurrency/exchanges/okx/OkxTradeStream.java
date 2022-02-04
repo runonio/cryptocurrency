@@ -93,6 +93,10 @@ public abstract class OkxTradeStream <T extends CryptocurrencyTrade> extends Dat
         webSocketHandler.connect();
     }
 
+    public void setReConnect(boolean reConnect) {
+        webSocketHandler.setReConnect(reConnect);
+    }
+
     @Override
     public MarketSymbol getMarketSymbol(String cryptocurrencyId) {
         return DelimiterMarketSymbol.getMarketSymbol("-", cryptocurrencyId, 1, 0);

@@ -73,7 +73,10 @@ public abstract class BithumbTradeStream <T extends CryptocurrencyTrade> extends
         };
 
         webSocketHandler.connect();
+    }
 
+    public void setReConnect(boolean reConnect) {
+        webSocketHandler.setReConnect(reConnect);
     }
 
     @Override
