@@ -80,13 +80,4 @@ public class OkxExchange {
         messageObj.add("args", args);
         return gson.toJson(messageObj);
     }
-
-    public static void main(String[] args) {
-
-        String [] ids = getIds("BTC", "FUTURES");
-        for(String id : ids){
-            System.out.println(id);
-        }
-    }
-
 }
