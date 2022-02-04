@@ -46,6 +46,11 @@ public abstract class OkxTradeStream <T extends CryptocurrencyTrade> extends Dat
         webSocketHandler = new ExchangeWebSocketHandler(streamId,"wss://ws.okex.com:8443/ws/v5/public", subscribeMessage){
             @Override
             public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
+
+                if(!isConnect()){
+                    return;
+                }
+
                 try {
 //                    {"event":"subscribe","arg":{"channel":"trades","instId":"BTC-USDT-220218"}}
 //                    {"arg":{"channel":"trades","instId":"BTC-USDT-220218"},"data":[{"instId":"BTC-USDT-220218","tradeId":"12419","px":"39671.2","sz":"2","side":"sell","ts":"1643988102310"}]}
@@ -91,10 +96,6 @@ public abstract class OkxTradeStream <T extends CryptocurrencyTrade> extends Dat
         };
 
         webSocketHandler.connect();
-    }
-
-    public void setReConnect(boolean reConnect) {
-        webSocketHandler.setReConnect(reConnect);
     }
 
     @Override

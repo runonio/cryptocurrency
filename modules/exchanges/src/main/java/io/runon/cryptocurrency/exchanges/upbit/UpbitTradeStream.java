@@ -45,6 +45,11 @@ public abstract class UpbitTradeStream <T extends CryptocurrencyTrade> extends D
         webSocketHandler = new ExchangeWebSocketHandler(streamId,"wss://api.upbit.com/websocket/v1", subscribeMessage){
             @Override
             public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
+
+                if(!isConnect()){
+                    return;
+                }
+
                 try {
                     ByteBuffer heapByteBuffer = (ByteBuffer)message.getPayload();
                     byte [] array = heapByteBuffer.array();
@@ -67,10 +72,6 @@ public abstract class UpbitTradeStream <T extends CryptocurrencyTrade> extends D
         };
 
         webSocketHandler.connect();
-    }
-
-    public void setReConnect(boolean reConnect) {
-        webSocketHandler.setReConnect(reConnect);
     }
 
     @Override

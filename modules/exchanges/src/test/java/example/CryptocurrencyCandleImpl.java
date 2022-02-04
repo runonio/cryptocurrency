@@ -23,7 +23,7 @@ public class CryptocurrencyCandleImpl implements CryptocurrencyCandle {
     @Override
     public void addCandle(TradeCandle tradeCandle) {
         time = System.currentTimeMillis();
-        System.out.println("add candle: " + CsvCandle.value(tradeCandle));
+        System.out.println(symbol + "-" + market + " add candle: " + CsvCandle.value(tradeCandle));
     }
 
     @Override

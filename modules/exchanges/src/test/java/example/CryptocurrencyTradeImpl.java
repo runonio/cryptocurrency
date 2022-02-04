@@ -38,6 +38,6 @@ public class CryptocurrencyTradeImpl implements CryptocurrencyTrade {
     @Override
     public void addTrade(Trade trade) {
         time = System.currentTimeMillis();
-        System.out.println(CsvTrade.value(trade));
+        System.out.println(symbol + "-" + market + " add trade: " + CsvTrade.value(trade));
     }
 }
