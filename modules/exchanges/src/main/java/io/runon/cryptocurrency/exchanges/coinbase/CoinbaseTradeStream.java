@@ -46,6 +46,10 @@ public abstract class CoinbaseTradeStream <T extends CryptocurrencyTrade> extend
             @Override
             public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
 
+                if(!isConnect()){
+                    return;
+                }
+
                 try {
                     String data = message.getPayload().toString();
 
@@ -82,10 +86,6 @@ public abstract class CoinbaseTradeStream <T extends CryptocurrencyTrade> extend
     @Override
     public MarketSymbol getMarketSymbol(String cryptocurrencyId) {
         return DelimiterMarketSymbol.leftSymbol("-",cryptocurrencyId);
-    }
-
-    public void setReConnect(boolean reConnect) {
-        webSocketHandler.setReConnect(reConnect);
     }
 
     @Override

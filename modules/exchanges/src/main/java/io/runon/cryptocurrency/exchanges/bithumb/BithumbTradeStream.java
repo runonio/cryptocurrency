@@ -46,6 +46,10 @@ public abstract class BithumbTradeStream <T extends CryptocurrencyTrade> extends
             @Override
             public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
 
+                if(!isConnect()){
+                    return;
+                }
+
                 try {
                     String value = (String) message.getPayload();
                     JSONObject obj = new JSONObject(value);
@@ -75,9 +79,6 @@ public abstract class BithumbTradeStream <T extends CryptocurrencyTrade> extends
         webSocketHandler.connect();
     }
 
-    public void setReConnect(boolean reConnect) {
-        webSocketHandler.setReConnect(reConnect);
-    }
 
     @Override
     public void close(){

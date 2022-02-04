@@ -28,7 +28,7 @@ public class DataStreamKeepAliveService extends Service {
     public void work() {
 
         try {
-            //30초
+            //10초
             long reconnectTime = System.currentTimeMillis() - Config.getLong("data.stream.keep.alive.reconnect.time", 30000L);
             //3분
             long errorTime = System.currentTimeMillis() - Config.getLong("data.stream.keep.alive.reconnect.time", Times.MINUTE_3);
