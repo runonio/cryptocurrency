@@ -69,6 +69,10 @@ public abstract class UpbitTradeStream <T extends CryptocurrencyTrade> extends D
         webSocketHandler.connect();
     }
 
+    public void setReConnect(boolean reConnect) {
+        webSocketHandler.setReConnect(reConnect);
+    }
+
     @Override
     public void close(){
         try {if(webSocketHandler != null) {webSocketHandler.close();webSocketHandler = null;}} catch (Exception ignore){}

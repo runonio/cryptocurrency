@@ -4,6 +4,8 @@
 ### 구현 거래소 목록
 - 바이낸스
 - 바이낸스 선물
+- okx(okex)
+- okx 선물
 - 코인베이스
 - 후오비
 - 업비트
@@ -16,9 +18,9 @@
 캔들시작시간(밀리초 유닉스타임)[0],종가[1],시가[2],고가[3],저가[4],직전가[5],거래량[6],거래대금[7],거래횟수[8],매수거래량[9],매수거래대금[10]
 
 # gradle
-implementation 'io.runon.cryptocurrency:exchanges:0.0.5'
+implementation 'io.runon.cryptocurrency:exchanges:0.0.6'
 - etc
-  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/exchanges/0.0.5
+  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/exchanges/0.0.6
   
 # communication
 ### blog, homepage
