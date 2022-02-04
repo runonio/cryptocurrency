@@ -35,7 +35,7 @@ public abstract class BinanceCandleStream<T extends CryptocurrencyCandle> extend
         return BinanceExchange.getMarketSymbol(cryptocurrencyId);
     }
 
-    private String message = "{\"method\":\"SUBSCRIBE\",\"id\":1,\"params\":[\"btcusdt@kline_1d\"]}";
+    private String subscribeMessage = "{\"method\":\"SUBSCRIBE\",\"id\":1,\"params\":[\"btcusdt@kline_1d\"]}";
 
     /**
      * 기본값은 btc usdt 1d
@@ -48,10 +48,10 @@ public abstract class BinanceCandleStream<T extends CryptocurrencyCandle> extend
      *         object.addProperty("id", 1);
      *         object.add("params", params);
      *         System.out.println(gson.toJson(object));
-     * @param message subscribe message
+     * @param subscribeMessage subscribe message
      */
-    public void setMessage(String message) {
-        this.message = message;
+    public void setSubscribeMessage(String subscribeMessage) {
+        this.subscribeMessage = subscribeMessage;
     }
 
     private String interval = "1d";
@@ -100,7 +100,7 @@ public abstract class BinanceCandleStream<T extends CryptocurrencyCandle> extend
         object.addProperty("id", 1);
         object.add("params", params);
         Gson gson = new Gson();
-        message = gson.toJson(object);
+        subscribeMessage = gson.toJson(object);
     }
 
     private WebSocket webSocket = null;
@@ -175,7 +175,7 @@ public abstract class BinanceCandleStream<T extends CryptocurrencyCandle> extend
         client = new OkHttpClient();
         Request request = new Request.Builder().url(wssAddress).build();
         webSocket = client.newWebSocket(request, webSocketListener);
-        webSocket.send(message);
+        webSocket.send(subscribeMessage);
     }
 
     @Override

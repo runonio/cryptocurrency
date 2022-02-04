@@ -8,6 +8,7 @@ import com.seomse.crawling.core.http.HttpUrl;
 /**
  * 업비트 거래소
  * https://docs.upbit.com/docs/upbit-quotation-websocket
+ * @author macle
  */
 public class UpbitExchange {
 

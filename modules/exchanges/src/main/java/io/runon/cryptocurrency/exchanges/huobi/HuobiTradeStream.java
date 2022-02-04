@@ -37,15 +37,15 @@ public abstract class HuobiTradeStream<T extends CryptocurrencyTrade> extends Da
     }
 
 
-    private String message = "btcusdt";
+    private String subscribeMessage = "btcusdt";
 
     /**
      * btcusdt,ethusdt
      * 기본값 btcusdt
-     * @param message subscribe message example: btcusdt,ethusdt....
+     * @param subscribeMessage subscribe message example: btcusdt,ethusdt....
      */
-    public void setMessage(String message) {
-        this.message = message;
+    public void setSubscribeMessage(String subscribeMessage) {
+        this.subscribeMessage = subscribeMessage;
     }
 
     private HuobiWebSocketConnection huobiWebSocketConnection = null;
@@ -57,7 +57,7 @@ public abstract class HuobiTradeStream<T extends CryptocurrencyTrade> extends Da
         close();
 
         try {
-            subscribe(SubMarketTradeRequest.builder().symbol(message).build(), (tradeEvent) -> {
+            subscribe(SubMarketTradeRequest.builder().symbol(subscribeMessage).build(), (tradeEvent) -> {
 
                 String id =  tradeEvent.getCh().split("\\.")[1];
                 tradeEvent.getList().forEach(marketTrade -> {
