@@ -2,9 +2,7 @@ package example;
 
 import io.runon.cryptocurrency.trading.CryptocurrencyCandle;
 import io.runon.cryptocurrency.trading.MarketSymbol;
-import io.runon.trading.Trade;
 import io.runon.trading.data.csv.CsvCandle;
-import io.runon.trading.data.csv.CsvTrade;
 import io.runon.trading.technical.analysis.candle.TradeCandle;
 
 /**

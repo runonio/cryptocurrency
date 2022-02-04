@@ -21,7 +21,14 @@ public abstract class ExchangeWebSocketHandler implements WebSocketHandler {
     private final String subscribeMessage;
     private final String wssAddress;
 
+
     public ExchangeWebSocketHandler(String wssAddress, String subscribeMessage){
+        this.subscribeMessage = subscribeMessage;
+        this.wssAddress = wssAddress;
+    }
+
+    public ExchangeWebSocketHandler(String id, String wssAddress, String subscribeMessage){
+        this.id = id;
         this.subscribeMessage = subscribeMessage;
         this.wssAddress = wssAddress;
     }
@@ -29,19 +36,23 @@ public abstract class ExchangeWebSocketHandler implements WebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         webSocketSession = session;
-        log.debug("afterConnectionEstablished " + session.getId());
+        log.debug("afterConnectionEstablished " + session.getId() + ", id: " + id);
         webSocketSession.sendMessage(new TextMessage(subscribeMessage));
     }
 
 
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-        log.error("handleTransportError " + exception.getMessage());
+        log.error("handleTransportError " + exception.getMessage() + ", id: " + id);
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
-        log.info("afterConnectionClosed " + session.getId() + " closeStatus " +closeStatus.toString());
+        log.info("afterConnectionClosed " + session.getId() + " closeStatus " +closeStatus.toString()+  ", id: " + id);
+        if(isReConnect){
+            close();
+            connect();
+        }
     }
 
     @Override
@@ -57,7 +68,7 @@ public abstract class ExchangeWebSocketHandler implements WebSocketHandler {
                     new StandardWebSocketClient().doHandshake(this, headers, uri);
 
             listenableFuture.addCallback(
-                    result -> webSocketSession = result, ex -> log.error("WebSocketClient connect failed, error:{}, type{}", ex.getMessage(), ex.getClass().getCanonicalName()));
+                    result -> webSocketSession = result, ex -> log.error("WebSocketClient connect failed, error:{}, type{}, id: " + id , ex.getMessage(), ex.getClass().getCanonicalName()));
         } catch (URISyntaxException e) {
             log.error("server url syntax error:{}, type:{}", e.getMessage(), e.getClass().getCanonicalName());
         } catch (Exception e) {
@@ -72,5 +83,17 @@ public abstract class ExchangeWebSocketHandler implements WebSocketHandler {
                 webSocketSession = null;
             }
         } catch (Exception ignore) {}
+    }
+
+    private String id;
+
+    private boolean isReConnect = true;
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setReConnect(boolean reConnect) {
+        isReConnect = reConnect;
     }
 }

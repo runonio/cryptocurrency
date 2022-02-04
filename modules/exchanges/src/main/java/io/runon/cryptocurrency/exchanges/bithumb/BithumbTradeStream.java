@@ -42,7 +42,7 @@ public abstract class BithumbTradeStream <T extends CryptocurrencyTrade> extends
         close();
 
         //noinspection NullableProblems
-        webSocketHandler = new ExchangeWebSocketHandler("wss://pubwss.bithumb.com/pub/ws", subscribeMessage){
+        webSocketHandler = new ExchangeWebSocketHandler(streamId,"wss://pubwss.bithumb.com/pub/ws", subscribeMessage){
             @Override
             public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
 
