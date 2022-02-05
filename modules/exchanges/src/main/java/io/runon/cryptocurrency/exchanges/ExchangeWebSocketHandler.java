@@ -10,6 +10,7 @@ import java.net.URISyntaxException;
 
 /**
  * WebSocketHandler
+ * springframework
  * @author macle
  */
 @SuppressWarnings({"RedundantThrows", "NullableProblems"})
@@ -18,6 +19,7 @@ public abstract class ExchangeWebSocketHandler implements WebSocketHandler {
 
     protected WebSocketSession webSocketSession = null;
 
+    private final String id;
     private final String subscribeMessage;
     private final String wssAddress;
 
@@ -43,8 +45,14 @@ public abstract class ExchangeWebSocketHandler implements WebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
         // 클로즈 이벤트가 와도 종료가 안되는경우가 있음을 발견
         // DataStreamKeepAliveService 에서 종합처리
-//        isConnect = false;
         log.info("afterConnectionClosed " + session.getId() + " closeStatus " +closeStatus.toString()+  ", id: " + id);
+    }
+
+    @Override
+    public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
+        //여기를 재구현
+        String data = message.getPayload().toString();
+        log.info(id + " handle message: " + data);
     }
 
     @Override
@@ -54,7 +62,7 @@ public abstract class ExchangeWebSocketHandler implements WebSocketHandler {
 
     public void connect(){
         try {
-            isConnect = true;
+            isClose = false;
             URI uri = new URI(wssAddress);
             WebSocketHttpHeaders headers = new WebSocketHttpHeaders();
             ListenableFuture<WebSocketSession> listenableFuture =
@@ -69,26 +77,23 @@ public abstract class ExchangeWebSocketHandler implements WebSocketHandler {
         }
     }
 
-    private boolean isConnect = false;
+    private boolean isClose = false;
 
-    public boolean isConnect() {
-        return isConnect;
+    public boolean isClose() {
+        return isClose;
     }
 
     public void close(){
         try {
+
+            isClose = true;
             if(webSocketSession != null) {
                 webSocketSession.close();
                 webSocketSession = null;
             }
-            isConnect = false;
+
         } catch (Exception ignore) {}
     }
 
-    private String id;
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
 }
