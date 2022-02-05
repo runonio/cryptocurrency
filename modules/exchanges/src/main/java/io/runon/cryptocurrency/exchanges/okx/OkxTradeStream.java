@@ -1,16 +1,15 @@
 package io.runon.cryptocurrency.exchanges.okx;
 
 import io.runon.cryptocurrency.exchanges.DelimiterMarketSymbol;
-import io.runon.cryptocurrency.exchanges.ExchangeWebSocketHandler;
+import io.runon.cryptocurrency.exchanges.ExchangeWebSocketListener;
 import io.runon.cryptocurrency.exchanges.TradeConverter;
 import io.runon.cryptocurrency.trading.CryptocurrencyTrade;
 import io.runon.cryptocurrency.trading.DataStreamTrade;
 import io.runon.cryptocurrency.trading.MarketSymbol;
 import io.runon.trading.Trade;
+import okhttp3.WebSocket;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.web.socket.WebSocketMessage;
-import org.springframework.web.socket.WebSocketSession;
 
 import java.math.BigDecimal;
 
@@ -25,7 +24,7 @@ public abstract class OkxTradeStream <T extends CryptocurrencyTrade> extends Dat
         super(streamId);
     }
 
-    private ExchangeWebSocketHandler webSocketHandler = null;
+    private ExchangeWebSocketListener webSocketListener = null;
 
     private String subscribeMessage = "{\"op\":\"subscribe\",\"args\":[{\"channel\":\"trades\",\"instId\":\"BTC-USDT\"}]}";
 
@@ -42,20 +41,17 @@ public abstract class OkxTradeStream <T extends CryptocurrencyTrade> extends Dat
     @Override
     public void connect() {
         close();
-        //noinspection NullableProblems
-        webSocketHandler = new ExchangeWebSocketHandler(streamId,"wss://ws.okex.com:8443/ws/v5/public", subscribeMessage){
-            @Override
-            public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
 
+        webSocketListener = new ExchangeWebSocketListener(streamId, "wss://ws.okex.com:8443/ws/v5/public", subscribeMessage) {
+            @Override
+            public void onMessage(WebSocket webSocket, String text) {
                 if(isClose()){
                     return;
                 }
+//              {"event":"subscribe","arg":{"channel":"trades","instId":"BTC-USDT-220218"}}
+//              {"arg":{"channel":"trades","instId":"BTC-USDT-220218"},"data":[{"instId":"BTC-USDT-220218","tradeId":"12419","px":"39671.2","sz":"2","side":"sell","ts":"1643988102310"}]}
 
                 try {
-//                    {"event":"subscribe","arg":{"channel":"trades","instId":"BTC-USDT-220218"}}
-//                    {"arg":{"channel":"trades","instId":"BTC-USDT-220218"},"data":[{"instId":"BTC-USDT-220218","tradeId":"12419","px":"39671.2","sz":"2","side":"sell","ts":"1643988102310"}]}
-                    String text = message.getPayload().toString();
-
                     JSONObject object = new JSONObject(text);
                     if(object.isNull("arg")){
                         return ;
@@ -89,13 +85,11 @@ public abstract class OkxTradeStream <T extends CryptocurrencyTrade> extends Dat
 
                         addTrade(id, trade);
                     }
-
-
                 }catch(Exception ignore){}
             }
         };
 
-        webSocketHandler.connect();
+        webSocketListener.connect();
     }
 
     @Override
@@ -105,6 +99,6 @@ public abstract class OkxTradeStream <T extends CryptocurrencyTrade> extends Dat
 
     @Override
     public void close(){
-        try {if(webSocketHandler != null) {webSocketHandler.close();webSocketHandler = null;}} catch (Exception ignore){}
+        try {if(webSocketListener != null) {webSocketListener.close();webSocketListener = null;}} catch (Exception ignore){}
     }
 }

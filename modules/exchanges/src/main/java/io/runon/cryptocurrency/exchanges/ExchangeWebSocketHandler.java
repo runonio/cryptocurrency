@@ -78,7 +78,7 @@ public abstract class ExchangeWebSocketHandler implements WebSocketHandler {
     }
 
     private boolean isClose = false;
-
+    // close 되어도 메시지가 들어오는 경우가 있음 방어소스
     public boolean isClose() {
         return isClose;
     }

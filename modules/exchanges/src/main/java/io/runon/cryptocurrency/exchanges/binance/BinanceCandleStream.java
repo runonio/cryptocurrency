@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.seomse.commons.utils.ExceptionUtil;
+import io.runon.cryptocurrency.exchanges.ExchangeWebSocketListener;
 import io.runon.cryptocurrency.trading.CryptocurrencyCandle;
 import io.runon.cryptocurrency.trading.DataStreamCandle;
 import io.runon.cryptocurrency.trading.MarketSymbol;
@@ -29,6 +30,8 @@ public abstract class BinanceCandleStream<T extends CryptocurrencyCandle> extend
     public BinanceCandleStream(String streamId) {
         super(streamId);
     }
+
+    private ExchangeWebSocketListener webSocketListener;
 
     @Override
     public MarketSymbol getMarketSymbol(String cryptocurrencyId) {
@@ -103,22 +106,17 @@ public abstract class BinanceCandleStream<T extends CryptocurrencyCandle> extend
         subscribeMessage = gson.toJson(object);
     }
 
-    private WebSocket webSocket = null;
-    private OkHttpClient client = null;
-
     @Override
     public void connect() {
         close();
 
-        //noinspection NullableProblems
-        WebSocketListener webSocketListener = new WebSocketListener() {
-            @Override
-            public void onOpen(WebSocket webSocket, Response response) {
-                log.debug("onOpen response:" + getStreamId());
-            }
-
+        webSocketListener = new ExchangeWebSocketListener(streamId, wssAddress, subscribeMessage) {
             @Override
             public void onMessage(WebSocket webSocket, String text) {
+                if(isClose()){
+                    return;
+                }
+
                 try {
                     JSONObject messageObj = new JSONObject(text);
 
@@ -146,7 +144,7 @@ public abstract class BinanceCandleStream<T extends CryptocurrencyCandle> extend
                     tradeCandle.setLow(messageObj.getBigDecimal("l"));
                     //직전가는 시가로 처리
                     tradeCandle.setPrevious(tradeCandle.getOpen());
-                    
+
                     tradeCandle.setTradeCount(messageObj.getInt("n"));
                     tradeCandle.setVolume(messageObj.getBigDecimal("v"));
                     tradeCandle.setTradingPrice(messageObj.getBigDecimal("q"));
@@ -162,27 +160,13 @@ public abstract class BinanceCandleStream<T extends CryptocurrencyCandle> extend
                     log.error(ExceptionUtil.getStackTrace(e));
                 }
             }
-            @Override
-            public void onClosing(WebSocket webSocket, int code, String reason) {
-                log.debug("onClosing code:" + code +", reason:" + reason + ", " + getStreamId());
-            }
-            @Override
-            public void onClosed(WebSocket webSocket, int code, String reason) {
-                log.error("onClosed code:" + code +", reason:" + reason  + ", " + getStreamId());
-            }
         };
 
-        client = new OkHttpClient();
-        Request request = new Request.Builder().url(wssAddress).build();
-        webSocket = client.newWebSocket(request, webSocketListener);
-        webSocket.send(subscribeMessage);
+        webSocketListener.connect();
     }
 
     @Override
     public void close(){
-        if(webSocket != null){
-            try{webSocket.close(1000, null);}catch (Exception e){log.error(ExceptionUtil.getStackTrace(e));}
-            try{client.dispatcher().executorService().shutdown();}catch (Exception e){log.error(ExceptionUtil.getStackTrace(e));}
-        }
+        try {if(webSocketListener != null) {webSocketListener.close();webSocketListener = null;}} catch (Exception ignore){}
     }
 }

@@ -2,15 +2,14 @@ package io.runon.cryptocurrency.exchanges.coinbase;
 
 import com.seomse.commons.utils.ExceptionUtil;
 import io.runon.cryptocurrency.exchanges.DelimiterMarketSymbol;
-import io.runon.cryptocurrency.exchanges.ExchangeWebSocketHandler;
+import io.runon.cryptocurrency.exchanges.ExchangeWebSocketListener;
 import io.runon.cryptocurrency.trading.CryptocurrencyTrade;
 import io.runon.cryptocurrency.trading.DataStreamTrade;
 import io.runon.cryptocurrency.trading.MarketSymbol;
 import io.runon.trading.Trade;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.WebSocket;
 import org.json.JSONObject;
-import org.springframework.web.socket.WebSocketMessage;
-import org.springframework.web.socket.WebSocketSession;
 
 /**
  * 코인베이스 실시간 거래정보
@@ -24,7 +23,7 @@ public abstract class CoinbaseTradeStream <T extends CryptocurrencyTrade> extend
         super(streamId);
     }
 
-    private ExchangeWebSocketHandler webSocketHandler = null;
+    private ExchangeWebSocketListener webSocketListener = null;
 
     private String subscribeMessage = "{\"type\":\"subscribe\",\"channels\":[{\"name\":\"ticker\",\"product_ids\":[\"BTC-USD\"]}]}";
 
@@ -41,22 +40,19 @@ public abstract class CoinbaseTradeStream <T extends CryptocurrencyTrade> extend
     public void connect() {
         close();
 
-        //noinspection NullableProblems
-        webSocketHandler = new ExchangeWebSocketHandler(streamId,"wss://ws-feed.exchange.coinbase.com", subscribeMessage){
+        webSocketListener = new ExchangeWebSocketListener(streamId, "wss://ws-feed.exchange.coinbase.com", subscribeMessage) {
             @Override
-            public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
-
+            public void onMessage(WebSocket webSocket, String text) {
                 if(isClose()){
                     return;
                 }
 
-                try {
-                    String data = message.getPayload().toString();
 
-                    JSONObject object = new JSONObject(data);
+                try {
+                    JSONObject object = new JSONObject(text);
 
                     if (!object.getString("type").equals("ticker")) {
-                        log.debug(data);
+                        log.debug(text);
                         return;
                     }
 
@@ -80,7 +76,7 @@ public abstract class CoinbaseTradeStream <T extends CryptocurrencyTrade> extend
             }
         };
 
-        webSocketHandler.connect();
+        webSocketListener.connect();
     }
 
     @Override
@@ -90,6 +86,6 @@ public abstract class CoinbaseTradeStream <T extends CryptocurrencyTrade> extend
 
     @Override
     public void close(){
-        try {if(webSocketHandler != null) {webSocketHandler.close();webSocketHandler = null;}} catch (Exception ignore){}
+        try {if(webSocketListener != null) {webSocketListener.close();webSocketListener = null;}} catch (Exception ignore){}
     }
 }

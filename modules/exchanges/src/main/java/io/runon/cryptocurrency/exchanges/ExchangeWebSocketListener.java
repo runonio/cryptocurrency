@@ -1,13 +1,8 @@
 package io.runon.cryptocurrency.exchanges;
 
 import com.seomse.commons.utils.ExceptionUtil;
-import io.runon.trading.technical.analysis.candle.TradeCandle;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.OkHttpClient;
-import okhttp3.Response;
-import okhttp3.WebSocket;
-import okhttp3.WebSocketListener;
-import org.json.JSONObject;
+import okhttp3.*;
 
 /**
  * WebSocketListener
@@ -20,7 +15,7 @@ public class ExchangeWebSocketListener extends WebSocketListener {
 
     private final String id;
     private final String subscribeMessage;
-    private final String wssAddress;
+    protected final String wssAddress;
 
     public ExchangeWebSocketListener(String id, String wssAddress, String subscribeMessage){
         this.id = id;
@@ -28,9 +23,8 @@ public class ExchangeWebSocketListener extends WebSocketListener {
         this.wssAddress = wssAddress;
     }
 
-    private WebSocket webSocket = null;
-    private OkHttpClient client = null;
-
+    protected WebSocket webSocket = null;
+    protected OkHttpClient client = null;
 
     @Override
     public void onOpen(WebSocket webSocket, Response response) {
@@ -51,5 +45,25 @@ public class ExchangeWebSocketListener extends WebSocketListener {
         log.error("onClosed code:" + code +", reason:" + reason  + ", " + id);
     }
 
+    public void connect() {
+        isClose = false;
+        client = new OkHttpClient();
+        Request request = new Request.Builder().url(wssAddress).build();
+        webSocket = client.newWebSocket(request, this);
+        webSocket.send(subscribeMessage);
+    }
 
+    protected boolean isClose = false;
+    // close 되어도 메시지가 들어오는 경우가 있음 방어소스
+    public boolean isClose() {
+        return isClose;
+    }
+
+    public void close(){
+        if(webSocket != null){
+            try{webSocket.close(1000, "close event");}catch (Exception e){log.error(ExceptionUtil.getStackTrace(e));}
+            try{client.dispatcher().executorService().shutdown();}catch (Exception e){log.error(ExceptionUtil.getStackTrace(e));}
+        }
+        isClose = true;
+    }
 }

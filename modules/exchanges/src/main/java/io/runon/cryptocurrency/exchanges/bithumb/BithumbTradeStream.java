@@ -1,16 +1,15 @@
 package io.runon.cryptocurrency.exchanges.bithumb;
 
 import io.runon.cryptocurrency.exchanges.DelimiterMarketSymbol;
-import io.runon.cryptocurrency.exchanges.ExchangeWebSocketHandler;
+import io.runon.cryptocurrency.exchanges.ExchangeWebSocketListener;
 import io.runon.cryptocurrency.trading.CryptocurrencyTrade;
 import io.runon.cryptocurrency.trading.DataStreamTrade;
 import io.runon.cryptocurrency.trading.MarketSymbol;
 import io.runon.trading.Trade;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.WebSocket;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.web.socket.WebSocketMessage;
-import org.springframework.web.socket.WebSocketSession;
 
 /**
  * 빗썸 거래정보 수신
@@ -24,7 +23,7 @@ public abstract class BithumbTradeStream <T extends CryptocurrencyTrade> extends
         super(streamId);
     }
 
-    private ExchangeWebSocketHandler webSocketHandler = null;
+    private ExchangeWebSocketListener webSocketListener = null;
 
     private String subscribeMessage = "{\"type\":\"transaction\", \"symbols\":[\"BTC_KRW\"]}";
 
@@ -41,18 +40,16 @@ public abstract class BithumbTradeStream <T extends CryptocurrencyTrade> extends
     public void connect() {
         close();
 
-        //noinspection NullableProblems
-        webSocketHandler = new ExchangeWebSocketHandler(streamId,"wss://pubwss.bithumb.com/pub/ws", subscribeMessage){
-            @Override
-            public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
 
+        webSocketListener = new ExchangeWebSocketListener(streamId, "wss://pubwss.bithumb.com/pub/ws", subscribeMessage) {
+            @Override
+            public void onMessage(WebSocket webSocket, String text) {
                 if(isClose()){
                     return;
                 }
 
                 try {
-                    String value = (String) message.getPayload();
-                    JSONObject obj = new JSONObject(value);
+                    JSONObject obj = new JSONObject(text);
                     if (obj.isNull("type") || !obj.getString("type").equals("transaction")) {
                         return;
                     }
@@ -76,13 +73,13 @@ public abstract class BithumbTradeStream <T extends CryptocurrencyTrade> extends
             }
         };
 
-        webSocketHandler.connect();
+        webSocketListener.connect();
     }
 
 
     @Override
     public void close(){
-        try {if(webSocketHandler != null) {webSocketHandler.close();webSocketHandler = null;}} catch (Exception ignore){}
+        try {if(webSocketListener != null) {webSocketListener.close();webSocketListener = null;}} catch (Exception ignore){}
     }
 
     @Override
