@@ -9,6 +9,9 @@ import io.runon.cryptocurrency.trading.DataStream;
 import io.runon.cryptocurrency.trading.DataStreamManager;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * DataStream 연결 유지 서비스
  * data stream keep-alive service
@@ -23,6 +26,8 @@ public class DataStreamKeepAliveService extends Service {
         setState(State.START);
     }
 
+    private final Map<String, Long> connectMap = new HashMap<>();
+    
     @SuppressWarnings("rawtypes")
     @Override
     public void work() {
@@ -42,8 +47,18 @@ public class DataStreamKeepAliveService extends Service {
             LastCollectTime [] times = new LastCollectTime[streams.length];
             for (int i = 0; i < streams.length ; i++) {
                 DataStream stream = streams[i];
+                
                 if (reconnectTime > stream.getLastTime()) {
-                    try{stream.connect();}catch(Exception e){log.error(ExceptionUtil.getStackTrace(e));}
+                    Long time = connectMap.get(stream.getStreamId());
+                    //3분동안 재연결하지 않음
+                    if(time == null || System.currentTimeMillis() - Times.MINUTE_3 > time) {
+                        try {
+                            stream.connect();
+                        } catch (Exception e) {
+                            log.error(ExceptionUtil.getStackTrace(e));
+                        }
+                        connectMap.put(stream.getStreamId(), System.currentTimeMillis());
+                    }
                 }
                 times[i] = new LastCollectTime();
                 times[i].setKey(stream.getStreamId());

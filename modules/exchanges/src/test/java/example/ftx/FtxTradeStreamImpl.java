@@ -3,7 +3,10 @@ package example.ftx;
 import example.CryptocurrencyTradeImpl;
 import io.runon.cryptocurrency.exchanges.ftx.FtxTradeStream;
 import io.runon.cryptocurrency.trading.service.DataStreamKeepAliveService;
-
+/**
+ * ftx 체결내용 예제
+ * @author macle
+ */
 public class FtxTradeStreamImpl extends FtxTradeStream<CryptocurrencyTradeImpl> {
     public FtxTradeStreamImpl(String streamId) {
         super(streamId);
