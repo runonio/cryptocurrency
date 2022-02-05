@@ -41,7 +41,7 @@ public abstract class CoinbaseTradeStream <T extends CryptocurrencyTrade> extend
     public void connect() {
         close();
 
-        //noinspection NullableProblems
+
         webSocketHandler = new ExchangeWebSocketHandler(streamId,"wss://ws-feed.exchange.coinbase.com", subscribeMessage){
             @Override
             public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {

@@ -14,7 +14,7 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
     //websocket
-    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '5.0.0-alpha.4'
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.3'
 
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.6.3'
 

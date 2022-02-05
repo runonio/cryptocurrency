@@ -41,7 +41,7 @@ public abstract class UpbitTradeStream <T extends CryptocurrencyTrade> extends D
     public void connect() {
         close();
 
-        //noinspection NullableProblems
+
         webSocketHandler = new ExchangeWebSocketHandler(streamId,"wss://api.upbit.com/websocket/v1", subscribeMessage){
             @Override
             public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {

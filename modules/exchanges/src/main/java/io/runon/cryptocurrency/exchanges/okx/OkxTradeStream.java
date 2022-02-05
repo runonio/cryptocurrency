@@ -42,7 +42,7 @@ public abstract class OkxTradeStream <T extends CryptocurrencyTrade> extends Dat
     @Override
     public void connect() {
         close();
-        //noinspection NullableProblems
+
         webSocketHandler = new ExchangeWebSocketHandler(streamId,"wss://ws.okex.com:8443/ws/v5/public", subscribeMessage){
             @Override
             public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
