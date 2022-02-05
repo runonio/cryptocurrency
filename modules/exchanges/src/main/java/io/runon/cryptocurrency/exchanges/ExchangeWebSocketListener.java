@@ -15,7 +15,7 @@ public class ExchangeWebSocketListener extends WebSocketListener {
 
     private final String id;
     private final String subscribeMessage;
-    private final String wssAddress;
+    protected final String wssAddress;
 
     public ExchangeWebSocketListener(String id, String wssAddress, String subscribeMessage){
         this.id = id;
@@ -23,8 +23,8 @@ public class ExchangeWebSocketListener extends WebSocketListener {
         this.wssAddress = wssAddress;
     }
 
-    private WebSocket webSocket = null;
-    private OkHttpClient client = null;
+    protected WebSocket webSocket = null;
+    protected OkHttpClient client = null;
 
     @Override
     public void onOpen(WebSocket webSocket, Response response) {
@@ -53,7 +53,7 @@ public class ExchangeWebSocketListener extends WebSocketListener {
         webSocket.send(subscribeMessage);
     }
 
-    private boolean isClose = false;
+    protected boolean isClose = false;
     // close 되어도 메시지가 들어오는 경우가 있음 방어소스
     public boolean isClose() {
         return isClose;
