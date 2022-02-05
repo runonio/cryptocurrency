@@ -1,6 +1,5 @@
 package io.runon.cryptocurrency.exchanges;
 
-import com.seomse.commons.utils.ExceptionUtil;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 
@@ -65,8 +64,8 @@ public class ExchangeWebSocketListener extends WebSocketListener {
 
     public void close(){
         if(webSocket != null){
-            try{webSocket.close(0, "close event");}catch (Exception e){log.error(ExceptionUtil.getStackTrace(e));}
-            try{client.dispatcher().executorService().shutdown();}catch (Exception e){log.error(ExceptionUtil.getStackTrace(e));}
+            try{webSocket.close(0, null); webSocket =null;}catch (Exception ignore){}
+            try{client.dispatcher().executorService().shutdown(); client = null;}catch (Exception ignore){}
         }
         isClose = true;
     }
