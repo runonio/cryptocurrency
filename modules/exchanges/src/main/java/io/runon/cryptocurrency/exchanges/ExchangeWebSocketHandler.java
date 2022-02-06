@@ -20,20 +20,48 @@ public abstract class ExchangeWebSocketHandler implements WebSocketHandler {
     protected WebSocketSession webSocketSession = null;
 
     private final String id;
-    private final String subscribeMessage;
+
     private final String wssAddress;
 
-    public ExchangeWebSocketHandler(String id, String wssAddress, String subscribeMessage){
+    public ExchangeWebSocketHandler(String id, String wssAddress){
         this.id = id;
-        this.subscribeMessage = subscribeMessage;
         this.wssAddress = wssAddress;
     }
 
+    private String subscribeMessage = null;
+    public ExchangeWebSocketHandler(String id, String wssAddress, String subscribeMessage){
+        this.id = id;
+        this.wssAddress = wssAddress;
+        this.subscribeMessage = subscribeMessage;
+    }
+
+    private String [] subscribeMessages = null;
+    public ExchangeWebSocketHandler(String id, String wssAddress, String [] subscribeMessages){
+        this.id = id;
+        this.wssAddress = wssAddress;
+        this.subscribeMessages = subscribeMessages;
+    }
+
+    @SuppressWarnings("BusyWait")
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         webSocketSession = session;
         log.debug("afterConnectionEstablished " + session.getId() + ", id: " + id);
-        webSocketSession.sendMessage(new TextMessage(subscribeMessage));
+        if(subscribeMessage != null) {
+            webSocketSession.sendMessage(new TextMessage(subscribeMessage));
+        }
+
+        if(subscribeMessages != null && subscribeMessages.length > 0){
+
+            if(subscribeMessage != null){try {Thread.sleep(500);} catch (InterruptedException ignore) {}}
+
+            webSocketSession.sendMessage(new TextMessage(subscribeMessages[0]));
+            for (int i = 1; i <subscribeMessages.length; i++) {
+                try {Thread.sleep(500);} catch (InterruptedException ignore) {}
+
+                webSocketSession.sendMessage(new TextMessage(subscribeMessages[i]));
+            }
+        }
     }
 
     @Override
@@ -95,5 +123,11 @@ public abstract class ExchangeWebSocketHandler implements WebSocketHandler {
         } catch (Exception ignore) {}
     }
 
+    public void setSubscribeMessage(String subscribeMessage) {
+        this.subscribeMessage = subscribeMessage;
+    }
 
+    public void setSubscribeMessages(String[] subscribeMessages) {
+        this.subscribeMessages = subscribeMessages;
+    }
 }
