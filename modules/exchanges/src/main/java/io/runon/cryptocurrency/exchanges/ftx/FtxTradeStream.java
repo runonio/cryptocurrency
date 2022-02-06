@@ -6,8 +6,6 @@ import io.runon.cryptocurrency.trading.DataStreamTrade;
 import io.runon.cryptocurrency.trading.MarketSymbol;
 import io.runon.trading.Trade;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.WebSocket;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -53,7 +51,7 @@ public abstract class FtxTradeStream <T extends CryptocurrencyTrade> extends Dat
         close();
 
 
-        webSocketListener = new ExchangeWebSocketListener(streamId, "wss://ftx.com/ws", null) {
+        webSocketListener = new ExchangeWebSocketListener(streamId, "wss://ftx.com/ws", subscribeMessages) {
             @Override
             public void onMessage(WebSocket webSocket, String text) {
                 if(isClose()){
@@ -80,23 +78,6 @@ public abstract class FtxTradeStream <T extends CryptocurrencyTrade> extends Dat
                     }
 
                 }catch(Exception ignore){}
-            }
-
-            @Override
-            public void connect() {
-                isClose = false;
-                client = new OkHttpClient();
-                Request request = new Request.Builder().url(wssAddress).build();
-                webSocket = client.newWebSocket(request, this);
-
-                webSocket.send(subscribeMessages[0]);
-                for (int i = 1; i <subscribeMessages.length; i++) {
-                    try {
-                        //noinspection BusyWait
-                        Thread.sleep(500);
-                    } catch (InterruptedException ignore) {}
-                    webSocket.send(subscribeMessages[i]);
-                }
             }
 
         };
