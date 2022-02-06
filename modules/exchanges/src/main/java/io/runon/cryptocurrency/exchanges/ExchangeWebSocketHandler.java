@@ -5,6 +5,8 @@ import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 
+import javax.websocket.ContainerProvider;
+import javax.websocket.WebSocketContainer;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -13,7 +15,6 @@ import java.net.URISyntaxException;
  * springframework
  * @author macle
  */
-@SuppressWarnings({"RedundantThrows", "NullableProblems"})
 @Slf4j
 public abstract class ExchangeWebSocketHandler implements WebSocketHandler {
 
@@ -64,18 +65,20 @@ public abstract class ExchangeWebSocketHandler implements WebSocketHandler {
         }
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
-    public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+    public void handleTransportError(WebSocketSession session, Throwable exception)  {
         log.error("handleTransportError " + exception.getMessage() + ", id: " + id);
     }
 
     @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) {
         // 클로즈 이벤트가 와도 종료가 안되는경우가 있음을 발견
         // DataStreamKeepAliveService 에서 종합처리
         log.info("afterConnectionClosed " + session.getId() + " closeStatus " +closeStatus.toString()+  ", id: " + id);
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
         //여기를 재구현
@@ -93,8 +96,12 @@ public abstract class ExchangeWebSocketHandler implements WebSocketHandler {
             isClose = false;
             URI uri = new URI(wssAddress);
             WebSocketHttpHeaders headers = new WebSocketHttpHeaders();
+
+            WebSocketContainer webSocketContainer = ContainerProvider.getWebSocketContainer();
+            webSocketContainer.setDefaultMaxTextMessageBufferSize(1024*1024);
+
             ListenableFuture<WebSocketSession> listenableFuture =
-                    new StandardWebSocketClient().doHandshake(this, headers, uri);
+                    new StandardWebSocketClient(webSocketContainer).doHandshake(this, headers, uri);
 
             listenableFuture.addCallback(
                     result -> webSocketSession = result, ex -> log.error("WebSocketClient connect failed, error:{}, type{}, id: " + id , ex.getMessage(), ex.getClass().getCanonicalName()));
