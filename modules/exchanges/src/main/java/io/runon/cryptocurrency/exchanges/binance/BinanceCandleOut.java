@@ -53,6 +53,8 @@ public class BinanceCandleOut {
 //]
 
     public static final String CANDLE = "https://api.binance.com/api/v3/klines?symbol=%s&interval=%s";
+    public static final String FUTURES_CANDLE = "https://fapi.binance.com/fapi/v1/klines?symbol=%s&interval=%s";
+
 
     /**
      *
@@ -76,6 +78,7 @@ public class BinanceCandleOut {
      * 1w
      * 1M
      * 캔들시작시간(밀리초 유닉스타임)[0],종가[1],시가[2],고가[3],저가[4],직전가[5],거래량[6],거래대금[7],거래횟수[8],매수거래량[9],매수거래대금[10]
+     * @param url 필수 파일 생성경로
      * @param outPath 필수 파일 생성경로
      * @param symbol 필수 BTCUSDT, ETHUSDT ...
      * @param interval 필수
@@ -83,7 +86,7 @@ public class BinanceCandleOut {
      * @param endTime null 가능 설정하지 않으면 최신값 (unix time)
      * @param limit null 가능 default 500 max 1000
      */
-    public static void csv(String outPath, String symbol, String interval, Long startTime, Long endTime, Integer limit){
+    public static void csv(String url, String outPath,String symbol, String interval, Long startTime, Long endTime, Integer limit){
 
         StringBuilder queryBuilder = new StringBuilder();
         queryBuilder.append(CANDLE.formatted(symbol,interval));
@@ -130,4 +133,6 @@ public class BinanceCandleOut {
         }
 
     }
+
+
 }
