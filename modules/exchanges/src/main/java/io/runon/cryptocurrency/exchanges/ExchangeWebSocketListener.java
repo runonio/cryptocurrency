@@ -98,7 +98,7 @@ public class ExchangeWebSocketListener extends WebSocketListener {
 
     public void close(){
         if(webSocket != null){
-            try{webSocket.close(0, null); webSocket =null;}catch (Exception ignore){}
+            try{webSocket.close(1001, null); webSocket =null;}catch (Exception ignore){}
             try{client.dispatcher().executorService().shutdown(); client = null;}catch (Exception ignore){}
         }
         isClose = true;
