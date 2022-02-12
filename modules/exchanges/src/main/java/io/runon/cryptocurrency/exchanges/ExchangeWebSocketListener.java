@@ -12,7 +12,7 @@ import okhttp3.*;
 @Slf4j
 public class ExchangeWebSocketListener extends WebSocketListener {
 
-    private final String id;
+    protected final String id;
 
     protected final String wssAddress;
 
