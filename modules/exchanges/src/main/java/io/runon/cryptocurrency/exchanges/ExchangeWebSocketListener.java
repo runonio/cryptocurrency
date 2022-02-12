@@ -62,7 +62,7 @@ public class ExchangeWebSocketListener extends WebSocketListener {
     }
     @Override
     public void onClosed(WebSocket webSocket, int code, String reason) {
-        if(code == 0) {
+        if(code == 1000) {
             log.debug("onClosed code:" + code + ", reason:" + reason + ", " + id);
         }else{
             log.error("onClosed code:" + code + ", reason:" + reason + ", " + id);
@@ -98,7 +98,7 @@ public class ExchangeWebSocketListener extends WebSocketListener {
 
     public void close(){
         if(webSocket != null){
-            try{webSocket.close(1001, null); webSocket =null;}catch (Exception ignore){}
+            try{webSocket.close(1000, null); webSocket =null;}catch (Exception ignore){}
             try{client.dispatcher().executorService().shutdown(); client = null;}catch (Exception ignore){}
         }
         isClose = true;
