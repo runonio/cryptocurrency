@@ -13,7 +13,7 @@ public class BinanceFuturesAccount extends FuturesAccount {
 
     //지정가 0.02% 시장가 0.04%
     //시장가로 테스트
-    protected BigDecimal fee = new BigDecimal("0.04");
+    protected BigDecimal fee = new BigDecimal("0.0004");
 
     public BinanceFuturesAccount(String id){
         super(id);
