@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id "com.github.johnrengelman.shadow" version "7.1.0"
 }
 
 group 'io.runon.cryptocurrency'
@@ -19,7 +20,10 @@ dependencies {
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
 
+    annotationProcessor 'org.projectlombok:lombok:1.18.20'
 }
+
+compileJava.options.encoding = 'UTF-8'
 
 test {
     useJUnitPlatform()
