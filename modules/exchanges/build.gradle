@@ -20,7 +20,9 @@ dependencies {
 
     implementation 'com.seomse.commons:commons:1.2.7'
     implementation 'com.seomse.commons:crawling:0.8.7'
-    implementation 'io.runon.trading:technical-analysis:0.1.1'
+
+    implementation 'io.runon.trading:data:0.0.1'
+    implementation 'io.runon.trading:trading:0.0.2'
 
 
     implementation 'io.runon.cryptocurrency:exchange-binance-futures:1.0.9'
