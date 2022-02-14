@@ -98,6 +98,7 @@ public class ExchangeWebSocketListener extends WebSocketListener {
 
     public void close(){
         if(webSocket != null){
+            //https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent/code
             try{webSocket.close(1000, null); webSocket =null;}catch (Exception ignore){}
             try{client.dispatcher().executorService().shutdown(); client = null;}catch (Exception ignore){}
         }
