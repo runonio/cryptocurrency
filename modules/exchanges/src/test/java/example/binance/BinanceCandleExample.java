@@ -18,6 +18,6 @@ public class BinanceCandleExample {
 //        BinanceCandle.csv(BinanceCandle.FUTURES_CANDLE, "candle_30.csv","BTCUSDT", "30m", YmdUtil.getTime("20220101"), null, 1500);
 
 
-        BinanceCandle.csv(BinanceCandle.FUTURES_CANDLE, "candle_1.csv", "BTCUSDT", Times.MINUTE_1, YmdUtil.getTime("20220101"), 1500 );
+        BinanceCandle.csv(BinanceCandle.FUTURES_CANDLE, "candle_15.csv", "BTCUSDT", Times.MINUTE_15, YmdUtil.getTime("20220101"), 100000 );
     }
 }

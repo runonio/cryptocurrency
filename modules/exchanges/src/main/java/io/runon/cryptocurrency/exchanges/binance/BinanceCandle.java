@@ -134,14 +134,23 @@ public class BinanceCandle {
             JSONArray array = new JSONArray(jsonArray(url, symbol, interval, startTime, null, 1000));
             int length = array.length();
 
+            if(length == 0){
+                break;
+            }
             StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < length; i++) {
+
                 JSONArray data = array.getJSONArray(i);
+                long nextTime = data.getLong(0)+ time;
+
+                if(startTime == nextTime){
+                    break outer;
+                }
                 sb.append("\n").append(getCsv(data));
                 total++;
 
-                startTime =  data.getLong(0) + time;
+                startTime = nextTime;
 
                 if(total >= count){
                     if(FileUtil.isFile(outPath)){
