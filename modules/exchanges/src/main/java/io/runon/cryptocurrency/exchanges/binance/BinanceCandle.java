@@ -79,24 +79,97 @@ public class BinanceCandle {
 
         for (int i = 0; i < length ; i++) {
             JSONArray data = array.getJSONArray(i);
-            sb.append("\n").append(data.getLong(0))
-                    .append(",").append(data.getString(4))
-                    .append(",").append(data.getString(1))
-                    .append(",").append(data.getString(2))
-                    .append(",").append(data.getString(3))
-                    .append(",").append(data.getString(1))
-                    .append(",").append(data.getString(5))
-                    .append(",").append(data.getString(7))
-                    .append(",").append(data.getInt(8))
-                    .append(",").append(data.getString(9))
-                    .append(",").append(data.getString(10))
-            ;
+            sb.append("\n").append(getCsv(data));
         }
 
         if(FileUtil.isFile(outPath)){
-            FileUtil.fileOutput(sb.toString(),outPath, false);
+            FileUtil.fileOutput(sb.toString(),outPath, true);
         }else{
-            FileUtil.fileOutput(sb.substring(1),outPath, true);
+            FileUtil.fileOutput(sb.substring(1),outPath, false);
+        }
+    }
+
+    public static String getCsv(JSONArray data){
+        return data.getLong(0) +
+                "," + data.getString(4) +
+                "," + data.getString(1) +
+                "," + data.getString(2) +
+                "," + data.getString(3) +
+                "," + data.getString(1) +
+                "," + data.getString(5) +
+                "," + data.getString(7) +
+                "," + data.getInt(8) +
+                "," + data.getString(9) +
+                "," + data.getString(10);
+    }
+
+    /**
+     * 1000개가 넘는 캔들을 내릴때 반복해서 사용
+     * @param url 바이낸스 현물, 혹은 선물
+     * @param outPath 필수 파일 생성경로
+     * @param symbol 필수 BTCUSDT, ETHUSDT ...
+     * @param time unix time
+     * @param startTime 시작시간 필수 unix time
+     * @param count 필수값 원하는 건수 만큼 건수가 현재시간을 초과할경우 최근시간까지 내림
+     */
+    @SuppressWarnings("BusyWait")
+    public static void csv(String url, String outPath, String symbol, long time, long startTime, int count){
+        int total = 0;
+
+        String interval ;
+        if(time < Times.HOUR_1){
+            interval = time/Times.MINUTE_1 +"m";
+        }else if(time < Times.DAY_1){
+            interval = time/Times.HOUR_1 +"h";
+        }else if(time < Times.WEEK_1){
+            interval = time/Times.DAY_1 +"d";
+        }else if(time < Times.WEEK_1*4){
+            interval = "1w";
+        }else{
+            interval = "1M";
+        }
+
+        outer:
+        for(;;) {
+            JSONArray array = new JSONArray(jsonArray(url, symbol, interval, startTime, null, 1000));
+            int length = array.length();
+
+            if(length == 0){
+                break;
+            }
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < length; i++) {
+
+                JSONArray data = array.getJSONArray(i);
+                long nextTime = data.getLong(0)+ time;
+
+                if(startTime == nextTime){
+                    break outer;
+                }
+                sb.append("\n").append(getCsv(data));
+                total++;
+
+                startTime = nextTime;
+
+                if(total >= count){
+                    if(FileUtil.isFile(outPath)){
+                        FileUtil.fileOutput(sb.toString(),outPath, true);
+                    }else{
+                        FileUtil.fileOutput(sb.substring(1),outPath, false);
+                    }
+                    break outer;
+                }
+            }
+
+            if(FileUtil.isFile(outPath)){
+                FileUtil.fileOutput(sb.toString(),outPath, true);
+            }else{
+                FileUtil.fileOutput(sb.substring(1),outPath, false);
+            }
+//            long last
+            //너무 잦은 호출을 하면 차단당할걸 염두해서 sleep 설정
+            try{Thread.sleep(300);}catch(Exception ignore){}
         }
     }
 
@@ -192,7 +265,4 @@ public class BinanceCandle {
         return candles;
     }
 
-    public static void main(String[] args) {
-
-    }
 }
