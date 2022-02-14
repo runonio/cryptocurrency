@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'io.runon.cryptocurrency'
-version '0.1.4'
+version '0.1.7'
 
 repositories {
     mavenCentral()
@@ -22,7 +22,7 @@ dependencies {
     implementation 'com.seomse.commons:crawling:0.8.7'
 
     implementation 'io.runon.trading:data:0.0.1'
-    implementation 'io.runon.trading:trading:0.0.2'
+    implementation 'io.runon.trading:trading:0.0.4'
 
 
     implementation 'io.runon.cryptocurrency:exchange-binance-futures:1.0.9'
