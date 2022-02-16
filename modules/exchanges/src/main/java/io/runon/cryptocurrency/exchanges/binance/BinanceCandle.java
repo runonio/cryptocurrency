@@ -1,5 +1,6 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
+import com.seomse.commons.exception.IORuntimeException;
 import com.seomse.commons.utils.FileUtil;
 import com.seomse.commons.utils.time.Times;
 import com.seomse.crawling.core.http.HttpUrl;
@@ -263,6 +264,35 @@ public class BinanceCandle {
             candles[i] = tradeCandle;
         }
         return candles;
+    }
+
+
+    /**
+     * 추출된 파일경로에서 마지막시간부터 현제시간까지 내용을 추가 기록
+     * @param url 바이낸스 현물, 혹은 선물
+     * @param inPath 필수 추출되었던 파일경로
+     * @param symbol 필수 BTCUSDT, ETHUSDT ...
+     */
+    public static void csv(String url, String inPath, String symbol){
+        if(!FileUtil.isFile(inPath)){
+            throw new IORuntimeException("file not found : " + inPath);
+        }
+
+        long lineCount = FileUtil.getLineCount(inPath);
+        if(lineCount < 2){
+            throw new IllegalArgumentException("file line count > 2 , count: " + lineCount);
+        }
+
+        String line = FileUtil.getLine(inPath, 0);
+        long firstTime = Long.parseLong(line.split(",")[0]);
+        line = FileUtil.getLine(inPath, 1);
+        long time = Long.parseLong(line.split(",")[0]) - firstTime;
+
+        line = FileUtil.getLine(inPath, (int)(lineCount-1));
+        long lastTime = Long.parseLong(line.split(",")[0]);
+
+        long startTime = lastTime+time;
+        csv(url, inPath, symbol, time, startTime, Integer.MAX_VALUE);
     }
 
 }
