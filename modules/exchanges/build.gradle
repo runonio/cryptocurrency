@@ -24,11 +24,13 @@ dependencies {
 
     implementation 'io.runon.cryptocurrency:trading:0.0.6'
 
+
+    implementation 'io.runon.commons:data-service:0.0.6'
     implementation 'io.runon.trading:data:0.0.3'
     implementation 'io.runon.trading:trading:0.0.7'
     implementation 'io.runon.trading:technical-analysis:0.1.5'
 
-    implementation 'io.runon.cryptocurrency:exchange-binance-futures:1.0.9'
+    implementation 'io.runon.cryptocurrency:exchange-binance-futures:1.0.91'
     implementation 'io.runon.cryptocurrency:exchange-houbi:2.0.4'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'

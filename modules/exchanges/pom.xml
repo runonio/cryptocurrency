@@ -6,7 +6,7 @@
 
     <groupId>io.runon.cryptocurrency</groupId>
     <artifactId>exchanges</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
     <packaging>jar</packaging>
 
     <name>cryptocurrency-exchanges</name>
@@ -26,6 +26,12 @@
             <name>macle</name>
             <email>ysys86a@gmail.com</email>
             <id>macle86</id>
+            <organization>seomse</organization>
+        </developer>
+        <developer>
+            <name>ccsweets</name>
+            <email>tramp0102@gmail.com</email>
+            <id>ccsweets</id>
             <organization>seomse</organization>
         </developer>
     </developers>
@@ -154,6 +160,11 @@
             <version>0.8.7</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.runon.commons</groupId>
+            <artifactId>data-service</artifactId>
+            <version>0.0.6</version>
+        </dependency>
 
         <dependency>
             <groupId>io.runon.trading</groupId>
@@ -182,7 +193,7 @@
         <dependency>
             <groupId>io.runon.cryptocurrency</groupId>
             <artifactId>exchange-binance-futures</artifactId>
-            <version>1.0.9</version>
+            <version>1.0.91</version>
         </dependency>
 
 
