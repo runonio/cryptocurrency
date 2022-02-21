@@ -1,19 +1,14 @@
 package io.runon.cryptocurrency.exchanges.ftx;
 
-import com.seomse.commons.utils.ExceptionUtil;
-import io.runon.cryptocurrency.exchanges.ExchangeWebSocketHandler;
+import io.runon.cryptocurrency.exchanges.ExchangeWebSocketListener;
 import io.runon.cryptocurrency.trading.CryptocurrencyTrade;
 import io.runon.cryptocurrency.trading.DataStreamTrade;
 import io.runon.cryptocurrency.trading.MarketSymbol;
 import io.runon.trading.Trade;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.WebSocket;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.web.socket.TextMessage;
-import org.springframework.web.socket.WebSocketMessage;
-import org.springframework.web.socket.WebSocketSession;
-
-import java.io.IOException;
 
 /**
  * ftx 실시간 거래정보
@@ -27,7 +22,7 @@ public abstract class FtxTradeStream <T extends CryptocurrencyTrade> extends Dat
         super(streamId);
     }
 
-    private ExchangeWebSocketHandler webSocketHandler = null;
+    private ExchangeWebSocketListener webSocketListener = null;
 
     private String [] subscribeMessages = {"{\"channel\":\"trades\",\"op\":\"subscribe\",\"market\":\"BTC/USDT\"}"};
 
@@ -54,59 +49,16 @@ public abstract class FtxTradeStream <T extends CryptocurrencyTrade> extends Dat
     @Override
     public void connect() {
         close();
-        //noinspection NullableProblems
-        webSocketHandler = new ExchangeWebSocketHandler(streamId,"wss://ftx.com/ws", null){
 
+
+        webSocketListener = new ExchangeWebSocketListener(streamId, "wss://ftx.com/ws", subscribeMessages) {
             @Override
-            public void afterConnectionEstablished(WebSocketSession session) {
-                webSocketSession = session;
-                log.debug("afterConnectionEstablished " + session.getId() + ", id: " + streamId);
-
-                new Thread(() -> {
-                    try {
-                        webSocketSession.sendMessage(new TextMessage(subscribeMessages[0]));
-                        for (int i = 1; i <subscribeMessages.length; i++) {
-                            try {
-                                //noinspection BusyWait
-                                Thread.sleep(500);
-                            } catch (InterruptedException ignore) {}
-                            webSocketSession.sendMessage(new TextMessage(subscribeMessages[i]));
-                        }
-                    } catch (IOException e) {
-                        log.error(ExceptionUtil.getStackTrace(e));
-                    }
-
-                    //noinspection ConditionalBreakInInfiniteLoop
-                    for(;;){
-                        if(isClose()){
-                            break;
-                        }
-                        try {
-                            if(webSocketSession != null && webSocketSession.isOpen()) {
-                                webSocketSession.sendMessage(new TextMessage("{\"op\": \"ping\"}"));
-                            }
-                        } catch (Exception ignore) {}
-
-                        try {
-                            //noinspection BusyWait
-                            Thread.sleep(12000L);
-                        } catch (InterruptedException ignore) {}
-
-                    }
-                }).start();
-
-            }
-
-            @Override
-            public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
+            public void onMessage(WebSocket webSocket, String text) {
                 if(isClose()){
                     return;
                 }
-
                 try {
-
-                    String jsonValue = message.getPayload().toString();
-                    JSONObject obj = new JSONObject(jsonValue);
+                    JSONObject obj = new JSONObject(text);
                     if(!obj.getString("type").equals("update")){
                         return;
                     }
@@ -127,9 +79,10 @@ public abstract class FtxTradeStream <T extends CryptocurrencyTrade> extends Dat
 
                 }catch(Exception ignore){}
             }
+
         };
 
-        webSocketHandler.connect();
+        webSocketListener.connect();
     }
 
     @Override
@@ -139,6 +92,6 @@ public abstract class FtxTradeStream <T extends CryptocurrencyTrade> extends Dat
 
     @Override
     public void close(){
-        try {if(webSocketHandler != null) {webSocketHandler.close();webSocketHandler = null;}} catch (Exception ignore){}
+        try {if(webSocketListener != null) {webSocketListener.close();webSocketListener = null;}} catch (Exception ignore){}
     }
 }

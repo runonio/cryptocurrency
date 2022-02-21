@@ -7,7 +7,7 @@
 # gradle
 implementation 'io.runon.cryptocurrency:trading:0.0.6'
 - etc
-  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/trading/0.0.6
+  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/trading**/0.0.6**
 
 # communication
 ### blog, homepage

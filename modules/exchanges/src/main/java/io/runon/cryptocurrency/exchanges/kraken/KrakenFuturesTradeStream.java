@@ -1,13 +1,16 @@
 package io.runon.cryptocurrency.exchanges.kraken;
 
 import com.seomse.commons.utils.ExceptionUtil;
-import io.runon.cryptocurrency.exchanges.DelimiterMarketSymbol;
-import io.runon.cryptocurrency.exchanges.ExchangeWebSocketHandler;
+import io.runon.cryptocurrency.exchanges.ExchangeWebSocketListener;
+import io.runon.cryptocurrency.exchanges.TradeConverter;
 import io.runon.cryptocurrency.trading.CryptocurrencyTrade;
 import io.runon.cryptocurrency.trading.DataStreamTrade;
 import io.runon.cryptocurrency.trading.MarketSymbol;
+import io.runon.trading.Trade;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.*;
+import okhttp3.WebSocket;
+import org.json.JSONObject;
+
 /**
  * Kraken 선물 거래소 실시간 거래정보 stream
  * https://support.kraken.com/hc/en-us/articles/360022839491-API-URLs
@@ -20,7 +23,7 @@ public abstract class KrakenFuturesTradeStream <T extends CryptocurrencyTrade> e
         super(streamId);
     }
 
-    private ExchangeWebSocketHandler webSocketHandler = null;
+    private ExchangeWebSocketListener webSocketListener;
 
     private String subscribeMessage = "{\"event\":\"subscribe\",\"feed\":\"trade\",\"product_ids\":[\"PI_XBTUSD\"]}";
     /**
@@ -32,87 +35,82 @@ public abstract class KrakenFuturesTradeStream <T extends CryptocurrencyTrade> e
         this.subscribeMessage = subscribeMessage;
     }
 
-    private WebSocket webSocket = null;
-    private OkHttpClient client = null;
+    private TradeConverter converter = null;
+
+    public void setConverter(TradeConverter converter) {
+        this.converter = converter;
+    }
 
     @Override
     public void connect() {
         close();
 
-        WebSocketListener webSocketListener = new WebSocketListener() {
-            @Override
-            public void onOpen(WebSocket webSocket, Response response) {
-                log.debug("onOpen response:" + getStreamId());
-            }
-
+        webSocketListener = new ExchangeWebSocketListener(streamId, "wss://futures.kraken.com/ws/v1", subscribeMessage) {
             @Override
             public void onMessage(WebSocket webSocket, String text) {
+
+                if(isClose()){
+                    return;
+                }
+                //거래량이 적어서 메시지오면 최근메시지로 기록함
+                lastTime = System.currentTimeMillis();
                 try {
-                    System.out.println(text);
+                    JSONObject object = new JSONObject(text);
+
+                    if(object.has("event") ){
+                        return;
+                    }
+
+                    if(!object.getString("feed").equals("trade")){
+                        return;
+                    }
+
+                    String id = object.getString("product_id");
+
+                    Trade.Type type;
+
+                    String side = object.getString("side");
+
+                    if(side.equals("buy")){
+                        type = Trade.Type.BUY;
+                    }else if(side.equals("sell")){
+                        type = Trade.Type.SELL;
+                    }else{
+                        return;
+                    }
+                    Trade trade = new Trade(type, object.getBigDecimal("price"), object.getBigDecimal("qty"), System.currentTimeMillis());
+                    if(converter != null){
+                        converter.convert(trade);
+                    }
+                    addTrade(id, trade);
+
                 }catch(Exception e){
                     log.error(ExceptionUtil.getStackTrace(e));
                 }
             }
-            @Override
-            public void onClosing(WebSocket webSocket, int code, String reason) {
-                log.debug("onClosing code:" + code +", reason:" + reason + ", " + getStreamId());
-            }
-            @Override
-            public void onClosed(WebSocket webSocket, int code, String reason) {
-                log.error("onClosed code:" + code +", reason:" + reason  + ", " + getStreamId());
-            }
         };
 
-        client = new OkHttpClient();
-        Request request = new Request.Builder().url("wss://futures.kraken.com/ws/v1").build();
+        webSocketListener.connect();
 
-        webSocket = client.newWebSocket(request, webSocketListener);
-        webSocket.send(subscribeMessage);
-
-        new Thread(){
-            public void run(){
-                for(;;){
-                    try {
-
-                        webSocket.send("{'ping'}");
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-        }.start();
-
-
-
-//        //noinspection NullableProblems
-//        webSocketHandler = new ExchangeWebSocketHandler(streamId,"wss://futures.kraken.com/ws/v1", subscribeMessage){
-//            @Override
-//            public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) {
-//
-//                if(isClose()){
-//                    return;
-//                }
-//
-//                try {
-//                    String data = message.getPayload().toString();
-//                    System.out.println(data);
-//
-//                }catch(Exception e){e.printStackTrace();}
-//            }
-//        };
-//
-//        webSocketHandler.connect();
     }
 
     @Override
     public void close(){
-        try {if(webSocketHandler != null) {webSocketHandler.close();webSocketHandler = null;}} catch (Exception ignore){}
+        try {if(webSocketListener != null) {webSocketListener.close();webSocketListener = null;}} catch (Exception ignore){}
     }
 
     @Override
     public MarketSymbol getMarketSymbol(String cryptocurrencyId) {
-        return DelimiterMarketSymbol.leftSymbol("/",cryptocurrencyId);
+
+        int index = cryptocurrencyId.indexOf('_');
+
+        if(index != -1){
+            cryptocurrencyId = cryptocurrencyId.substring(index+1);
+        }
+
+        MarketSymbol marketSymbol = new MarketSymbol();
+        marketSymbol.setMarket("USD");
+        marketSymbol.setSymbol(cryptocurrencyId.substring(0, cryptocurrencyId.length()-3));
+        return marketSymbol;
     }
 }

@@ -1,13 +1,7 @@
 package io.runon.cryptocurrency.exchanges;
 
-import com.seomse.commons.utils.ExceptionUtil;
-import io.runon.trading.technical.analysis.candle.TradeCandle;
 import lombok.extern.slf4j.Slf4j;
-import okhttp3.OkHttpClient;
-import okhttp3.Response;
-import okhttp3.WebSocket;
-import okhttp3.WebSocketListener;
-import org.json.JSONObject;
+import okhttp3.*;
 
 /**
  * WebSocketListener
@@ -18,19 +12,39 @@ import org.json.JSONObject;
 @Slf4j
 public class ExchangeWebSocketListener extends WebSocketListener {
 
-    private final String id;
-    private final String subscribeMessage;
-    private final String wssAddress;
+    protected final String id;
 
-    public ExchangeWebSocketListener(String id, String wssAddress, String subscribeMessage){
+    protected final String wssAddress;
+
+    public ExchangeWebSocketListener(String id, String wssAddress){
         this.id = id;
-        this.subscribeMessage = subscribeMessage;
         this.wssAddress = wssAddress;
     }
 
-    private WebSocket webSocket = null;
-    private OkHttpClient client = null;
+    private String subscribeMessage = null;
+    public ExchangeWebSocketListener(String id, String wssAddress, String subscribeMessage){
+        this.id = id;
+        this.wssAddress = wssAddress;
+        this.subscribeMessage = subscribeMessage;
+    }
 
+    private String [] subscribeMessages = null;
+    public ExchangeWebSocketListener(String id, String wssAddress, String [] subscribeMessages){
+        this.id = id;
+        this.wssAddress = wssAddress;
+        this.subscribeMessages = subscribeMessages;
+    }
+
+    public void setSubscribeMessage(String subscribeMessage) {
+        this.subscribeMessage = subscribeMessage;
+    }
+
+    public void setSubscribeMessages(String[] subscribeMessages) {
+        this.subscribeMessages = subscribeMessages;
+    }
+
+    protected WebSocket webSocket = null;
+    protected OkHttpClient client = null;
 
     @Override
     public void onOpen(WebSocket webSocket, Response response) {
@@ -48,8 +62,46 @@ public class ExchangeWebSocketListener extends WebSocketListener {
     }
     @Override
     public void onClosed(WebSocket webSocket, int code, String reason) {
-        log.error("onClosed code:" + code +", reason:" + reason  + ", " + id);
+        if(code == 1000) {
+            log.debug("onClosed code:" + code + ", reason:" + reason + ", " + id);
+        }else{
+            log.error("onClosed code:" + code + ", reason:" + reason + ", " + id);
+        }
     }
 
+    @SuppressWarnings("BusyWait")
+    public void connect() {
+        isClose = false;
+        client = new OkHttpClient();
+        Request request = new Request.Builder().url(wssAddress).build();
+        webSocket = client.newWebSocket(request, this);
+        if(subscribeMessage != null) {
+            webSocket.send(subscribeMessage);
+        }
+        if(subscribeMessages != null && subscribeMessages.length > 0){
 
+            if(subscribeMessage != null){try {Thread.sleep(500);} catch (InterruptedException ignore) {}}
+
+            webSocket.send(subscribeMessages[0]);
+            for (int i = 1; i <subscribeMessages.length; i++) {
+                try {Thread.sleep(500);} catch (InterruptedException ignore) {}
+                webSocket.send(subscribeMessages[i]);
+            }
+        }
+    }
+
+    protected boolean isClose = false;
+    // close 되어도 메시지가 들어오는 경우가 있음 방어소스
+    public boolean isClose() {
+        return isClose;
+    }
+
+    public void close(){
+        if(webSocket != null){
+            //https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent/code
+            try{webSocket.close(1000, null); webSocket =null;}catch (Exception ignore){}
+            try{client.dispatcher().executorService().shutdown(); client = null;}catch (Exception ignore){}
+        }
+        isClose = true;
+    }
 }

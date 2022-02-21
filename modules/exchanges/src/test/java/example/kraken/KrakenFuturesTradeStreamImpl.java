@@ -1,7 +1,9 @@
 package example.kraken;
 
 import example.CryptocurrencyTradeImpl;
+import io.runon.cryptocurrency.exchanges.UsdVolumeConverter;
 import io.runon.cryptocurrency.exchanges.kraken.KrakenFuturesTradeStream;
+import io.runon.cryptocurrency.trading.service.DataStreamKeepAliveService;
 
 /**
  * Kraken 선물 체결내용 예제
@@ -19,7 +21,9 @@ public class KrakenFuturesTradeStreamImpl extends KrakenFuturesTradeStream<Crypt
     }
 
     public static void main(String[] args) {
-        new KrakenFuturesTradeStreamImpl("kraken_futures_trade").connect();
-//        new DataStreamKeepAliveService().start();
+        KrakenFuturesTradeStreamImpl krakenFuturesTradeStreamImpl = new KrakenFuturesTradeStreamImpl("kraken_futures_trade");
+        krakenFuturesTradeStreamImpl.setConverter(new UsdVolumeConverter());
+        krakenFuturesTradeStreamImpl.connect();
+        new DataStreamKeepAliveService().start();
     }
 }
