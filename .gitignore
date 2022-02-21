@@ -12,6 +12,7 @@ build-idea/
 .classpath
 .settings
 build-eclipse/
+target/
 
 # gradle stuff
 .gradle/
