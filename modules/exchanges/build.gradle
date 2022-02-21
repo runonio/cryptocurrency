@@ -24,6 +24,8 @@ dependencies {
 
     implementation 'io.runon.cryptocurrency:trading:0.0.6'
 
+
+    implementation 'io.runon.commons:data-service:0.0.6'
     implementation 'io.runon.trading:data:0.0.3'
     implementation 'io.runon.trading:trading:0.0.7'
     implementation 'io.runon.trading:technical-analysis:0.1.5'
