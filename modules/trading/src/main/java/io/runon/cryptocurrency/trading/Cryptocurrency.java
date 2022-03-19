@@ -7,6 +7,12 @@ package io.runon.cryptocurrency.trading;
 public interface Cryptocurrency {
 
     /**
+     * 거래소별로 관리되는 아이디
+     * @return 거래소에서 관리되는 아이디
+     */
+    String getId();
+    
+    /**
      * BTC
      * ETH
      * ADA

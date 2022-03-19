@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'io.runon.cryptocurrency'
-version '0.2.0'
+version '0.2.2'
 
 repositories {
     mavenCentral()
@@ -22,20 +22,20 @@ dependencies {
     implementation 'com.seomse.commons:commons:1.2.7'
     implementation 'com.seomse.commons:crawling:0.8.7'
 
-    implementation 'io.runon.cryptocurrency:trading:0.0.6'
+//    implementation 'io.runon.cryptocurrency:trading:0.0.7'
 
 
     implementation 'io.runon.commons:data-service:0.0.6'
-    implementation 'io.runon.trading:data:0.0.3'
-    implementation 'io.runon.trading:trading:0.0.9'
-    implementation 'io.runon.trading:technical-analysis:0.1.5'
+    implementation 'io.runon.trading:data:0.0.6'
+    implementation 'io.runon.trading:trading:0.1.1'
+    implementation 'io.runon.trading:technical-analysis:0.2.1'
 
     implementation 'io.runon.cryptocurrency:exchange-binance-futures:1.0.91'
     implementation 'io.runon.cryptocurrency:exchange-houbi:2.0.4'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
 
-//    implementation project(path: ':modules:trading')
+    implementation project(path: ':modules:trading')
 
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
 }
