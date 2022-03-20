@@ -11,6 +11,7 @@ public class DelimiterMarketSymbol {
     //왼쪽이 심볼인경우
     public static MarketSymbol leftSymbol(String delimiter, String cryptocurrencyId) {
         MarketSymbol marketSymbol = new MarketSymbol();
+        marketSymbol.setId(cryptocurrencyId);
         cryptocurrencyId = cryptocurrencyId.toUpperCase();
 
         int index = cryptocurrencyId.indexOf(delimiter);
@@ -23,6 +24,7 @@ public class DelimiterMarketSymbol {
     //오른쪽이 심볼인경우
     public static MarketSymbol rightSymbol(String delimiter, String cryptocurrencyId) {
         MarketSymbol marketSymbol = new MarketSymbol();
+        marketSymbol.setId(cryptocurrencyId);
         cryptocurrencyId = cryptocurrencyId.toUpperCase();
 
         int index = cryptocurrencyId.indexOf(delimiter);
@@ -34,6 +36,7 @@ public class DelimiterMarketSymbol {
 
     public static MarketSymbol getMarketSymbol(String delimiter, String cryptocurrencyId, int marketIndex, int symbolIndex){
         MarketSymbol marketSymbol = new MarketSymbol();
+        marketSymbol.setId(cryptocurrencyId);
         String [] values = cryptocurrencyId.split(delimiter);
         marketSymbol.setMarket(values[marketIndex].toUpperCase());
         marketSymbol.setSymbol(values[symbolIndex].toUpperCase());

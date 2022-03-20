@@ -16,6 +16,8 @@ public class BinanceExchange {
 
     public static MarketSymbol getMarketSymbol(String cryptocurrencyId) {
         MarketSymbol marketSymbol = new MarketSymbol();
+        marketSymbol.setId(cryptocurrencyId);
+
         cryptocurrencyId = cryptocurrencyId.toUpperCase();
 
         if(cryptocurrencyId.endsWith("USDT")){

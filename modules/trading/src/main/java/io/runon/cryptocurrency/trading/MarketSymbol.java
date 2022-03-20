@@ -7,6 +7,7 @@ import lombok.Data;
  */
 @Data
 public class MarketSymbol {
+    String id;
     String market;
     String symbol;
 }

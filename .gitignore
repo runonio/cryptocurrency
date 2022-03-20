@@ -24,6 +24,7 @@ build/
 /logs/
 /log/
 /config/
+/data/
 
 # osx stuff
 .DS_Store

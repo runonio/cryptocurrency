@@ -14,9 +14,10 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 
-    implementation 'com.seomse.commons:commons:1.2.7'
-    implementation 'io.runon.trading:technical-analysis:0.1.5'
+    implementation 'com.seomse.commons:commons:1.2.8'
+    implementation 'io.runon.trading:technical-analysis:0.2.1'
     implementation 'io.runon.commons:data-service:0.0.6'
+    implementation 'io.runon.trading:data:0.0.6'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
 
