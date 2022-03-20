@@ -10,12 +10,16 @@ import io.runon.trading.technical.analysis.candle.TradeCandle;
  * @author macle
  */
 public class CryptocurrencyCandleImpl implements CryptocurrencyCandle {
+
     private long time = 0L;
+
+    private final String id;
 
     private final String symbol;
     private final String market;
 
     public CryptocurrencyCandleImpl(MarketSymbol marketSymbol){
+        this.id = marketSymbol.getId();
         this.market = marketSymbol.getMarket();
         this.symbol = marketSymbol.getSymbol();
     }
@@ -24,6 +28,11 @@ public class CryptocurrencyCandleImpl implements CryptocurrencyCandle {
     public void addCandle(TradeCandle tradeCandle) {
         time = System.currentTimeMillis();
         System.out.println(symbol + "-" + market + " add candle: " + CsvCandle.value(tradeCandle));
+    }
+
+    @Override
+    public String getId() {
+        return null;
     }
 
     @Override
