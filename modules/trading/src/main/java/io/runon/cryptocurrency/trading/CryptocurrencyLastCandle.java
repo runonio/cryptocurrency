@@ -7,16 +7,15 @@ import io.runon.trading.technical.analysis.candle.TradeCandle;
  * @author macle
  */
 public class CryptocurrencyLastCandle implements CryptocurrencyCandle{
-    private final String id;
-    private final String symbol;
-    private final String market;
+    protected final String id;
+    protected final String symbol;
+    protected final String market;
 
+    protected long previousTime;
+    protected TradeCandle previousCandle = null;
 
-    private long previousTime;
-    private TradeCandle previousCandle = null;
-
-    private long lastTime;
-    private TradeCandle lastCandle;
+    protected long lastTime;
+    protected TradeCandle lastCandle;
 
     public CryptocurrencyLastCandle(MarketSymbol marketSymbol) {
         this.id = marketSymbol.getId();

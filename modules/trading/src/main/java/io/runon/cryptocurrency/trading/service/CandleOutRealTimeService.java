@@ -79,7 +79,7 @@ public class CandleOutRealTimeService extends Service {
 
             Long lastTime = timeMap.get(cryptocurrency.getId());
             if(lastTime == null){
-                FileUtil.fileOutput(candleLastTime + "," + CsvCandle.value(tradeCandle)+"\n", path, true);
+                FileUtil.fileOutput(  CsvCandle.value(candleLastTime, tradeCandle)+"\n", path, true);
                 timeMap.put(cryptocurrency.getId(), candleLastTime);
                 continue;
             }
@@ -90,10 +90,10 @@ public class CandleOutRealTimeService extends Service {
             }
 
             if(previousCandle != null && previousTime > lastTime){
-                FileUtil.fileOutput(previousTime + "," + CsvCandle.value(previousCandle)+"\n", path, true);
+                FileUtil.fileOutput(CsvCandle.value(previousTime, previousCandle)+"\n", path, true);
             }
 
-            FileUtil.fileOutput(candleLastTime + "," + CsvCandle.value(tradeCandle)+"\n", path, true);
+            FileUtil.fileOutput(CsvCandle.value(candleLastTime, tradeCandle)+"\n", path, true);
 
             timeMap.put(cryptocurrency.getId(), candleLastTime);
 
