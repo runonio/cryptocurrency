@@ -6,7 +6,7 @@
 
     <groupId>io.runon.cryptocurrency</groupId>
     <artifactId>exchanges</artifactId>
-    <version>0.2.2</version>
+    <version>0.2.3</version>
     <packaging>jar</packaging>
 
     <name>cryptocurrency-exchanges</name>
@@ -133,25 +133,25 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-core</artifactId>
-            <version>1.2.10</version>
+            <version>1.2.11</version>
         </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>1.2.10</version>
+            <version>1.2.11</version>
         </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-access</artifactId>
-            <version>1.2.10</version>
+            <version>1.2.11</version>
         </dependency>
 
         <dependency>
             <groupId>com.seomse.commons</groupId>
             <artifactId>commons</artifactId>
-            <version>1.2.8</version>
+            <version>1.2.9</version>
         </dependency>
 
         <dependency>
@@ -169,7 +169,7 @@
         <dependency>
             <groupId>io.runon.trading</groupId>
             <artifactId>data</artifactId>
-            <version>0.0.6</version>
+            <version>0.0.7</version>
         </dependency>
 
         <dependency>
@@ -181,13 +181,13 @@
         <dependency>
             <groupId>io.runon.trading</groupId>
             <artifactId>technical-analysis</artifactId>
-            <version>0.2.1</version>
+            <version>0.2.2</version>
         </dependency>
 
         <dependency>
             <groupId>io.runon.cryptocurrency</groupId>
             <artifactId>trading</artifactId>
-            <version>0.0.7</version>
+            <version>0.0.8</version>
         </dependency>
 
         <dependency>
@@ -220,7 +220,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
-            <version>2.6.3</version>
+            <version>2.6.4</version>
         </dependency>
 
 
