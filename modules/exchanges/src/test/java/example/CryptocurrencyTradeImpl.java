@@ -13,13 +13,22 @@ public class CryptocurrencyTradeImpl implements CryptocurrencyTrade {
 
     private long time = 0L;
 
+    private final String id;
+
     private final String symbol;
     private final String market;
 
     public CryptocurrencyTradeImpl(MarketSymbol marketSymbol) {
+        this.id = marketSymbol.getId();
         this.market = marketSymbol.getMarket();
         this.symbol = marketSymbol.getSymbol();
     }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
     @Override
     public String getSymbol() {
         return symbol;
