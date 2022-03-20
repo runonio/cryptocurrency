@@ -46,7 +46,8 @@ public class CryptocurrencyLastCandle implements CryptocurrencyCandle{
 
     @Override
     public void addCandle(TradeCandle tradeCandle) {
-        if(tradeCandle.getOpenTime() != lastCandle.getOpenTime()){
+
+        if(lastCandle != null && tradeCandle.getOpenTime() != lastCandle.getOpenTime()){
             previousTime = lastTime;
             previousCandle = lastCandle;
         }

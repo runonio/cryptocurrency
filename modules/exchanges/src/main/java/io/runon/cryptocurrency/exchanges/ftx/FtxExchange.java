@@ -16,6 +16,7 @@ public class FtxExchange {
 
     public static MarketSymbol getMarketSymbol(String cryptocurrencyId) {
         MarketSymbol marketSymbol = new MarketSymbol();
+        marketSymbol.setId(cryptocurrencyId);
         cryptocurrencyId = cryptocurrencyId.toUpperCase();
 
         int index = cryptocurrencyId.indexOf("/");

@@ -101,6 +101,8 @@ public abstract class KrakenFuturesTradeStream <T extends CryptocurrencyTrade> e
 
     @Override
     public MarketSymbol getMarketSymbol(String cryptocurrencyId) {
+        MarketSymbol marketSymbol = new MarketSymbol();
+        marketSymbol.setId(cryptocurrencyId);
 
         int index = cryptocurrencyId.indexOf('_');
 
@@ -108,7 +110,6 @@ public abstract class KrakenFuturesTradeStream <T extends CryptocurrencyTrade> e
             cryptocurrencyId = cryptocurrencyId.substring(index+1);
         }
 
-        MarketSymbol marketSymbol = new MarketSymbol();
         marketSymbol.setMarket("USD");
         marketSymbol.setSymbol(cryptocurrencyId.substring(0, cryptocurrencyId.length()-3));
         return marketSymbol;
