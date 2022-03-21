@@ -118,6 +118,7 @@ public class BinanceFutureTrade {
      */
     public static Order closeAllPositions(String symbol, String price){
         AccountInformation accountInformation = account.getLiveAccountInformation();
+
         BigDecimal quantity = new BigDecimal(0);
         List<Position> positions = accountInformation.getPositions();
         for (Position position : positions) {
@@ -136,7 +137,11 @@ public class BinanceFutureTrade {
             orderSide = OrderSide.BUY;
         }
 
-        log.info("["+symbol+"] 청산 : 가격["+price+"] 시장가여부["+(price == null)+"] 수량["+quantity.toString()+"] 롱/숏["+(orderSide.name())+"]");
+        if(quantity.compareTo(BigDecimal.ZERO) == 0){
+            return null;
+        }
+
+        log.info("["+symbol+"] 청산 : 가격["+price+"] 시장가여부["+(price == null)+"] 수량["+quantity.toPlainString()+"] 롱/숏["+(orderSide.name())+"]");
 
         return api.postOrder(symbol, orderSide, null,  price == null ?  OrderType.MARKET :  OrderType.LIMIT, null,
                 quantity.toString(), price, "true", null, null, null, NewOrderRespType.RESULT);
