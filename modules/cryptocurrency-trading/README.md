@@ -1,13 +1,14 @@
-# trading
+# cryptocurrency-trading
 암호화폐 트레이딩
+
 
 # 개발환경
 - open jdk 17
 
 # gradle
-implementation 'io.runon.cryptocurrency:trading:0.0.8'
+implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.0.9'
 - etc
-  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/trading/0.0.8
+  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-trading/0.0.9
 
 # communication
 ### blog, homepage
