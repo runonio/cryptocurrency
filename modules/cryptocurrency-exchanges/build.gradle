@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'io.runon.cryptocurrency'
-version '0.2.5'
+version '0.2.6'
 
 repositories {
     mavenCentral()
@@ -25,9 +25,9 @@ dependencies {
     implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.0.9'
 
     implementation 'io.runon.commons:data-service:0.0.6'
-    implementation 'io.runon.trading:trading-data:0.0.9'
-    implementation 'io.runon.trading:trading:0.1.2'
-    implementation 'io.runon.trading:technical-analysis:0.2.4'
+    implementation 'io.runon.trading:trading-data:0.1.0'
+    implementation 'io.runon.trading:trading:0.1.4'
+    implementation 'io.runon.trading:technical-analysis:0.2.5'
 
     implementation 'io.runon.cryptocurrency:exchange-binance-futures:1.0.91'
     implementation 'io.runon.cryptocurrency:exchange-houbi:2.0.4'
