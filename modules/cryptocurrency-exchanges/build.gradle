@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'io.runon.cryptocurrency'
-version '0.2.6'
+version '0.2.7'
 
 repositories {
     mavenCentral()
@@ -17,7 +17,7 @@ dependencies {
     //websocket
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.9.3'
 
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.6.4'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.6.5'
 
     implementation 'com.seomse.commons:commons:1.2.9'
     implementation 'com.seomse.commons:crawling:0.8.7'
@@ -25,9 +25,9 @@ dependencies {
     implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.0.9'
 
     implementation 'io.runon.commons:data-service:0.0.6'
-    implementation 'io.runon.trading:trading-data:0.1.0'
-    implementation 'io.runon.trading:trading:0.1.4'
-    implementation 'io.runon.trading:technical-analysis:0.2.5'
+    implementation 'io.runon.trading:trading-data:0.1.1'
+    implementation 'io.runon.trading:trading:0.1.5'
+    implementation 'io.runon.trading:technical-analysis:0.2.7'
 
     implementation 'io.runon.cryptocurrency:exchange-binance-futures:1.0.91'
     implementation 'io.runon.cryptocurrency:exchange-houbi:2.0.4'
