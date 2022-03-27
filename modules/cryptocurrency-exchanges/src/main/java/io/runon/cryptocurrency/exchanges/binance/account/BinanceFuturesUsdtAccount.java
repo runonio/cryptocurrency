@@ -155,11 +155,12 @@ public class BinanceFuturesUsdtAccount implements FuturesTradeAccount {
         }
 
         OrderSide orderSide;
-        if(quantity.compareTo(new BigDecimal(0)) > 0){
-            orderSide = OrderSide.BUY;
+        if(quantity.compareTo(BigDecimal.ZERO) > 0){
+            orderSide = OrderSide.SELL;
         } else {
             quantity = quantity.multiply(new BigDecimal(-1));
-            orderSide = OrderSide.SELL;
+            orderSide = OrderSide.BUY;
+
         }
 
         Order order = syncRequestClient.postOrder(symbol, orderSide, null,  OrderType.MARKET , null,
@@ -167,7 +168,7 @@ public class BinanceFuturesUsdtAccount implements FuturesTradeAccount {
 
         MarketPriceOrderData marketPriceOrderData = new MarketPriceOrderData();
         marketPriceOrderData.setTradeType(Trade.Type.valueOf(orderSide.toString()));
-        marketPriceOrderData.setQuantity(order.getExecutedQty());
+        marketPriceOrderData.setQuantity(quantity);
         marketPriceOrderData.setTradePrice(BinanceFuturesApis.getTradePrice(order,2));
         return marketPriceOrderData;
     }
