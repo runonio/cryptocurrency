@@ -33,6 +33,8 @@ public class BinanceFuturesUsdtAccount implements FuturesTradeAccount {
     private final SyncRequestClient syncRequestClient;
     private final String id;
 
+    private final BigDecimal fee =  new BigDecimal("0.0004");
+
     public BinanceFuturesUsdtAccount(String apiKey, String secretKey){
         RequestOptions options = new RequestOptions();
         syncRequestClient = SyncRequestClient.create(apiKey, secretKey, options);
@@ -94,6 +96,28 @@ public class BinanceFuturesUsdtAccount implements FuturesTradeAccount {
     public BigDecimal getLeverage(String symbol) {
         FuturesPosition futuresPosition = getPosition(symbol);
         return futuresPosition.getLeverage();
+    }
+
+    @Override
+    public BigDecimal getAvailableBuyPrice(String symbol) {
+        BigDecimal price = getCash();
+        FuturesPosition futuresPosition = getPosition(symbol);
+        if(futuresPosition != null && futuresPosition.getPosition() == io.runon.trading.strategy.Position.SHORT){
+            price = price.add(futuresPosition.getTradingPrice());
+        }
+
+        return price.subtract(price.multiply(fee));
+    }
+
+    @Override
+    public BigDecimal getAvailableSellPrice(String symbol) {
+        BigDecimal price = getCash();
+        FuturesPosition futuresPosition = getPosition(symbol);
+        if(futuresPosition != null && futuresPosition.getPosition() == io.runon.trading.strategy.Position.LONG){
+            price = price.add(futuresPosition.getTradingPrice());
+        }
+
+        return price.subtract(price.multiply(fee));
     }
 
     @Override
