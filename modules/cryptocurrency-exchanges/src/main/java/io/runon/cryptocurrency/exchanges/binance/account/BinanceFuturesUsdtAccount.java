@@ -103,7 +103,8 @@ public class BinanceFuturesUsdtAccount implements FuturesTradeAccount {
         BigDecimal price = getCash();
         FuturesPosition futuresPosition = getPosition(symbol);
         if(futuresPosition != null && futuresPosition.getPosition() == io.runon.trading.strategy.Position.SHORT){
-            price = price.add(futuresPosition.getTradingPrice());
+            //실제 구매가 다 안되는 경우를 발견해서 금액을 줄임
+            price = price.add(futuresPosition.getTradingPrice().multiply(new BigDecimal("0.9")));
         }
 
         return price.subtract(price.multiply(fee));
@@ -114,15 +115,29 @@ public class BinanceFuturesUsdtAccount implements FuturesTradeAccount {
         BigDecimal price = getCash();
         FuturesPosition futuresPosition = getPosition(symbol);
         if(futuresPosition != null && futuresPosition.getPosition() == io.runon.trading.strategy.Position.LONG){
-            price = price.add(futuresPosition.getTradingPrice());
+            //실제 구매가 다 안되는 경우를 발견해서 금액을 줄임
+            price = price.add(futuresPosition.getTradingPrice().multiply(new BigDecimal("0.9")));
         }
 
         return price.subtract(price.multiply(fee));
     }
 
-    @Override
-    public MarketPriceOrder marketPriceOrder(String symbol, Trade.Type type, BigDecimal cash) {
 
+    @Override
+    public MarketPriceOrder orderQuantity(String symbol, Trade.Type type, BigDecimal quantity) {
+        symbol = BinanceFuturesApis.getUsdtSymbol(symbol);
+        Order order = syncRequestClient.postOrder(symbol, OrderSide.valueOf(type.toString()), null,  OrderType.MARKET  , null,
+                quantity.toString(), null, null, null, null, null, NewOrderRespType.RESULT);
+        BigDecimal leverage = getLeverage(symbol);
+        MarketPriceOrderData marketPriceOrderData = new MarketPriceOrderData();
+        marketPriceOrderData.setTradeType(type);
+        marketPriceOrderData.setQuantity(order.getExecutedQty());
+        marketPriceOrderData.setTradePrice(BinanceFuturesApis.getTradePrice(order,2));
+        return marketPriceOrderData;
+    }
+
+    @Override
+    public MarketPriceOrder orderCash(String symbol, Trade.Type type, BigDecimal cash) {
         symbol = BinanceFuturesApis.getUsdtSymbol(symbol);
 
         ExchangeInformation exchangeInformation = syncRequestClient.getExchangeInformation();
@@ -141,8 +156,6 @@ public class BinanceFuturesUsdtAccount implements FuturesTradeAccount {
 
         Long quantityPrecision = symbolEntry.getQuantityPrecision();
         BigDecimal currentPrice = syncRequestClient.getMarkPrice(symbol).get(0).getMarkPrice();
-
-        BigDecimal leverage = getLeverage(symbol);
         BigDecimal quantity = cash.divide(currentPrice, quantityPrecision.intValue(), RoundingMode.DOWN);
         if(!(quantity.compareTo(BigDecimal.ZERO) > 0)){
 
@@ -151,20 +164,13 @@ public class BinanceFuturesUsdtAccount implements FuturesTradeAccount {
                 dividedNum = dividedNum.multiply(new BigDecimal(10));
             }
 
-            String message = "Binance Future [" + symbol + "] price '" + cash + "', leverage '" + leverage + "' is lower. min dollar is ["
+            String message = "Binance Future [" + symbol + "] price '" + cash + "' is lower. min dollar is ["
                     + currentPrice.divide(dividedNum, 2, RoundingMode.UP).stripTrailingZeros().toPlainString() +
                     "]";
             throw new MinOrderException(message);
         }
 
-        Order order = syncRequestClient.postOrder(symbol, OrderSide.valueOf(type.toString()), null,  OrderType.MARKET  , null,
-                quantity.toString(), null, null, null, null, null, NewOrderRespType.RESULT);
-
-        MarketPriceOrderData marketPriceOrderData = new MarketPriceOrderData();
-        marketPriceOrderData.setTradeType(type);
-        marketPriceOrderData.setQuantity(order.getExecutedQty());
-        marketPriceOrderData.setTradePrice(BinanceFuturesApis.getTradePrice(order,2));
-        return marketPriceOrderData;
+        return orderQuantity(symbol, type, quantity);
     }
 
     @Override
