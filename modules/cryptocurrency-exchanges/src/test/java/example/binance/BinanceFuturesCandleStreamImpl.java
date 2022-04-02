@@ -8,7 +8,6 @@ import io.runon.cryptocurrency.trading.service.DataStreamKeepAliveService;
  * 바이낸스 실시간 구현체 예제
  * @author macle
  */
-
 public class BinanceFuturesCandleStreamImpl extends BinanceFuturesCandleStream<CryptocurrencyCandleImpl> {
     /**
      * @param streamId 아이디 (자유지정, 중복안됨)

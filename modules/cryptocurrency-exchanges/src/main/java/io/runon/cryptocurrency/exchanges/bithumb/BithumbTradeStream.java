@@ -13,7 +13,6 @@ import org.json.JSONObject;
 
 /**
  * 빗썸 거래정보 수신
- * https://docs.upbit.com/docs/upbit-quotation-websocket
  * @author macle
  */
 @Slf4j
