@@ -12,11 +12,11 @@ repositories {
 
 dependencies {
 
-    implementation 'io.runon.trading:trading:0.2.2'
+    implementation 'io.runon.trading:trading:0.2.3'
     implementation 'com.seomse.commons:commons:1.2.9'
-    implementation 'io.runon.trading:technical-analysis:0.3.0'
+    implementation 'io.runon.trading:technical-analysis:0.3.1'
     implementation 'io.runon.commons:data-service:0.0.6'
-    implementation 'io.runon.trading:trading-data:0.1.1'
+    implementation 'io.runon.trading:trading-data:0.1.2'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.22'
 
