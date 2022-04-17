@@ -16,7 +16,7 @@ public class BinanceFuturesTradeStreamImpl  extends BinanceFuturesTradeStream<Cr
         return new CryptocurrencyTradeImpl(getMarketSymbol(cryptocurrencyId));
     }
     public static void main(String[] args) {
-        new BinanceTradeStreamImpl("binance_futures_trade").connect();
+        new BinanceFuturesTradeStreamImpl("binance_futures_trade").connect();
         new DataStreamKeepAliveService().start();
     }
 }
