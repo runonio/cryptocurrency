@@ -2,13 +2,22 @@ package io.runon.cryptocurrency.exchanges.binance;
 
 import com.seomse.commons.exception.IORuntimeException;
 import com.seomse.commons.utils.FileUtil;
-import com.seomse.commons.utils.time.Times;
+import com.seomse.commons.utils.string.Check;
 import com.seomse.crawling.core.http.HttpUrl;
+import io.runon.trading.CandleTimes;
 import io.runon.trading.technical.analysis.candle.TradeCandle;
 import org.json.JSONArray;
 
+import java.io.File;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+
 /**
  * 바이낸스 캔들 데이터
+ * https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md
+ * https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#klinecandlestick-data
  * @author macle
  */
 public class BinanceCandle {
@@ -117,18 +126,7 @@ public class BinanceCandle {
     public static void csv(String url, String outPath, String symbol, long time, long startTime, int count){
         int total = 0;
 
-        String interval ;
-        if(time < Times.HOUR_1){
-            interval = time/Times.MINUTE_1 +"m";
-        }else if(time < Times.DAY_1){
-            interval = time/Times.HOUR_1 +"h";
-        }else if(time < Times.WEEK_1){
-            interval = time/Times.DAY_1 +"d";
-        }else if(time < Times.WEEK_1*4){
-            interval = "1w";
-        }else{
-            interval = "1M";
-        }
+        String interval = CandleTimes.getInterval(time);
 
         outer:
         for(;;) {
@@ -171,6 +169,163 @@ public class BinanceCandle {
 //            long last
             //너무 잦은 호출을 하면 차단당할걸 염두해서 sleep 설정
             try{Thread.sleep(300);}catch(Exception ignore){}
+        }
+    }
+
+    /**
+     * 파일을 나누어서 저장한다
+     * 마지막 캔들정보는
+     * @param url 바이낸스 현물, 혹은 선물
+     * @param timeFormat 날짜형식 (전부숫자로만)
+     * @param zoneId 타임존
+     * @param outDirPath 파일 디렉토리 경로
+     * @param symbol 암호화폐 심볼
+     * @param time 시간갭 (1분 3분 5분) 유닉스 타임
+     */
+    public static void csvNext(String url, String timeFormat, ZoneId zoneId, String outDirPath, String symbol, long time){
+
+        File [] files = new File(outDirPath).listFiles();
+        if(files == null){
+            throw new IllegalArgumentException("file length 0 path check: " + outDirPath);
+        }
+
+        if(files.length == 0){
+            throw new IllegalArgumentException("file length 0 path check: " + outDirPath);
+        }
+
+        List<File> list = new ArrayList<>();
+
+        for(File file : files){
+            if(file.isDirectory()){
+                continue;
+            }
+            if(Check.isNumber(file.getName())){
+                list.add(file);
+            }
+        }
+
+        files = list.toArray(new File[0]);
+        FileUtil.sortToNameLong(files, false);
+
+        File lastFile = files[0];
+        String lastLine = FileUtil.getLastTextLine(lastFile);
+        int index = lastLine.indexOf(',');
+        long startOpenTime = Long.parseLong(lastLine.substring(0, index));
+        csvSplit(url, timeFormat, zoneId, outDirPath, symbol, time, startOpenTime);
+    }
+
+    //파일별로 나누어서 출력할때
+    /**
+     * 파일별로 나누어서 출력할때
+     * 한파일에 너무 많은 파일이 기록되는 경우를 방지
+     * 년 ,년월, 년월일, 년월일시  등으로 활용
+     * 단 전부 숫자로만 활용할것
+     * @param url 바이낸스 현물, 혹은 선물
+     * @param timeFormat 날짜형식 (전부숫자로만)
+     * @param zoneId 타임존
+     * @param outDirPath 파일 디렉토리 경로
+     * @param symbol 암호화폐 심볼
+     * @param time 시간갭 (1분 3분 5분) 유닉스 타임
+     * @param startOpenTime 시작 오픈 시간
+     */
+    @SuppressWarnings("BusyWait")
+    public static void csvSplit(String url, String timeFormat, ZoneId zoneId, String outDirPath, String symbol, long time, long startOpenTime){
+
+        String interval = CandleTimes.getInterval(time);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(timeFormat).withZone(zoneId);
+
+        if(!outDirPath.endsWith("/") || !outDirPath.endsWith("\\") ){
+            outDirPath = outDirPath +"/";
+        }
+
+        StringBuilder sb = null;
+        String lastOutPath = null;
+
+        outer:
+        for(;;) {
+            JSONArray array = new JSONArray(jsonArray(url, symbol, interval, startOpenTime, null, 1000));
+            int length = array.length();
+
+            if(length == 0){
+                break;
+            }
+
+            for (int i = 0; i < length; i++) {
+                JSONArray data = array.getJSONArray(i);
+
+                long openTime = data.getLong(0);
+                long nextTime = openTime + time;
+
+                if(startOpenTime == nextTime){
+                    break outer;
+                }
+
+                Instant instant = Instant.ofEpochMilli(openTime);
+                String outPath = outDirPath + formatter.format(instant);
+
+                if(lastOutPath == null || !lastOutPath.equals(outPath)){
+
+                    if(sb != null){
+
+
+                        FileUtil.fileOutput(sb.toString(), lastOutPath, false);
+                        sb.setLength(0);
+                    }
+
+                    lastOutPath = outPath;
+                    sb = null;
+                }
+
+                if(sb == null){
+                    sb = new StringBuilder();
+
+                    List<String> lineList = Collections.emptyList();
+                    if(FileUtil.isFile(outPath)){
+                        lineList = FileUtil.getFileContentsList(new File(outPath), "UTF-8");
+                    }
+
+                    int size = lineList.size();
+
+                    if(size == 0){
+                        sb.append(getCsv(data));
+                    }else{
+
+                        String line = lineList.get(0);
+                        int index = line.indexOf(',');
+                        long csvOpenTime = Long.parseLong(line.substring(0, index));
+
+                        if (csvOpenTime >= openTime) {
+                            //파일에 내용을 전부 다시 써야함
+                            sb.append(getCsv(data));
+                        }else{
+                            sb.append(line);
+                            for (int j = 1; j < size ; j++) {
+                                line = lineList.get(j);
+                                index = line.indexOf(',');
+                                csvOpenTime = Long.parseLong(line.substring(0, index));
+                                if (csvOpenTime >= openTime) {
+                                    break;
+                                }
+                                sb.append("\n").append(line);
+                            }
+                            sb.append("\n").append(getCsv(data));
+                        }
+
+                        lineList.clear();
+                    }
+                }else{
+                    sb.append("\n").append(getCsv(data));
+                }
+                startOpenTime = nextTime;
+            }
+
+            //너무 잦은 호출을 하면 차단당할걸 염두해서 sleep 설정
+            try{Thread.sleep(300);}catch(Exception ignore){}
+        }
+
+        if(sb != null && sb.length() > 0){
+            FileUtil.fileOutput(sb.toString(), lastOutPath, false);
         }
     }
 
@@ -218,25 +373,7 @@ public class BinanceCandle {
         JSONArray array = new JSONArray(jsonArray(url, symbol, interval, startTime,endTime, limit));
         TradeCandle [] candles = new TradeCandle[array.length()];
 
-        long candleTime ;
-
-        char timeUnit = interval.charAt(interval.length()-1);
-        String timeNumber = interval.substring(0, interval.length()-1);
-        if(timeUnit == 'm'){
-            candleTime = Times.MINUTE_1 * Long.parseLong(timeNumber);
-        }else if(timeUnit == 'h'){
-            candleTime = Times.HOUR_1 * Long.parseLong(timeNumber);
-        }else if(timeUnit == 'd'){
-            candleTime = Times.DAY_1 * Long.parseLong(timeNumber);
-        }else if(timeUnit == 'w'){
-            candleTime = Times.WEEK_1 * Long.parseLong(timeNumber);
-        }else if(timeUnit == 'M'){
-            //1달부터는 지원하지 않음
-            throw new IllegalArgumentException("interval error: " + interval);
-        }else{
-            throw new IllegalArgumentException("interval error: " + interval);
-        }
-
+        long candleTime = CandleTimes.getIntervalTime(interval);
 
         for (int i = 0; i < candles.length ; i++) {
             JSONArray data = array.getJSONArray(i);
@@ -295,4 +432,9 @@ public class BinanceCandle {
         csv(url, inPath, symbol, time, startTime, Integer.MAX_VALUE);
     }
 
+
+    public static void main(String[] args) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd hh:mm:ss").withZone(ZoneId.of("Asia/Seoul"));
+        System.out.println(formatter.format(Instant.ofEpochMilli(System.currentTimeMillis())));
+    }
 }
