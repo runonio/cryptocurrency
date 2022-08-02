@@ -36,7 +36,7 @@ public class HoubiExchange {
         return marketSymbol;
     }
 
-    public MarketTicker[] getTickers(){
+    public static MarketTicker[] getTickers(){
         List<MarketTicker> usdtList = new ArrayList<>();
 
         List<MarketTicker> marketTickerList = MarketClient.create(new HuobiOptions()).getTickers();
