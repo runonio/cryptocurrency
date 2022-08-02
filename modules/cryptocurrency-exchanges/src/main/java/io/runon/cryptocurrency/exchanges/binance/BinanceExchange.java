@@ -46,15 +46,15 @@ public class BinanceExchange {
      * example [{"symbol":"ETHBTC","price":"0.06529800"},{"symbol":"LTCBTC","price":"0.00287900"}]
      * @return json array
      */
-    public String getTickers() {
+    public static String getTickers() {
         return HttpUrl.get("https://api.binance.com/api/v1/ticker/allPrices");
     }
 
-    public List<MarkPrice> getFuturesTickers() {
+    public static List<MarkPrice> getFuturesTickers() {
         return getFuturesTickers("");
     }
 
-    public List<MarkPrice> getFuturesTickers(String symbol) {
+    public static List<MarkPrice> getFuturesTickers(String symbol) {
         return SyncRequestClient.create().getMarkPrice(symbol);
     }
 
