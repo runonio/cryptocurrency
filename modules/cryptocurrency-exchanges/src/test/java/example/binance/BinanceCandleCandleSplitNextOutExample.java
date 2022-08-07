@@ -3,8 +3,6 @@ package example.binance;
 import com.seomse.commons.utils.time.Times;
 import io.runon.cryptocurrency.exchanges.binance.BinanceCandle;
 
-import java.time.ZoneId;
-
 /**
  * 바이낸스 캔들 출력 예제
  * 마지막 캔들정보가 오차되는 문제 해결
@@ -13,7 +11,7 @@ import java.time.ZoneId;
 public class BinanceCandleCandleSplitNextOutExample {
 
     public static void main(String[] args) {
-        BinanceCandle.csvNext(BinanceCandle.FUTURES_CANDLE, "yyyyMM", ZoneId.of("Asia/Seoul"), "data/candle","BTCUSDT", Times.MINUTE_1);
-
+//        Config.setConfig("cryptocurrency.candle.dir.path","data/cryptocurrency/candle");
+        BinanceCandle.csvNext(BinanceCandle.FUTURES_CANDLE, "BTCUSDT" , Times.MINUTE_1);
     }
 }

@@ -1,5 +1,6 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
+import com.seomse.commons.config.Config;
 import com.seomse.commons.exception.IORuntimeException;
 import com.seomse.commons.utils.FileUtil;
 import com.seomse.commons.utils.string.Check;
@@ -13,6 +14,7 @@ import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import io.runon.trading.data.csv.CsvTimeName;
 
 /**
  * 바이낸스 캔들 데이터
@@ -172,17 +174,26 @@ public class BinanceCandle {
         }
     }
 
+
+    public static void csvNext(String url, String symbol, long candleTime){
+        if(url.startsWith(BinanceFuturesApis.URL)){
+            csvNext(url, symbol, candleTime,  CandleTimes.US_STOCK_ZONE_ID, Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle"));
+        }else{
+            csvNext(url, symbol, candleTime,  CandleTimes.US_STOCK_ZONE_ID, Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle"));
+        }
+    }
+
     /**
      * 파일을 나누어서 저장한다
      * 마지막 캔들정보는
      * @param url 바이낸스 현물, 혹은 선물
-     * @param timeFormat 날짜형식 (전부숫자로만)
+     * @param symbol 암호화폐 심볼
+     * @param candleTime 캔들 시간갭 (1분 3분 5분) 유닉스 타임
      * @param zoneId 타임존
      * @param outDirPath 파일 디렉토리 경로
-     * @param symbol 암호화폐 심볼
-     * @param time 시간갭 (1분 3분 5분) 유닉스 타임
+
      */
-    public static void csvNext(String url, String timeFormat, ZoneId zoneId, String outDirPath, String symbol, long time){
+    public static void csvNext(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath){
 
         File [] files = new File(outDirPath).listFiles();
         if(files == null){
@@ -211,7 +222,15 @@ public class BinanceCandle {
         String lastLine = FileUtil.getLastTextLine(lastFile);
         int index = lastLine.indexOf(',');
         long startOpenTime = Long.parseLong(lastLine.substring(0, index));
-        csvSplit(url, timeFormat, zoneId, outDirPath, symbol, time, startOpenTime);
+        csvSplit(url, symbol, candleTime, zoneId, outDirPath, startOpenTime);
+    }
+    public static void csvSplit(String url, String symbol, long candleTime, long startOpenTime) {
+        if(url.startsWith(BinanceFuturesApis.URL)){
+            csvSplit(url, symbol, candleTime, CandleTimes.US_STOCK_ZONE_ID,  Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle"), startOpenTime);
+        }else{
+            csvSplit(url, symbol, candleTime, CandleTimes.US_STOCK_ZONE_ID, Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle"), startOpenTime);
+        }
+
     }
 
     //파일별로 나누어서 출력할때
@@ -221,22 +240,27 @@ public class BinanceCandle {
      * 년 ,년월, 년월일, 년월일시  등으로 활용
      * 단 전부 숫자로만 활용할것
      * @param url 바이낸스 현물, 혹은 선물
-     * @param timeFormat 날짜형식 (전부숫자로만)
      * @param zoneId 타임존
      * @param outDirPath 파일 디렉토리 경로
      * @param symbol 암호화폐 심볼
-     * @param time 시간갭 (1분 3분 5분) 유닉스 타임
+     * @param candleTime 시간갭 (1분 3분 5분) 유닉스 타임
      * @param startOpenTime 시작 오픈 시간
      */
     @SuppressWarnings("BusyWait")
-    public static void csvSplit(String url, String timeFormat, ZoneId zoneId, String outDirPath, String symbol, long time, long startOpenTime){
+    public static void csvSplit(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime){
 
-        String interval = CandleTimes.getInterval(time);
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(timeFormat).withZone(zoneId);
+        String interval = CandleTimes.getInterval(candleTime);
 
         if(!outDirPath.endsWith("/") || !outDirPath.endsWith("\\") ){
             outDirPath = outDirPath +"/";
+        }
+
+        outDirPath = outDirPath + symbol + "/" + interval +"/";
+
+        File dirFile = new File(outDirPath);
+        if(!dirFile.isDirectory()){
+            //noinspection ResultOfMethodCallIgnored
+            dirFile.mkdirs();
         }
 
         StringBuilder sb = null;
@@ -255,14 +279,12 @@ public class BinanceCandle {
                 JSONArray data = array.getJSONArray(i);
 
                 long openTime = data.getLong(0);
-                long nextTime = openTime + time;
+                long nextTime = openTime + candleTime;
 
                 if(startOpenTime == nextTime){
                     break outer;
                 }
-
-                Instant instant = Instant.ofEpochMilli(openTime);
-                String outPath = outDirPath + formatter.format(instant);
+                String outPath = outDirPath + CsvTimeName.getName(openTime, candleTime, zoneId);
 
                 if(lastOutPath == null || !lastOutPath.equals(outPath)){
 
@@ -321,7 +343,7 @@ public class BinanceCandle {
             }
 
             //너무 잦은 호출을 하면 차단당할걸 염두해서 sleep 설정
-            try{Thread.sleep(300);}catch(Exception ignore){}
+            try{Thread.sleep(Config.getLong("binance.candle.collect.sleep.time", 300L));}catch(Exception ignore){}
         }
 
         if(sb != null && sb.length() > 0){
@@ -433,8 +455,4 @@ public class BinanceCandle {
     }
 
 
-    public static void main(String[] args) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd hh:mm:ss").withZone(ZoneId.of("Asia/Seoul"));
-        System.out.println(formatter.format(Instant.ofEpochMilli(System.currentTimeMillis())));
-    }
 }
