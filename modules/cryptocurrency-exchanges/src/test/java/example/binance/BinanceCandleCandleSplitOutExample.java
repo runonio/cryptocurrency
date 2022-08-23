@@ -12,6 +12,6 @@ import io.runon.cryptocurrency.exchanges.binance.BinanceCandle;
 public class BinanceCandleCandleSplitOutExample {
 
     public static void main(String[] args) {
-        BinanceCandle.csvSplit(BinanceCandle.CANDLE,"BTCUSDT", Times.HOUR_4, YmdUtil.getTime("20220101"));
+        BinanceCandle.csvSplit(BinanceCandle.CANDLE,"BTCUSDT", Times.MINUTE_1, YmdUtil.getTime("20220101"));
     }
 }

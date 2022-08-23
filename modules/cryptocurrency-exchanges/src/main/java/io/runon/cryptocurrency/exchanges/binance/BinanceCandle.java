@@ -3,18 +3,17 @@ package io.runon.cryptocurrency.exchanges.binance;
 import com.seomse.commons.config.Config;
 import com.seomse.commons.exception.IORuntimeException;
 import com.seomse.commons.utils.FileUtil;
-import com.seomse.commons.utils.string.Check;
 import com.seomse.crawling.core.http.HttpUrl;
 import io.runon.trading.CandleTimes;
+import io.runon.trading.data.csv.CsvCommon;
+import io.runon.trading.data.csv.CsvTimeName;
 import io.runon.trading.technical.analysis.candle.TradeCandle;
 import org.json.JSONArray;
 
 import java.io.File;
-import java.time.Instant;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-import io.runon.trading.data.csv.CsvTimeName;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 바이낸스 캔들 데이터
@@ -170,16 +169,16 @@ public class BinanceCandle {
             }
 //            long last
             //너무 잦은 호출을 하면 차단당할걸 염두해서 sleep 설정
-            try{Thread.sleep(300);}catch(Exception ignore){}
+            try{Thread.sleep(Config.getLong("binance.candle.collect.sleep.time", 300L));}catch(Exception ignore){}
         }
     }
 
 
-    public static void csvNext(String url, String symbol, long candleTime){
+    public static void csvNext(String url, String symbol, long candleTime, long startOpenTime){
         if(url.startsWith(BinanceFuturesApis.URL)){
-            csvNext(url, symbol, candleTime,  CandleTimes.US_STOCK_ZONE_ID, Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle"));
+            csvNext(url, symbol, candleTime,  CandleTimes.US_STOCK_ZONE_ID, Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle"), startOpenTime);
         }else{
-            csvNext(url, symbol, candleTime,  CandleTimes.US_STOCK_ZONE_ID, Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle"));
+            csvNext(url, symbol, candleTime,  CandleTimes.US_STOCK_ZONE_ID, Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle"), startOpenTime);
         }
     }
 
@@ -191,39 +190,17 @@ public class BinanceCandle {
      * @param candleTime 캔들 시간갭 (1분 3분 5분) 유닉스 타임
      * @param zoneId 타임존
      * @param outDirPath 파일 디렉토리 경로
-
      */
-    public static void csvNext(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath){
-
-        File [] files = new File(outDirPath).listFiles();
-        if(files == null){
-            throw new IllegalArgumentException("file length 0 path check: " + outDirPath);
+    public static void csvNext(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime){
+        long lastOpenTime = CsvCommon.getLastOpenTime(outDirPath);
+        if(lastOpenTime == -1){
+            csvSplit(url, symbol, candleTime, zoneId, outDirPath, startOpenTime);
+        }else{
+            csvSplit(url, symbol, candleTime, zoneId, outDirPath, lastOpenTime);
         }
-
-        if(files.length == 0){
-            throw new IllegalArgumentException("file length 0 path check: " + outDirPath);
-        }
-
-        List<File> list = new ArrayList<>();
-
-        for(File file : files){
-            if(file.isDirectory()){
-                continue;
-            }
-            if(Check.isNumber(file.getName())){
-                list.add(file);
-            }
-        }
-
-        files = list.toArray(new File[0]);
-        FileUtil.sortToNameLong(files, false);
-
-        File lastFile = files[0];
-        String lastLine = FileUtil.getLastTextLine(lastFile);
-        int index = lastLine.indexOf(',');
-        long startOpenTime = Long.parseLong(lastLine.substring(0, index));
-        csvSplit(url, symbol, candleTime, zoneId, outDirPath, startOpenTime);
     }
+
+
     public static void csvSplit(String url, String symbol, long candleTime, long startOpenTime) {
         if(url.startsWith(BinanceFuturesApis.URL)){
             csvSplit(url, symbol, candleTime, CandleTimes.US_STOCK_ZONE_ID,  Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle"), startOpenTime);
