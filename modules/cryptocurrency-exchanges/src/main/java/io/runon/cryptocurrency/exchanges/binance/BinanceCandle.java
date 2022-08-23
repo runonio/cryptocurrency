@@ -192,7 +192,8 @@ public class BinanceCandle {
      * @param outDirPath 파일 디렉토리 경로
      */
     public static void csvNext(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime){
-        long lastOpenTime = CsvCommon.getLastOpenTime(outDirPath);
+
+        long lastOpenTime = CsvCommon.getLastOpenTime(outDirPath +"/" + symbol + "/" + CandleTimes.getInterval(candleTime));
         if(lastOpenTime == -1){
             csvSplit(url, symbol, candleTime, zoneId, outDirPath, startOpenTime);
         }else{
@@ -352,8 +353,6 @@ public class BinanceCandle {
         if(limit != null){
             queryBuilder.append("&limit=").append(limit);
         }
-
-
         return HttpUrl.get(queryBuilder.toString());
     }
 
