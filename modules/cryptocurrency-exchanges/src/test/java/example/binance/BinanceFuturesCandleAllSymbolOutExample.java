@@ -2,6 +2,7 @@ package example.binance;
 
 import com.seomse.commons.config.Config;
 import com.seomse.commons.utils.time.YmdUtil;
+import io.runon.cryptocurrency.exchanges.binance.BinanceExchange;
 import io.runon.cryptocurrency.exchanges.binance.BinanceFuturesCandleOut;
 import io.runon.trading.CandleTimes;
 
@@ -23,7 +24,7 @@ public class BinanceFuturesCandleAllSymbolOutExample {
         String [] intervals = {"1m","5m","15m","1h","4h","1d"};
 
         BinanceFuturesCandleOut candleOut = new BinanceFuturesCandleOut();
-        candleOut.setSymbolsMarket(markets);
+        candleOut.setSymbolsMarket(markets, BinanceExchange.getSymbolRankingMap());
         candleOut.setIntervals(intervals);
         candleOut.setStartOpenTime(startTime);
         candleOut.setZoneId(CandleTimes.US_STOCK_ZONE_ID);

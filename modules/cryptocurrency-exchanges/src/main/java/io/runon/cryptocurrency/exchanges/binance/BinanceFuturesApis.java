@@ -16,6 +16,7 @@ import java.util.Objects;
 
 /**
  * 바이낸스 선물 api 에서 활용될 유틸관련 메소드 모음
+ * binance-docs.github.io/apidocs/futures/en/
  * @author macle
  */
 public class BinanceFuturesApis {

@@ -16,7 +16,5 @@ public class BinanceAllSymbols {
             JSONObject object = jsonArray.getJSONObject(i);
             System.out.println(object.getString("symbol"));
         }
-
-
     }
 }
