@@ -32,20 +32,41 @@ public class BinanceFuturesCandleOut  extends CandleOut {
         return allSymbols;
     }
 
+    private int tryMaxCount =10;
+
+    public void setTryMaxCount(int tryMaxCount) {
+        this.tryMaxCount = tryMaxCount;
+    }
 
     public void out(){
         log.info("symbol length: " + symbols.length);
         for(String symbol : symbols){
             for(long candleTime : candleTimes){
+                int tryCount = 0;
+
                 for(;;){
+                    if(tryCount >= tryMaxCount){
+                        log.error("symbol try over error : " + symbol + ", interval: " + CandleTimes.getInterval(candleTime)+ ", try count: " + tryCount);
+                        break;
+                    }
+
                     try {
-                        log.info("start symbol: " + symbol + ", interval: " + CandleTimes.getInterval(candleTime));
+                        log.info("start symbol: " + symbol + ", interval: " + CandleTimes.getInterval(candleTime) +", try count: " + ++tryCount);
                         BinanceCandle.csvNext(BinanceCandle.FUTURES_CANDLE, symbol, candleTime, zoneId, outDirPath, startOpenTime);
                         break;
+                    }catch (com.seomse.commons.exception.ConnectRuntimeException e){
+
+                        if(tryCount > 5){
+                            try{//noinspection BusyWait
+                                Thread.sleep(Times.MINUTE_15);}catch (Exception ignore){}
+                        }else{
+                            try{//noinspection BusyWait
+                                Thread.sleep(Times.MINUTE_5);}catch (Exception ignore){}
+                        }
+
                     }catch (Exception e){
                         log.error(ExceptionUtil.getStackTrace(e));
-                        try{//noinspection BusyWait
-                            Thread.sleep(Times.MINUTE_5);}catch (Exception ignore){}
+                        break;
                     }
                 }
 
