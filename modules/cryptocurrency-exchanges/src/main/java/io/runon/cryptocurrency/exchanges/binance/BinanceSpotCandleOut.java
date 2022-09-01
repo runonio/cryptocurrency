@@ -60,6 +60,11 @@ public class BinanceSpotCandleOut extends CandleOut {
                         break;
                     }catch (com.seomse.commons.exception.ConnectRuntimeException e){
 
+                        if(tryCount > 10){
+                            log.error("candle out error symbol: " + symbol + ", interval: " + CandleTimes.getInterval(candleTime) +", try count: " +tryCount);
+                            break;
+                        }
+
                         if(tryCount > 5){
                             try{//noinspection BusyWait
                                 Thread.sleep(Times.MINUTE_15);}catch (Exception ignore){}
