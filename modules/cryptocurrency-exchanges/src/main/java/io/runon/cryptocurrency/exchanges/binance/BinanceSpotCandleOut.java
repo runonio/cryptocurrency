@@ -7,6 +7,7 @@ import io.runon.cryptocurrency.trading.CandleOut;
 import io.runon.trading.CandleTimes;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -58,7 +59,12 @@ public class BinanceSpotCandleOut extends CandleOut {
                         log.info("start symbol: " + symbol + ", interval: " + CandleTimes.getInterval(candleTime) +", try count: " + ++tryCount);
                         BinanceCandle.csvNext(BinanceCandle.CANDLE, symbol, candleTime, zoneId, outDirPath, startOpenTime);
                         break;
-                    }catch (com.seomse.commons.exception.ConnectRuntimeException e){
+                    }catch (com.seomse.commons.exception.IORuntimeException | JSONException e){
+
+                        if(tryCount > 10){
+                            log.error("candle out error symbol: " + symbol + ", interval: " + CandleTimes.getInterval(candleTime) +", try count: " +tryCount);
+                            break;
+                        }
 
                         if(tryCount > 5){
                             try{//noinspection BusyWait

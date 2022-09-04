@@ -2,11 +2,13 @@ package io.runon.cryptocurrency.exchanges.binance;
 
 import com.binance.client.model.market.MarkPrice;
 import com.seomse.commons.config.Config;
+import com.seomse.commons.exception.IORuntimeException;
 import com.seomse.commons.utils.ExceptionUtil;
 import com.seomse.commons.utils.time.Times;
 import io.runon.cryptocurrency.trading.CandleOut;
 import io.runon.trading.CandleTimes;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONException;
 
 import java.util.List;
 
@@ -54,7 +56,12 @@ public class BinanceFuturesCandleOut  extends CandleOut {
                         log.info("start symbol: " + symbol + ", interval: " + CandleTimes.getInterval(candleTime) +", try count: " + ++tryCount);
                         BinanceCandle.csvNext(BinanceCandle.FUTURES_CANDLE, symbol, candleTime, zoneId, outDirPath, startOpenTime);
                         break;
-                    }catch (com.seomse.commons.exception.ConnectRuntimeException e){
+                    }catch (IORuntimeException | JSONException e){
+
+                        if(tryCount > 10){
+                            log.error("candle out error symbol: " + symbol + ", interval: " + CandleTimes.getInterval(candleTime) +", try count: " +tryCount);
+                            break;
+                        }
 
                         if(tryCount > 5){
                             try{//noinspection BusyWait
@@ -64,7 +71,7 @@ public class BinanceFuturesCandleOut  extends CandleOut {
                                 Thread.sleep(Times.MINUTE_5);}catch (Exception ignore){}
                         }
 
-                    }catch (Exception e){
+                    } catch (Exception e){
                         log.error(ExceptionUtil.getStackTrace(e));
                         break;
                     }
