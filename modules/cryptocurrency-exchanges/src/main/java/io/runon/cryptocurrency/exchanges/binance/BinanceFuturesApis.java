@@ -85,15 +85,6 @@ public class BinanceFuturesApis {
         return symbolPosition;
     }
 
-    public static String getUsdtSymbol(String symbol){
-        if(!symbol.endsWith("USDT")){
-            symbol = symbol.toUpperCase();
-            if(!symbol.endsWith("USDT")){
-                symbol = symbol + "USDT";
-            }
-        }
-        return symbol;
-    }
 
     public static FuturesPosition getPosition(String symbol, AccountInformation accountInformation) {
 
