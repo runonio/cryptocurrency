@@ -145,4 +145,14 @@ public class BinanceExchange {
         return SyncRequestClient.create().getMarkPrice(symbol);
     }
 
+    public static String getSymbolMarket(String symbol, String market){
+        if(!symbol.endsWith(market)){
+            symbol = symbol.toUpperCase();
+            if(!symbol.endsWith(market)){
+                symbol = symbol + market;
+            }
+        }
+        return symbol;
+    }
+
 }
