@@ -21,7 +21,7 @@ public class BinanceFuturesCandleAllSymbolOutExample {
         long startTime = YmdUtil.getTime("20180101", CandleTimes.US_STOCK_ZONE_ID);
 
         String [] markets = {"USDT","BUSD"};
-        String [] intervals = {"1m","5m","15m","1h","4h","1d"};
+        String [] intervals = {"1m","5m","15m","1h","4h","6h","1d"};
 
         BinanceFuturesCandleOut candleOut = new BinanceFuturesCandleOut();
         candleOut.setSymbolsMarket(markets, BinanceExchange.getSymbolRankingMap());
