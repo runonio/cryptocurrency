@@ -36,7 +36,7 @@ public abstract class CandleOut {
         this.outDirPath = outDirPath;
     }
 
-    protected ZoneId zoneId = CandleTimes.US_STOCK_ZONE_ID;
+    protected ZoneId zoneId = CandleTimes.UTC_ZONE_ID;
 
     public void setZoneId(ZoneId zoneId) {
         this.zoneId = zoneId;

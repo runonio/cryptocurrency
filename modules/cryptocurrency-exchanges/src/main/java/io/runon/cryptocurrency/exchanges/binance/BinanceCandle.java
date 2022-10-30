@@ -176,9 +176,9 @@ public class BinanceCandle {
 
     public static void csvNext(String url, String symbol, long candleTime, long startOpenTime){
         if(url.startsWith(BinanceFuturesApis.URL)){
-            csvNext(url, symbol, candleTime,  CandleTimes.US_STOCK_ZONE_ID, Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle"), startOpenTime);
+            csvNext(url, symbol, candleTime,  CandleTimes.UTC_ZONE_ID, Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle"), startOpenTime);
         }else{
-            csvNext(url, symbol, candleTime,  CandleTimes.US_STOCK_ZONE_ID, Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle"), startOpenTime);
+            csvNext(url, symbol, candleTime,  CandleTimes.UTC_ZONE_ID, Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle"), startOpenTime);
         }
     }
 
@@ -204,9 +204,9 @@ public class BinanceCandle {
 
     public static void csvSplit(String url, String symbol, long candleTime, long startOpenTime) {
         if(url.startsWith(BinanceFuturesApis.URL)){
-            csvSplit(url, symbol, candleTime, CandleTimes.US_STOCK_ZONE_ID,  Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle"), startOpenTime);
+            csvSplit(url, symbol, candleTime, CandleTimes.UTC_ZONE_ID,  Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle"), startOpenTime);
         }else{
-            csvSplit(url, symbol, candleTime, CandleTimes.US_STOCK_ZONE_ID, Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle"), startOpenTime);
+            csvSplit(url, symbol, candleTime, CandleTimes.UTC_ZONE_ID, Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle"), startOpenTime);
         }
 
     }
