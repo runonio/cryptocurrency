@@ -225,4 +225,8 @@ public class BinanceFuturesApis {
         return HttpUrl.get(sb.toString());
     }
 
+    public static String getOrderBook(String symbol){
+        return HttpUrl.get(URL + "/fapi/v1/depth?symbol=" + symbol);
+    }
+
 }
