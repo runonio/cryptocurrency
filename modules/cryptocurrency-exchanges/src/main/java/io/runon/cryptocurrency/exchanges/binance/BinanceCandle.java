@@ -65,7 +65,7 @@ public class BinanceCandle {
 //  ]
 //]
 
-    public static final String CANDLE = "https://api.binance.com/api/v3/klines?symbol=%s&interval=%s";
+    public static final String CANDLE = BinanceSpotApis.URL + "/api/v3/klines?symbol=%s&interval=%s";
     public static final String FUTURES_CANDLE = BinanceFuturesApis.URL +"/fapi/v1/klines?symbol=%s&interval=%s";
 
     /**

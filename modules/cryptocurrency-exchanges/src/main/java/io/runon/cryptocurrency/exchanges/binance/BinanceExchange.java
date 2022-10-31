@@ -55,14 +55,14 @@ public class BinanceExchange {
      * @return json array
      */
     public static String getTickers() {
-        return HttpUrl.get("https://api.binance.com/api/v3/ticker/price");
+        return HttpUrl.get(BinanceSpotApis.URL + "/api/v3/ticker/price");
     }
 
     /**
      * @return json array
      */
     public static String getTickers24h() {
-        return HttpUrl.get("https://api.binance.com/api/v3/ticker/24hr");
+        return HttpUrl.get(BinanceSpotApis.URL + "/api/v3/ticker/24hr");
     }
 
     /**
