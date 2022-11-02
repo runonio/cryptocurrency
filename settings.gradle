@@ -4,5 +4,8 @@ findProject(':modules:cryptocurrency-exchanges')?.name = 'cryptocurrency-exchang
 include 'modules:cryptocurrency-trading'
 findProject(':modules:cryptocurrency-trading')?.name = 'cryptocurrency-trading'
 
-include ':technical-analysis'
-project(':technical-analysis').projectDir = new File(settingsDir,'../../runon/trading/modules/technical-analysis')
+//include ':technical-analysis'
+//project(':technical-analysis').projectDir = new File(settingsDir,'../../runon/trading/modules/technical-analysis')
+
+//include ':trading-data'
+//project(':trading-data').projectDir = new File(settingsDir,'../../runon/trading/modules/trading-data')

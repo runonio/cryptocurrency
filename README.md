@@ -16,9 +16,9 @@ implementation 'io.runon.cryptocurrency:cryptocurrency-exchanges:0.4.5'
 - etc
   - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-exchanges/0.4.5
 
-implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.5'
+implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.6'
 - etc
-  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-trading/0.1.5
+  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-trading/0.1.6
 
 # communication
 ### blog, homepage

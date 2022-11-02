@@ -2,6 +2,9 @@ package io.runon.cryptocurrency.exchanges.binance;
 
 import com.binance.client.SyncRequestClient;
 import com.binance.client.model.market.MarkPrice;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.seomse.crawling.core.http.HttpUrl;
 import io.runon.cryptocurrency.trading.MarketSymbol;
 import io.runon.cryptocurrency.trading.exception.IdNotPatternException;
@@ -153,6 +156,61 @@ public class BinanceExchange {
             }
         }
         return symbol;
+    }
+
+    //asks 매도호가 (매도가격)
+    //bids 매수호가 (매수가격)
+
+
+    /**
+     * 표준 저장용 json 으로 변경
+     * @param binanceOrderBookJson 바이낸스 order book (현물 선물 공통)
+     * @return 표준 저장용 json
+     */
+    public static String getOrderBookLine(String binanceOrderBookJson){
+        return getOrderBookLine(new JSONObject(binanceOrderBookJson));
+    }
+
+    public static String getOrderBookLine(JSONObject binanceOrderBookJson ){
+        long time = System.currentTimeMillis();
+
+        JSONArray askArray = binanceOrderBookJson.getJSONArray("asks");
+
+        JsonArray asks = new JsonArray();
+        for (int i = 0; i < askArray.length() ; i++) {
+            //가격과 수량
+            JSONArray pq = askArray.getJSONArray(i);
+
+            JsonArray ask = new JsonArray();
+            ask.add(pq.getBigDecimal(0).stripTrailingZeros().toPlainString());
+            ask.add(pq.getBigDecimal(1).stripTrailingZeros().toPlainString());
+            asks.add(ask);
+        }
+
+        JSONArray bidArray = binanceOrderBookJson.getJSONArray("bids");
+        JsonArray bids = new JsonArray();
+        for (int i = 0; i < bidArray.length() ; i++) {
+            //가격과 수량
+            JSONArray pq = bidArray.getJSONArray(i);
+
+            JsonArray bid = new JsonArray();
+            bid.add(pq.getBigDecimal(0).stripTrailingZeros().toPlainString());
+            bid.add(pq.getBigDecimal(1).stripTrailingZeros().toPlainString());
+            bids.add(bid);
+        }
+
+
+        JsonObject outObj = new JsonObject();
+        outObj.addProperty("t", time);
+        outObj.add("asks", asks);
+        outObj.add("bids", bids);
+        outObj.addProperty("update_id", binanceOrderBookJson.getLong("lastUpdateId"));
+
+        return new Gson().toJson(outObj);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getOrderBookLine(BinanceFuturesApis.getOrderBook("BTCUSDT")));
     }
 
 }

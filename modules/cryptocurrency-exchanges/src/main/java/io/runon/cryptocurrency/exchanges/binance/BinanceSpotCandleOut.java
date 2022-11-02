@@ -6,9 +6,7 @@ import com.seomse.commons.utils.time.Times;
 import io.runon.cryptocurrency.trading.CandleOut;
 import io.runon.trading.CandleTimes;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * 바이낸스 캔들 데이터
@@ -19,22 +17,12 @@ public class BinanceSpotCandleOut extends CandleOut {
 
 
     public BinanceSpotCandleOut(){
-        outDirPath =  Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/futures/candle");
+        outDirPath =  Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle");
     }
 
     @Override
     public String[] getAllSymbols() {
-        String jsonValue = BinanceExchange.getTickers();
-        JSONArray jsonArray = new JSONArray(jsonValue);
-
-        String [] allSymbols = new String[jsonArray.length()];
-
-        int length = jsonArray.length();
-        for (int i = 0; i < length ; i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            allSymbols[i] = jsonObject.getString("symbol");
-        }
-        return allSymbols;
+        return BinanceSpotApis.getAllSymbols();
     }
 
     private int tryMaxCount =10;
