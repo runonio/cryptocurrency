@@ -1,6 +1,5 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
-import com.binance.client.model.market.MarkPrice;
 import com.seomse.commons.config.Config;
 import com.seomse.commons.exception.IORuntimeException;
 import com.seomse.commons.utils.ExceptionUtil;
@@ -9,8 +8,6 @@ import io.runon.cryptocurrency.trading.CandleOut;
 import io.runon.trading.CandleTimes;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
-
-import java.util.List;
 
 /**
  * 바이낸스 캔들 데이터
@@ -25,13 +22,7 @@ public class BinanceFuturesCandleOut  extends CandleOut {
     }
     @Override
     public String[] getAllSymbols() {
-        List<MarkPrice> list = BinanceExchange.getFuturesTickers();
-        String [] allSymbols = new String[list.size()];
-
-        for (int i = 0; i <allSymbols.length ; i++) {
-            allSymbols[i] = list.get(i).getSymbol();
-        }
-        return allSymbols;
+        return BinanceFuturesApis.getAllSymbols();
     }
 
     private int tryMaxCount =10;

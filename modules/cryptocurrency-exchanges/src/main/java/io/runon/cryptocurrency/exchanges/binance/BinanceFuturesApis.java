@@ -1,5 +1,6 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
+import com.binance.client.model.market.MarkPrice;
 import com.binance.client.model.trade.AccountInformation;
 import com.binance.client.model.trade.Asset;
 import com.binance.client.model.trade.Order;
@@ -227,6 +228,21 @@ public class BinanceFuturesApis {
 
     public static String getOrderBook(String symbol){
         return HttpUrl.get(URL + "/fapi/v1/depth?symbol=" + symbol);
+    }
+
+
+    public static String[] getAllSymbols() {
+        List<MarkPrice> list = BinanceExchange.getFuturesTickers();
+        String [] allSymbols = new String[list.size()];
+
+        for (int i = 0; i <allSymbols.length ; i++) {
+            allSymbols[i] = list.get(i).getSymbol();
+        }
+        return allSymbols;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getOrderBook("BTCUSDT"));
     }
 
 }

@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'io.runon.cryptocurrency'
-version '0.1.5'
+version '0.1.6'
 
 repositories {
     mavenCentral()
@@ -16,12 +16,12 @@ dependencies {
     implementation 'com.seomse.commons:commons:1.4.0'
     implementation 'io.runon.commons:data-service:0.1.5'
 
-    implementation 'io.runon.trading:trading:0.4.1'
+    implementation 'io.runon.trading:trading:0.4.3'
 
-//    implementation 'io.runon.trading:technical-analysis:0.4.5'
-    implementation project(path: ':technical-analysis')
+    implementation 'io.runon.trading:technical-analysis:0.4.5'
+//    implementation project(path: ':technical-analysis')
 
-    implementation 'io.runon.trading:trading-data:0.2.4'
+    implementation 'io.runon.trading:trading-data:0.2.5'
 
 
     implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'

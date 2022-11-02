@@ -102,16 +102,16 @@ public class BinanceCandle {
 
     public static String getCsv(JSONArray data){
         return data.getLong(0) +
-                "," + data.getString(4) +
-                "," + data.getString(1) +
-                "," + data.getString(2) +
-                "," + data.getString(3) +
-                "," + data.getString(1) +
-                "," + data.getString(5) +
-                "," + data.getString(7) +
+                "," + data.getBigDecimal(4).stripTrailingZeros().toPlainString() +
+                "," + data.getBigDecimal(1).stripTrailingZeros().toPlainString() +
+                "," + data.getBigDecimal(2).stripTrailingZeros().toPlainString() +
+                "," + data.getBigDecimal(3).stripTrailingZeros().toPlainString() +
+                "," + data.getBigDecimal(1).stripTrailingZeros().toPlainString() +
+                "," + data.getBigDecimal(5).stripTrailingZeros().toPlainString() +
+                "," + data.getBigDecimal(7).stripTrailingZeros().toPlainString() +
                 "," + data.getInt(8) +
-                "," + data.getString(9) +
-                "," + data.getString(10);
+                "," + data.getBigDecimal(9).stripTrailingZeros().toPlainString() +
+                "," + data.getBigDecimal(10).stripTrailingZeros().toPlainString();
     }
 
     /**
