@@ -25,6 +25,12 @@ public abstract class BinanceOrderBookOut extends SymbolsData {
 
     protected Map<String, Long> lastUpdateMap = new HashMap<>();
 
+    protected TimeName.Type timeNameType =  TimeName.Type.DAY_1;
+
+    public void setTimeNameType(TimeName.Type timeNameType) {
+        this.timeNameType = timeNameType;
+    }
+
     public void initUpdateMap(){
         File file = new File(outDirPath);
         if(!file.isDirectory()){
@@ -99,7 +105,7 @@ public abstract class BinanceOrderBookOut extends SymbolsData {
 
                     String line = BinanceExchange.getOrderBookLine(binanceOrderBookJson);
 
-                    String name = TimeName.getName(System.currentTimeMillis(), TimeName.Type.DAY_5, CandleTimes.UTC_ZONE_ID);
+                    String name = TimeName.getName(System.currentTimeMillis(), timeNameType, CandleTimes.UTC_ZONE_ID);
 
                     String path = symbolDirPath+"/"+name;
 
