@@ -52,7 +52,10 @@ public abstract class BinanceOrderBookOut extends SymbolsData {
                 continue;
             }
 
-            lastUpdateMap.put(symbolDir.getName(), new JSONObject(line).getLong("last_id"));
+
+            try {
+                lastUpdateMap.put(symbolDir.getName(), new JSONObject(line).getLong("update_id"));
+            }catch(Exception ignore){}
         }
     }
 
