@@ -1,11 +1,11 @@
 rootProject.name = 'cryptocurrency'
-include 'modules:cryptocurrency-exchanges'
-findProject(':modules:cryptocurrency-exchanges')?.name = 'cryptocurrency-exchanges'
-include 'modules:cryptocurrency-trading'
-findProject(':modules:cryptocurrency-trading')?.name = 'cryptocurrency-trading'
+include ':cryptocurrency-exchanges'
+project(':cryptocurrency-exchanges').projectDir = new File(settingsDir,'modules/cryptocurrency-exchanges')
+include ':cryptocurrency-trading'
+project(':cryptocurrency-trading').projectDir = new File(settingsDir,'modules/cryptocurrency-trading')
 
-//include ':technical-analysis'
-//project(':technical-analysis').projectDir = new File(settingsDir,'../../runon/trading/modules/technical-analysis')
+include ':technical-analysis'
+project(':technical-analysis').projectDir = new File(settingsDir,'../../runon/trading/modules/technical-analysis')
 
-//include ':trading-data'
-//project(':trading-data').projectDir = new File(settingsDir,'../../runon/trading/modules/trading-data')
+include ':trading-data'
+project(':trading-data').projectDir = new File(settingsDir,'../../runon/trading/modules/trading-data')
