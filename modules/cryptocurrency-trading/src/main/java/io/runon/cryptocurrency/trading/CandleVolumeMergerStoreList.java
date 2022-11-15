@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class CandleVolumeMergerStoreList extends CandleVolumeMergerStore{
 
-    private TradeCandle lastCandle;
     private final List<TradeCandle> list = new LinkedList<>();
 
     public CandleVolumeMergerStoreList(CandleVolumeMerge candleVolumeMerge) {
@@ -104,13 +103,19 @@ public class CandleVolumeMergerStoreList extends CandleVolumeMergerStore{
     }
     @Override
     public TradeCandle getCandle(long time){
-        TradeCandle [] candles = getCandles(time);
-        return candles[candles.length-1];
+        List<TradeCandle> list = getList(time);
+        if(list.size() == 0){
+            return  null;
+        }
+        return list.get(list.size()-1);
     }
 
     @Override
     public TradeCandle getCandle(){
-        return lastCandle;
+        if(list.size() == 0){
+            return  null;
+        }
+        return list.get(list.size()-1);
     }
 
     public List<TradeCandle> getList() {
