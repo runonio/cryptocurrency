@@ -28,10 +28,10 @@ implementation 'io.runon.cryptocurrency:cryptocurrency-exchanges:0.4.8'
   
 # communication
 ### blog, homepage
-- [www.seomse.com](https://www.seomse.com/)
 - [runon.io](https://runon.io)
-- [github.com/seomse](https://github.com/seomse)
+- [www.seomse.com](https://www.seomse.com/)
 - [github.com/runonio](https://github.com/runonio)
+- [github.com/seomse](https://github.com/seomse)
 
 ### 카카오톡 오픈톡
 - https://open.kakao.com/o/g6vzOKqb
