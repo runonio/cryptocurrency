@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'io.runon.cryptocurrency'
-version '0.4.8'
+version '0.4.9'
 
 repositories {
     mavenCentral()
@@ -13,20 +13,22 @@ repositories {
 
 dependencies {
 
-    implementation 'com.seomse.commons:commons:1.4.0'
+    implementation 'com.seomse.commons:commons:1.4.2'
 
-    implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.6'
+    //noinspection VulnerableLibrariesLocal
+    implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.7'
 
-    implementation project(path: ':cryptocurrency-trading')
-    implementation project(path: ':trading-data')
+//    implementation project(path: ':cryptocurrency-trading')
+//    implementation project(path: ':trading-data')
 
-//    implementation 'io.runon.trading:trading-data:0.2.5'
-    implementation 'io.runon.trading:trading:0.4.3'
-    implementation 'io.runon.trading:technical-analysis:0.4.5'
+    implementation 'io.runon.trading:trading-data:0.2.6'
+    implementation 'io.runon.trading:trading:0.4.4'
+    implementation 'io.runon.trading:technical-analysis:0.4.6'
 
+    //noinspection VulnerableLibrariesLocal
     implementation 'io.runon.commons:data-service:0.1.5'
 
-    implementation 'com.seomse.commons:crawling:0.8.9'
+    implementation 'com.seomse.commons:crawling:0.9.0'
     implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.83'
     implementation 'io.runon.cryptocurrency:exchange-binance-futures:1.0.92'
     implementation 'io.runon.cryptocurrency:exchange-houbi:2.0.42'
@@ -34,7 +36,8 @@ dependencies {
 
     //websocket
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.7.5'
+    //noinspection VulnerableLibrariesLocal
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.7.8'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
 

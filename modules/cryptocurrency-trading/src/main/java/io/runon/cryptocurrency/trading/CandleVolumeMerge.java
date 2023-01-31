@@ -2,7 +2,7 @@ package io.runon.cryptocurrency.trading;
 
 import com.seomse.commons.config.Config;
 import com.seomse.commons.utils.time.Times;
-import io.runon.trading.CandleTimes;
+import io.runon.trading.TradingTimes;
 import io.runon.trading.data.csv.CsvCandle;
 import io.runon.trading.technical.analysis.candle.TaCandles;
 import io.runon.trading.technical.analysis.candle.TradeCandle;
@@ -35,12 +35,12 @@ public class CandleVolumeMerge {
 
     public void setInterval(String interval) {
         this.interval = interval;
-        this.candleTime = CandleTimes.getIntervalTime(interval);
+        this.candleTime = TradingTimes.getIntervalTime(interval);
     }
 
     public void setCandleTime(long candleTime) {
         this.candleTime = candleTime;
-        this.interval = CandleTimes.getInterval(candleTime);
+        this.interval = TradingTimes.getInterval(candleTime);
     }
 
     public void setPath(String path) {
@@ -51,7 +51,7 @@ public class CandleVolumeMerge {
         this.addPaths = addPaths;
     }
 
-    private ZoneId zoneId = CandleTimes.UTC_ZONE_ID;
+    private ZoneId zoneId = TradingTimes.UTC_ZONE_ID;
 
     public void setZoneId(ZoneId zoneId) {
         this.zoneId = zoneId;

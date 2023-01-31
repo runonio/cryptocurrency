@@ -22,16 +22,16 @@
 캔들시작시간(밀리초 유닉스타임)[0],종가[1],시가[2],고가[3],저가[4],직전가[5],거래량[6],거래대금[7],거래횟수[8],매수거래량[9],매수거래대금[10]
 
 # gradle
-implementation 'io.runon.cryptocurrency:cryptocurrency-exchanges:0.4.8'
+implementation 'io.runon.cryptocurrency:cryptocurrency-exchanges:0.4.9'
 - etc
-  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-exchanges/0.4.8
+  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-exchanges/0.4.9
   
 # communication
 ### blog, homepage
-- [www.seomse.com](https://www.seomse.com/)
 - [runon.io](https://runon.io)
-- [github.com/seomse](https://github.com/seomse)
+- [www.seomse.com](https://www.seomse.com/)
 - [github.com/runonio](https://github.com/runonio)
+- [github.com/seomse](https://github.com/seomse)
 
 ### 카카오톡 오픈톡
 - https://open.kakao.com/o/g6vzOKqb

@@ -1,6 +1,6 @@
 package io.runon.cryptocurrency.trading;
 
-import io.runon.trading.CandleTimes;
+import io.runon.trading.TradingTimes;
 import io.runon.trading.technical.analysis.candle.TaCandles;
 import io.runon.trading.technical.analysis.candle.TradeCandle;
 
@@ -67,7 +67,7 @@ public class CandleVolumeMergerStore {
      * open시간이 변하지 않았으면 신규 생성하지 않음
      */
     public TradeCandle[] getCandles(long time){
-        long openTime = CandleTimes.getOpenTime( candleVolumeMerge.getCandleTime(), time,  candleVolumeMerge.getZoneId());
+        long openTime = TradingTimes.getOpenTime( candleVolumeMerge.getCandleTime(), time,  candleVolumeMerge.getZoneId());
         if(!isRealTime && openTime == lastOpenTime){
             return candles;
         }
@@ -138,7 +138,7 @@ public class CandleVolumeMergerStore {
 
 
     public void setNewCandle(long time){
-        long openTime = CandleTimes.getOpenTime( candleVolumeMerge.getCandleTime(), time,  candleVolumeMerge.getZoneId());
+        long openTime = TradingTimes.getOpenTime( candleVolumeMerge.getCandleTime(), time,  candleVolumeMerge.getZoneId());
 
         //캔들정보 갱신
         //저장건수가 변경되거나 할때 다시 설정함
@@ -150,7 +150,7 @@ public class CandleVolumeMergerStore {
      * 신규 생성
      */
     public TradeCandle[] newCandles(long time){
-        long openTime = CandleTimes.getOpenTime( candleVolumeMerge.getCandleTime(), time,  candleVolumeMerge.getZoneId());
+        long openTime = TradingTimes.getOpenTime( candleVolumeMerge.getCandleTime(), time,  candleVolumeMerge.getZoneId());
         return newCandles(time, openTime, range);
     }
 

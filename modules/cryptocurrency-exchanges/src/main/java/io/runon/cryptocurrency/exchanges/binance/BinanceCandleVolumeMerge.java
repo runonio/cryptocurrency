@@ -4,7 +4,7 @@ import com.seomse.commons.config.Config;
 import io.runon.cryptocurrency.trading.CandleVolumeMerge;
 import io.runon.cryptocurrency.trading.CandleVolumeMergerStore;
 import io.runon.cryptocurrency.trading.CandleVolumeMergerStoreList;
-import io.runon.trading.CandleTimes;
+import io.runon.trading.TradingTimes;
 
 /**
  * 바이낸스 캔들 데이터
@@ -43,7 +43,7 @@ public class BinanceCandleVolumeMerge {
         CandleVolumeMerge candleVolumeMerge = new CandleVolumeMerge();
         String path = Config.getConfig("cryptocurrency.spot.candle.dir.path") + "/BTCBUSD";
         String[] addPaths = new String[]{Config.getConfig("cryptocurrency.spot.candle.dir.path") + "/BTCUSDT", Config.getConfig("cryptocurrency.futures.candle.dir.path") + "/BTCUSDT", Config.getConfig("cryptocurrency.futures.candle.dir.path") + "/BTCBUSD"};
-        candleVolumeMerge.setZoneId(CandleTimes.UTC_ZONE_ID);
+        candleVolumeMerge.setZoneId(TradingTimes.UTC_ZONE_ID);
         candleVolumeMerge.setPath(path);
         candleVolumeMerge.setAddPaths(addPaths);
         candleVolumeMerge.setInterval(interval);

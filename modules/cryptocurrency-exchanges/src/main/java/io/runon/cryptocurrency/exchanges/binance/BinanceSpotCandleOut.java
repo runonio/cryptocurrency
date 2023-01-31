@@ -4,7 +4,7 @@ import com.seomse.commons.config.Config;
 import com.seomse.commons.utils.ExceptionUtil;
 import com.seomse.commons.utils.time.Times;
 import io.runon.cryptocurrency.trading.CandleOut;
-import io.runon.trading.CandleTimes;
+import io.runon.trading.TradingTimes;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 
@@ -39,18 +39,18 @@ public class BinanceSpotCandleOut extends CandleOut {
 
                 for(;;){
                     if(tryCount >= tryMaxCount){
-                        log.error("symbol try over error : " + symbol + ", interval: " + CandleTimes.getInterval(candleTime)+ ", try count: " + tryCount);
+                        log.error("symbol try over error : " + symbol + ", interval: " + TradingTimes.getInterval(candleTime)+ ", try count: " + tryCount);
                         break;
                     }
 
                     try {
-                        log.info("start symbol: " + symbol + ", interval: " + CandleTimes.getInterval(candleTime) +", try count: " + ++tryCount);
+                        log.info("start symbol: " + symbol + ", interval: " + TradingTimes.getInterval(candleTime) +", try count: " + ++tryCount);
                         BinanceCandle.csvNext(BinanceCandle.CANDLE, symbol, candleTime, zoneId, outDirPath, startOpenTime);
                         break;
                     }catch (com.seomse.commons.exception.IORuntimeException | JSONException e){
 
                         if(tryCount > 10){
-                            log.error("candle out error symbol: " + symbol + ", interval: " + CandleTimes.getInterval(candleTime) +", try count: " +tryCount);
+                            log.error("candle out error symbol: " + symbol + ", interval: " + TradingTimes.getInterval(candleTime) +", try count: " +tryCount);
                             break;
                         }
 

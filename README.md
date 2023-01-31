@@ -7,18 +7,36 @@
 # 개발환경
 - open jdk 17
 
+# 데이터 저장구조
+암호화폐 분석에 사용하는 표준데이터구조는 아래로 설정하여 진행 합니다.
+<br>
+첫 매매 봇의 목적 거래소는 바이낸스 이기때문에 여러 거래소를 고려한 구조는 아닙니다.
+<br>
+여러 거래소를 활용할 경우 아래구조는 변경될 수 있습니다.
+<br>
+- data/cryptocurrency/futures
+- data/cryptocurrency/spot
+- data/cryptocurrency/merge
+하위구조
+- data/cryptocurrency/spot/candle
+- data/cryptocurrency/spot/candle/order_book
+- data/cryptocurrency/futures/candle
+- data/cryptocurrency/futures/order_book
+- data/cryptocurrency/futures/open_interest
+- data/cryptocurrency/merge/volume
+
 # 서비스 관련 모듈
 - 서비스에 직접적 영향이 있는 모듈은 private repository 에서 진행됩니다. 협업요청이나 투자 외주 문의는 따로 연락주세요. 
 - 대량채결(고래체결), 급등급락감지, 봇의 매수매도 시점 과 같이 서비스와 관련된 부분에 대한 내용 입니다.
 
 # gradle
-implementation 'io.runon.cryptocurrency:cryptocurrency-exchanges:0.4.8'
+implementation 'io.runon.cryptocurrency:cryptocurrency-exchanges:0.4.9'
 - etc
-  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-exchanges/0.4.8
+  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-exchanges/0.4.9
 
-implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.6'
+implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.7'
 - etc
-  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-trading/0.1.6
+  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-trading/0.1.7
 
 # communication
 ### blog, homepage
@@ -35,7 +53,7 @@ implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.6'
 - https://seomse.slack.com/
 
 ### email
-- comseomse@gmail.com
+- ysys86a@gmail.com
 
 
 # main developer
