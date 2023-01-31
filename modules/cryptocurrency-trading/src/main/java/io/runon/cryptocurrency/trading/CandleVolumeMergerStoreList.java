@@ -1,6 +1,6 @@
 package io.runon.cryptocurrency.trading;
 
-import io.runon.trading.CandleTimes;
+import io.runon.trading.TradingTimes;
 import io.runon.trading.technical.analysis.candle.TradeCandle;
 
 import java.util.Collections;
@@ -26,7 +26,7 @@ public class CandleVolumeMergerStoreList extends CandleVolumeMergerStore{
     }
 
     public List<TradeCandle> getList(long time){
-        long openTime = CandleTimes.getOpenTime( candleVolumeMerge.getCandleTime(), time,  candleVolumeMerge.getZoneId());
+        long openTime = TradingTimes.getOpenTime( candleVolumeMerge.getCandleTime(), time,  candleVolumeMerge.getZoneId());
         if(!isRealTime && openTime == lastOpenTime){
             return list;
         }
