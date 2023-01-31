@@ -4,13 +4,14 @@ import com.seomse.commons.config.Config;
 import com.seomse.commons.exception.IORuntimeException;
 import com.seomse.commons.utils.FileUtil;
 import com.seomse.crawling.core.http.HttpUrl;
-import io.runon.trading.CandleTimes;
+import io.runon.trading.TradingTimes;
 import io.runon.trading.data.csv.CsvCommon;
 import io.runon.trading.data.csv.CsvTimeName;
 import io.runon.trading.technical.analysis.candle.TradeCandle;
 import org.json.JSONArray;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
@@ -127,7 +128,7 @@ public class BinanceCandle {
     public static void csv(String url, String outPath, String symbol, long time, long startTime, int count){
         int total = 0;
 
-        String interval = CandleTimes.getInterval(time);
+        String interval = TradingTimes.getInterval(time);
 
         outer:
         for(;;) {
@@ -176,9 +177,9 @@ public class BinanceCandle {
 
     public static void csvNext(String url, String symbol, long candleTime, long startOpenTime){
         if(url.startsWith(BinanceFuturesApis.URL)){
-            csvNext(url, symbol, candleTime,  CandleTimes.UTC_ZONE_ID, Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle"), startOpenTime);
+            csvNext(url, symbol, candleTime,  TradingTimes.UTC_ZONE_ID, Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle"), startOpenTime);
         }else{
-            csvNext(url, symbol, candleTime,  CandleTimes.UTC_ZONE_ID, Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle"), startOpenTime);
+            csvNext(url, symbol, candleTime,  TradingTimes.UTC_ZONE_ID, Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle"), startOpenTime);
         }
     }
 
@@ -193,7 +194,7 @@ public class BinanceCandle {
      */
     public static void csvNext(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime){
 
-        long lastOpenTime = CsvCommon.getLastOpenTime(outDirPath +"/" + symbol + "/" + CandleTimes.getInterval(candleTime));
+        long lastOpenTime = CsvCommon.getLastOpenTime(outDirPath +"/" + symbol + "/" + TradingTimes.getInterval(candleTime));
         if(lastOpenTime == -1){
             csvSplit(url, symbol, candleTime, zoneId, outDirPath, startOpenTime);
         }else{
@@ -204,9 +205,9 @@ public class BinanceCandle {
 
     public static void csvSplit(String url, String symbol, long candleTime, long startOpenTime) {
         if(url.startsWith(BinanceFuturesApis.URL)){
-            csvSplit(url, symbol, candleTime, CandleTimes.UTC_ZONE_ID,  Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle"), startOpenTime);
+            csvSplit(url, symbol, candleTime, TradingTimes.UTC_ZONE_ID,  Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle"), startOpenTime);
         }else{
-            csvSplit(url, symbol, candleTime, CandleTimes.UTC_ZONE_ID, Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle"), startOpenTime);
+            csvSplit(url, symbol, candleTime, TradingTimes.UTC_ZONE_ID, Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle"), startOpenTime);
         }
 
     }
@@ -227,7 +228,7 @@ public class BinanceCandle {
     @SuppressWarnings("BusyWait")
     public static void csvSplit(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime){
 
-        String interval = CandleTimes.getInterval(candleTime);
+        String interval = TradingTimes.getInterval(candleTime);
 
         if(!outDirPath.endsWith("/") || !outDirPath.endsWith("\\") ){
             outDirPath = outDirPath +"/";
@@ -282,7 +283,7 @@ public class BinanceCandle {
 
                     List<String> lineList = Collections.emptyList();
                     if(FileUtil.isFile(outPath)){
-                        lineList = FileUtil.getFileContentsList(new File(outPath), "UTF-8");
+                        lineList = FileUtil.getLineList(new File(outPath), StandardCharsets.UTF_8);
                     }
 
                     int size = lineList.size();
@@ -371,7 +372,7 @@ public class BinanceCandle {
         JSONArray array = new JSONArray(jsonArray(url, symbol, interval, startTime,endTime, limit));
         TradeCandle [] candles = new TradeCandle[array.length()];
 
-        long candleTime = CandleTimes.getIntervalTime(interval);
+        long candleTime = TradingTimes.getIntervalTime(interval);
 
         for (int i = 0; i < candles.length ; i++) {
             JSONArray data = array.getJSONArray(i);

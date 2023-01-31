@@ -30,13 +30,13 @@
 - 대량채결(고래체결), 급등급락감지, 봇의 매수매도 시점 과 같이 서비스와 관련된 부분에 대한 내용 입니다.
 
 # gradle
-implementation 'io.runon.cryptocurrency:cryptocurrency-exchanges:0.4.8'
+implementation 'io.runon.cryptocurrency:cryptocurrency-exchanges:0.4.9'
 - etc
-  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-exchanges/0.4.8
+  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-exchanges/0.4.9
 
-implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.6'
+implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.7'
 - etc
-  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-trading/0.1.6
+  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-trading/0.1.7
 
 # communication
 ### blog, homepage
@@ -53,7 +53,7 @@ implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.6'
 - https://seomse.slack.com/
 
 ### email
-- comseomse@gmail.com
+- ysys86a@gmail.com
 
 
 # main developer
