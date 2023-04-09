@@ -5,7 +5,7 @@ import com.seomse.commons.exception.IORuntimeException;
 import com.seomse.commons.utils.FileUtil;
 import com.seomse.crawling.core.http.HttpUrl;
 import io.runon.trading.TradingTimes;
-import io.runon.trading.data.csv.CsvCommon;
+import io.runon.trading.data.csv.CsvTimeFile;
 import io.runon.trading.data.csv.CsvTimeName;
 import io.runon.trading.technical.analysis.candle.TradeCandle;
 import org.json.JSONArray;
@@ -194,7 +194,7 @@ public class BinanceCandle {
      */
     public static void csvNext(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime){
 
-        long lastOpenTime = CsvCommon.getLastOpenTime(outDirPath +"/" + symbol + "/" + TradingTimes.getInterval(candleTime));
+        long lastOpenTime = CsvTimeFile.getLastOpenTime(outDirPath +"/" + symbol + "/" + TradingTimes.getInterval(candleTime));
         if(lastOpenTime == -1){
             csvSplit(url, symbol, candleTime, zoneId, outDirPath, startOpenTime);
         }else{
@@ -293,8 +293,7 @@ public class BinanceCandle {
                     }else{
 
                         String line = lineList.get(0);
-                        int index = line.indexOf(',');
-                        long csvOpenTime = Long.parseLong(line.substring(0, index));
+                        long csvOpenTime = CsvTimeFile.getTime(line);
 
                         if (csvOpenTime >= openTime) {
                             //파일에 내용을 전부 다시 써야함
@@ -303,8 +302,7 @@ public class BinanceCandle {
                             sb.append(line);
                             for (int j = 1; j < size ; j++) {
                                 line = lineList.get(j);
-                                index = line.indexOf(',');
-                                csvOpenTime = Long.parseLong(line.substring(0, index));
+                                csvOpenTime = CsvTimeFile.getTime(line);
                                 if (csvOpenTime >= openTime) {
                                     break;
                                 }
