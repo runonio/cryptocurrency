@@ -14,15 +14,16 @@ dependencies {
 
 
     implementation 'com.seomse.commons:commons:1.4.2'
+    //noinspection VulnerableLibrariesLocal
     implementation 'io.runon.commons:data-service:0.1.5'
 
-    implementation 'io.runon.trading:trading:0.4.4'
+    implementation 'io.runon.trading:trading:0.4.5'
 
-    implementation 'io.runon.trading:technical-analysis:0.4.6'
+    implementation 'io.runon.trading:technical-analysis:0.4.61'
 //    implementation project(path: ':technical-analysis')
 
 //    implementation project(path: ':trading-data')
-    implementation 'io.runon.trading:trading-data:0.2.6'
+    implementation 'io.runon.trading:trading-data:0.2.61'
 
 
     implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'

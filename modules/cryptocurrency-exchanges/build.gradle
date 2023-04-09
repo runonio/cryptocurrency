@@ -21,9 +21,9 @@ dependencies {
 //    implementation project(path: ':cryptocurrency-trading')
 //    implementation project(path: ':trading-data')
 
-    implementation 'io.runon.trading:trading-data:0.2.6'
-    implementation 'io.runon.trading:trading:0.4.4'
-    implementation 'io.runon.trading:technical-analysis:0.4.6'
+    implementation 'io.runon.trading:trading-data:0.2.61'
+    implementation 'io.runon.trading:trading:0.4.5'
+    implementation 'io.runon.trading:technical-analysis:0.4.61'
 
     //noinspection VulnerableLibrariesLocal
     implementation 'io.runon.commons:data-service:0.1.5'
