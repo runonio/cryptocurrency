@@ -16,6 +16,7 @@ import org.json.JSONException;
 @Slf4j
 public class BinanceFuturesCandleOut  extends CandleOut {
 
+    private long sleepTime = 300L;
 
     public BinanceFuturesCandleOut(){
         outDirPath =  Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle");
@@ -23,6 +24,10 @@ public class BinanceFuturesCandleOut  extends CandleOut {
     @Override
     public String[] getAllSymbols() {
         return BinanceFuturesApis.getAllSymbols();
+    }
+
+    public void setSleepTime(long sleepTime) {
+        this.sleepTime = sleepTime;
     }
 
     private int tryMaxCount =10;
@@ -45,7 +50,7 @@ public class BinanceFuturesCandleOut  extends CandleOut {
 
                     try {
                         log.info("start symbol: " + symbol + ", interval: " + TradingTimes.getInterval(candleTime) +", try count: " + ++tryCount);
-                        BinanceCandle.csvNext(BinanceCandle.FUTURES_CANDLE, symbol, candleTime, zoneId, outDirPath, startOpenTime);
+                        BinanceCandle.csvNext(BinanceCandle.FUTURES_CANDLE, symbol, candleTime, zoneId, outDirPath, startOpenTime, sleepTime);
                         break;
                     }catch (IORuntimeException | JSONException e){
 

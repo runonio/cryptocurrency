@@ -144,7 +144,7 @@
         <dependency>
             <groupId>io.runon.trading</groupId>
             <artifactId>trading-data</artifactId>
-            <version>0.2.61</version>
+            <version>0.2.71</version>
         </dependency>
 
         <dependency>
