@@ -15,6 +15,11 @@ import org.json.JSONException;
 @Slf4j
 public class BinanceSpotCandleOut extends CandleOut {
 
+    private long sleepTime = 2000L;
+
+    public  void setSleepTime(long sleepTime) {
+        this.sleepTime = sleepTime;
+    }
 
     public BinanceSpotCandleOut(){
         outDirPath =  Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle");
@@ -45,7 +50,7 @@ public class BinanceSpotCandleOut extends CandleOut {
 
                     try {
                         log.info("start symbol: " + symbol + ", interval: " + TradingTimes.getInterval(candleTime) +", try count: " + ++tryCount);
-                        BinanceCandle.csvNext(BinanceCandle.CANDLE, symbol, candleTime, zoneId, outDirPath, startOpenTime);
+                        BinanceCandle.csvNext(BinanceCandle.CANDLE, symbol, candleTime, zoneId, outDirPath, startOpenTime, sleepTime);
                         break;
                     }catch (com.seomse.commons.exception.IORuntimeException | JSONException e){
 

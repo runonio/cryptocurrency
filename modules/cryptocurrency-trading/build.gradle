@@ -23,7 +23,7 @@ dependencies {
 //    implementation project(path: ':technical-analysis')
 
 //    implementation project(path: ':trading-data')
-    implementation 'io.runon.trading:trading-data:0.2.61'
+    implementation 'io.runon.trading:trading-data:0.2.71'
 
 
     implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'

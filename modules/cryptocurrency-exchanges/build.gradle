@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'io.runon.cryptocurrency'
-version '0.4.9'
+version '0.5.0'
 
 repositories {
     mavenCentral()
@@ -21,7 +21,7 @@ dependencies {
 //    implementation project(path: ':cryptocurrency-trading')
 //    implementation project(path: ':trading-data')
 
-    implementation 'io.runon.trading:trading-data:0.2.61'
+    implementation 'io.runon.trading:trading-data:0.2.71'
     implementation 'io.runon.trading:trading:0.4.5'
     implementation 'io.runon.trading:technical-analysis:0.4.61'
 

@@ -193,12 +193,17 @@ public class BinanceCandle {
      * @param outDirPath 파일 디렉토리 경로
      */
     public static void csvNext(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime){
+        csvNext(url, symbol, candleTime, zoneId, outDirPath, startOpenTime, -1L);
+    }
+
+
+    public static void csvNext(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime, long sleepTime){
 
         long lastOpenTime = CsvTimeFile.getLastOpenTime(outDirPath +"/" + symbol + "/" + TradingTimes.getInterval(candleTime));
         if(lastOpenTime == -1){
-            csvSplit(url, symbol, candleTime, zoneId, outDirPath, startOpenTime);
+            csvSplit(url, symbol, candleTime, zoneId, outDirPath, startOpenTime, sleepTime);
         }else{
-            csvSplit(url, symbol, candleTime, zoneId, outDirPath, lastOpenTime);
+            csvSplit(url, symbol, candleTime, zoneId, outDirPath, lastOpenTime, sleepTime);
         }
     }
 
@@ -211,7 +216,9 @@ public class BinanceCandle {
         }
 
     }
-
+    public static void csvSplit(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime){
+        csvSplit(url, symbol, candleTime, zoneId, outDirPath, startOpenTime, -1L);
+    }
     //파일별로 나누어서 출력할때
     /**
      * 파일별로 나누어서 출력할때
@@ -226,7 +233,7 @@ public class BinanceCandle {
      * @param startOpenTime 시작 오픈 시간
      */
     @SuppressWarnings("BusyWait")
-    public static void csvSplit(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime){
+    public static void csvSplit(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime, long sleepTime){
 
         String interval = TradingTimes.getInterval(candleTime);
 
@@ -320,7 +327,14 @@ public class BinanceCandle {
             }
 
             //너무 잦은 호출을 하면 차단당할걸 염두해서 sleep 설정
-            try{Thread.sleep(Config.getLong("binance.candle.collect.sleep.time", 300L));}catch(Exception ignore){}
+            try{
+                if(sleepTime > 0){
+                    Thread.sleep(sleepTime);
+                }else{
+                    Thread.sleep(Config.getLong("binance.candle.collect.sleep.time", 300L));
+                }
+
+            }catch(Exception ignore){}
         }
 
         if(sb != null && sb.length() > 0){
