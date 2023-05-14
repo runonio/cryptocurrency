@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
 
-    implementation 'com.seomse.commons:commons:1.4.2'
+    implementation 'com.seomse.commons:commons:1.4.3'
 
     //noinspection VulnerableLibrariesLocal
     implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.7'
@@ -21,8 +21,8 @@ dependencies {
 //    implementation project(path: ':cryptocurrency-trading')
 //    implementation project(path: ':trading-data')
 
-    implementation 'io.runon.trading:trading-data:0.2.71'
-    implementation 'io.runon.trading:trading:0.4.5'
+    implementation 'io.runon.trading:trading-data:0.2.81'
+    implementation 'io.runon.trading:trading:0.4.6'
     implementation 'io.runon.trading:technical-analysis:0.4.61'
 
     //noinspection VulnerableLibrariesLocal
