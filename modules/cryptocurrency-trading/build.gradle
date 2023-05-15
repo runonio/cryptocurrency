@@ -14,8 +14,8 @@ dependencies {
 
 
     implementation 'com.seomse.commons:commons:1.4.3'
-    //noinspection VulnerableLibrariesLocal
-    implementation 'io.runon.commons:data-service:0.1.5'
+
+    implementation 'io.runon.commons:data-service:0.1.6'
 
     implementation 'io.runon.trading:trading:0.4.6'
 
