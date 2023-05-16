@@ -4,6 +4,7 @@ import com.seomse.commons.config.Config;
 import com.seomse.commons.exception.IORuntimeException;
 import com.seomse.commons.utils.FileUtil;
 import com.seomse.crawling.core.http.HttpUrl;
+import io.runon.cryptocurrency.trading.CryptocurrencyDataPath;
 import io.runon.trading.TradingTimes;
 import io.runon.trading.data.csv.CsvTimeFile;
 import io.runon.trading.data.csv.CsvTimeName;
@@ -177,9 +178,9 @@ public class BinanceCandle {
 
     public static void csvNext(String url, String symbol, long candleTime, long startOpenTime){
         if(url.startsWith(BinanceFuturesApis.URL)){
-            csvNext(url, symbol, candleTime,  TradingTimes.UTC_ZONE_ID, Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle"), startOpenTime);
+            csvNext(url, symbol, candleTime,  TradingTimes.UTC_ZONE_ID, CryptocurrencyDataPath.getFuturesCandleDirPath(), startOpenTime);
         }else{
-            csvNext(url, symbol, candleTime,  TradingTimes.UTC_ZONE_ID, Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle"), startOpenTime);
+            csvNext(url, symbol, candleTime,  TradingTimes.UTC_ZONE_ID, CryptocurrencyDataPath.getSpotCandleDirPath(), startOpenTime);
         }
     }
 
@@ -210,9 +211,9 @@ public class BinanceCandle {
 
     public static void csvSplit(String url, String symbol, long candleTime, long startOpenTime) {
         if(url.startsWith(BinanceFuturesApis.URL)){
-            csvSplit(url, symbol, candleTime, TradingTimes.UTC_ZONE_ID,  Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle"), startOpenTime);
+            csvSplit(url, symbol, candleTime, TradingTimes.UTC_ZONE_ID,  CryptocurrencyDataPath.getFuturesCandleDirPath(), startOpenTime);
         }else{
-            csvSplit(url, symbol, candleTime, TradingTimes.UTC_ZONE_ID, Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle"), startOpenTime);
+            csvSplit(url, symbol, candleTime, TradingTimes.UTC_ZONE_ID, CryptocurrencyDataPath.getSpotCandleDirPath(), startOpenTime);
         }
 
     }

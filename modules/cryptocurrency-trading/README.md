@@ -5,9 +5,9 @@
 - open jdk 17
 
 # gradle
-implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.7'
+implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.8'
 - etc
-  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-trading/0.1.7
+  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-trading/0.1.8
 
 # communication
 ### blog, homepage

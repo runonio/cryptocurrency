@@ -1,6 +1,5 @@
 package example.binance;
 
-import com.seomse.commons.config.Config;
 import com.seomse.commons.utils.time.YmdUtil;
 import io.runon.cryptocurrency.exchanges.binance.BinanceExchange;
 import io.runon.cryptocurrency.exchanges.binance.BinanceFuturesCandleOut;
@@ -13,9 +12,6 @@ import io.runon.trading.TradingTimes;
  */
 public class BinanceFuturesCandleAllSymbolOutExample {
     public static void main(String[] args) {
-
-//        Config.setConfig("binance.candle.collect.sleep.time", "2000");
-        Config.setConfig("cryptocurrency.futures.candle.dir.path", "D:\\data\\cryptocurrency\\futures\\candle");
 
 
         long startTime = YmdUtil.getTime("20180101", TradingTimes.UTC_ZONE_ID);

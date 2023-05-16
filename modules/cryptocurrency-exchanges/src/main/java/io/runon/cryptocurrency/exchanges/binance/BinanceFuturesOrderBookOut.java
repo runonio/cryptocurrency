@@ -1,6 +1,7 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
 import com.seomse.commons.config.Config;
+import io.runon.cryptocurrency.trading.CryptocurrencyDataPath;
 
 /**
  * 선물 호가창 내리기
@@ -11,7 +12,7 @@ public class BinanceFuturesOrderBookOut extends BinanceOrderBookOut {
 
 
     public BinanceFuturesOrderBookOut(){
-        outDirPath =  Config.getConfig("cryptocurrency.futures.order.book.dir.path","data/cryptocurrency/futures/order_book");
+        outDirPath = CryptocurrencyDataPath.getFuturesOrderBookDirPath();
         setSleepTime(Config.getLong("binance.futures.order.book.collect.sleep.time", 1000L));
         initUpdateMap();
     }

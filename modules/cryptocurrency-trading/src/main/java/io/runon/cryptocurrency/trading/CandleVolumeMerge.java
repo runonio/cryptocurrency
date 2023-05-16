@@ -1,6 +1,5 @@
 package io.runon.cryptocurrency.trading;
 
-import com.seomse.commons.config.Config;
 import com.seomse.commons.utils.time.Times;
 import io.runon.trading.TradingTimes;
 import io.runon.trading.data.csv.CsvCandle;
@@ -24,13 +23,13 @@ public class CandleVolumeMerge {
     private String interval = "1m";
     private long candleTime = Times.MINUTE_1;
     //기준경로
-    private String path = Config.getConfig("cryptocurrency.spot.candle.dir.path") + "/BTCBUSD";
+    private String path = CryptocurrencyDataPath.getSpotCandleDirPath() + "/BTCBUSD";
 
     // 추가 심볼 경로들
     private String [] addPaths = {
-            Config.getConfig("cryptocurrency.spot.candle.dir.path") + "/BTCUSDT"
-            , Config.getConfig("cryptocurrency.futures.candle.dir.path") + "/BTCUSDT"
-            , Config.getConfig("cryptocurrency.futures.candle.dir.path") + "/BTCBUSD"
+            CryptocurrencyDataPath.getSpotCandleDirPath() + "/BTCUSDT"
+            , CryptocurrencyDataPath.getFuturesCandleDirPath() + "/BTCUSDT"
+            , CryptocurrencyDataPath.getFuturesCandleDirPath() + "/BTCBUSD"
             };
 
     public void setInterval(String interval) {

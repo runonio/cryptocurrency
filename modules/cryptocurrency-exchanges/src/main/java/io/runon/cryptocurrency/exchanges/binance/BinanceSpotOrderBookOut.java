@@ -1,6 +1,7 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
 import com.seomse.commons.config.Config;
+import io.runon.cryptocurrency.trading.CryptocurrencyDataPath;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -13,7 +14,7 @@ public class BinanceSpotOrderBookOut extends BinanceOrderBookOut {
 
 
     public BinanceSpotOrderBookOut(){
-        outDirPath =  Config.getConfig("cryptocurrency.spot.order.book.dir.path","data/cryptocurrency/spot/order_book");
+        outDirPath = CryptocurrencyDataPath.getSpotOrderBookDirPath();
         setSleepTime(Config.getLong("binance.spot.order.book.collect.sleep.time", 1000L));
         initUpdateMap();
     }

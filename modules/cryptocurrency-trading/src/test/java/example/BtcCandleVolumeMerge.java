@@ -1,6 +1,5 @@
 package example;
 
-import com.seomse.commons.config.Config;
 import io.runon.cryptocurrency.trading.CandleVolumeMerge;
 import io.runon.trading.technical.analysis.candle.TradeCandle;
 
@@ -12,9 +11,6 @@ public class BtcCandleVolumeMerge {
 
 
     public static void main(String[] args) {
-
-        Config.setConfig("cryptocurrency.spot.candle.dir.path", "D:\\data\\cryptocurrency\\spot\\candle");
-        Config.setConfig("cryptocurrency.futures.candle.dir.path", "D:\\data\\cryptocurrency\\futures\\candle");
 
         CandleVolumeMerge candleVolumeMerge = new CandleVolumeMerge();
         //첫 캔들 open time, 마지막캔들 close time
