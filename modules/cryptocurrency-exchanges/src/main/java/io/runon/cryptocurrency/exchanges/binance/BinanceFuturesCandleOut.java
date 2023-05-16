@@ -1,10 +1,10 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
-import com.seomse.commons.config.Config;
 import com.seomse.commons.exception.IORuntimeException;
 import com.seomse.commons.utils.ExceptionUtil;
 import com.seomse.commons.utils.time.Times;
 import io.runon.cryptocurrency.trading.CandleOut;
+import io.runon.cryptocurrency.trading.CryptocurrencyDataPath;
 import io.runon.trading.TradingTimes;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
@@ -19,7 +19,7 @@ public class BinanceFuturesCandleOut  extends CandleOut {
     private long sleepTime = 300L;
 
     public BinanceFuturesCandleOut(){
-        outDirPath =  Config.getConfig("cryptocurrency.futures.candle.dir.path","data/cryptocurrency/futures/candle");
+        outDirPath = CryptocurrencyDataPath.getFuturesCandleDirPath();
     }
     @Override
     public String[] getAllSymbols() {

@@ -6,7 +6,7 @@
 
     <groupId>io.runon.cryptocurrency</groupId>
     <artifactId>cryptocurrency-exchanges</artifactId>
-    <version>0.5.0</version>
+    <version>0.5.1</version>
     <packaging>jar</packaging>
 
     <name>cryptocurrency-exchanges</name>
@@ -145,7 +145,7 @@
         <dependency>
             <groupId>io.runon.commons</groupId>
             <artifactId>data-service</artifactId>
-            <version>0.1.6</version>
+            <version>0.1.61</version>
         </dependency>
 
         <dependency>
@@ -169,7 +169,7 @@
         <dependency>
             <groupId>io.runon.cryptocurrency</groupId>
             <artifactId>cryptocurrency-trading</artifactId>
-            <version>0.1.7</version>
+            <version>0.1.8</version>
         </dependency>
 
         <dependency>
@@ -213,7 +213,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
-            <version>2.7.8</version>
+            <version>2.7.11</version>
         </dependency>
 
         <dependency>

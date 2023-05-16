@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'io.runon.cryptocurrency'
-version '0.1.7'
+version '0.1.8'
 
 repositories {
     mavenCentral()
@@ -15,7 +15,7 @@ dependencies {
 
     implementation 'com.seomse.commons:commons:1.4.3'
 
-    implementation 'io.runon.commons:data-service:0.1.6'
+    implementation 'io.runon.commons:data-service:0.1.61'
 
     implementation 'io.runon.trading:trading:0.4.6'
 

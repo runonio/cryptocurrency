@@ -1,9 +1,9 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
-import com.seomse.commons.config.Config;
 import com.seomse.commons.utils.ExceptionUtil;
 import com.seomse.commons.utils.time.Times;
 import io.runon.cryptocurrency.trading.CandleOut;
+import io.runon.cryptocurrency.trading.CryptocurrencyDataPath;
 import io.runon.trading.TradingTimes;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
@@ -22,7 +22,7 @@ public class BinanceSpotCandleOut extends CandleOut {
     }
 
     public BinanceSpotCandleOut(){
-        outDirPath =  Config.getConfig("cryptocurrency.spot.candle.dir.path","data/cryptocurrency/spot/candle");
+        outDirPath = CryptocurrencyDataPath.getSpotCandleDirPath();
     }
 
     @Override
