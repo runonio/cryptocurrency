@@ -33,7 +33,6 @@ dependencies {
 
     implementation 'com.seomse.commons:crawling:0.9.2'
     implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.83'
-    implementation 'io.runon.cryptocurrency:exchange-binance-futures:1.0.92'
     implementation 'io.runon.cryptocurrency:exchange-houbi:2.0.42'
     implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
 
@@ -43,6 +42,8 @@ dependencies {
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
     //noinspection VulnerableLibrariesLocal
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.7.11'
+
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
     annotationProcessor 'org.projectlombok:lombok:1.18.28'

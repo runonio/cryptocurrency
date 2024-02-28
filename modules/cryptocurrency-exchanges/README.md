@@ -1,5 +1,9 @@
-
+# 거래소 관련 api 정의
 거래소 api 사용을 위한 모듈, 초기에는 단독모듈로 규모가 커지면 거래소 별로 분할
+기존 바이낸스 api가 변경된걸로 보인다. 당장 다른기능들을 바꾸는데 공수를 줄이기위해 com.binance.client 관련 소스들을 포함한다.
+
+- https://github.com/Binance-docs/Binance_Futures_Java 
+
 
 ### 구현 거래소 목록
 - 바이낸스
