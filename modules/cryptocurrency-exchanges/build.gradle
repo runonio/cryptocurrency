@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
 
-    implementation 'com.seomse.commons:commons:1.5.0'
+    implementation 'com.seomse.commons:commons:1.5.3'
 
     //noinspection VulnerableLibrariesLocal
 //    implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.8'
@@ -33,17 +33,20 @@ dependencies {
 
     implementation 'com.seomse.commons:crawling:0.9.2'
     implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.83'
-    implementation 'io.runon.cryptocurrency:exchange-binance-futures:1.0.92'
     implementation 'io.runon.cryptocurrency:exchange-houbi:2.0.42'
-    implementation group: 'com.google.guava', name: 'guava', version: '31.1-jre'
+    implementation group: 'com.google.guava', name: 'guava', version: '33.0.0-jre'
+
+    implementation group: 'org.json', name: 'json', version: '20240303'
 
     //websocket
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0'
     //noinspection VulnerableLibrariesLocal
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.7.11'
 
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.28'
-    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
+
+    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
 
 }
 compileJava.options.encoding = 'UTF-8'

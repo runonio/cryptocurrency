@@ -33,7 +33,7 @@ import java.util.Map;
  * (지정가 주문은 예정)
  * @author macle
  */
-public class BinanceFuturesAccount implements FuturesTradeAccount, LimitOrder {
+public class BinanceFuturesAccount implements FuturesTradeAccount {
 
     private final SyncRequestClient syncRequestClient;
     private final String id;
@@ -153,7 +153,7 @@ public class BinanceFuturesAccount implements FuturesTradeAccount, LimitOrder {
     }
 
     @Override
-    public MarketOrderTrade orderQuantity(String symbol, Trade.Type type, BigDecimal quantity) {
+    public MarketOrderTrade marketOrderQuantity(String symbol, Trade.Type type, BigDecimal quantity) {
 
         BigDecimal lastClosePrice;
         synchronized (symbolPriceLock){
@@ -189,7 +189,7 @@ public class BinanceFuturesAccount implements FuturesTradeAccount, LimitOrder {
     }
 
     @Override
-    public MarketOrderTrade orderCash(String symbol, Trade.Type type, BigDecimal cash) {
+    public MarketOrderTrade marketOrderCash(String symbol, Trade.Type type, BigDecimal cash) {
         symbol = BinanceExchange.getSymbolMarket(symbol, market);
 
         ExchangeInformation exchangeInformation = syncRequestClient.getExchangeInformation();
@@ -272,18 +272,18 @@ public class BinanceFuturesAccount implements FuturesTradeAccount, LimitOrder {
     }
 
 
-    @Override
-    public LimitOrderTrade[] limitOrderQuantity(String symbol, Trade.Type type, BigDecimal quantity, BigDecimal limitPrice) {
-        return new LimitOrderTrade[0];
-    }
-
-    @Override
-    public LimitOrderTrade[] limitOrderCash(String symbol, Trade.Type type, BigDecimal cash, BigDecimal limitPrice) {
-        return new LimitOrderTrade[0];
-    }
-
-    @Override
-    public LimitOrderTrade[] limitOrderCash(String symbol, Trade.Type type, BigDecimal cash, BigDecimal beginPrice, BigDecimal endPrice, BigDecimal priceGap) {
-        return new LimitOrderTrade[0];
-    }
+//    @Override
+//    public LimitOrderTrade[] limitOrderQuantity(String symbol, Trade.Type type, BigDecimal quantity, BigDecimal limitPrice) {
+//        return new LimitOrderTrade[0];
+//    }
+//
+//    @Override
+//    public LimitOrderTrade[] limitOrderCash(String symbol, Trade.Type type, BigDecimal cash, BigDecimal limitPrice) {
+//        return new LimitOrderTrade[0];
+//    }
+//
+//    @Override
+//    public LimitOrderTrade[] limitOrderCash(String symbol, Trade.Type type, BigDecimal cash, BigDecimal beginPrice, BigDecimal endPrice, BigDecimal priceGap) {
+//        return new LimitOrderTrade[0];
+//    }
 }

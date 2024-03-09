@@ -25,7 +25,7 @@ public abstract class BinanceOrderBookOut extends SymbolsData {
 
     protected Map<String, Long> lastUpdateMap = new HashMap<>();
 
-    protected TimeName.Type timeNameType =  TimeName.Type.DAY_1;
+    protected TimeName.Type timeNameType =  TimeName.Type.HOUR_6;
 
     public void setTimeNameType(TimeName.Type timeNameType) {
         this.timeNameType = timeNameType;
