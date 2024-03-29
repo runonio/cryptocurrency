@@ -1,7 +1,7 @@
 package io.runon.cryptocurrency.trading;
 
 import io.runon.trading.TradingTimes;
-import io.runon.trading.technical.analysis.candle.TaCandles;
+import io.runon.trading.technical.analysis.candle.Candles;
 import io.runon.trading.technical.analysis.candle.TradeCandle;
 
 
@@ -91,7 +91,7 @@ public class CandleVolumeMergerStore {
             }
 
 
-            int idx = TaCandles.getOpenTimeIndex(candles, candleVolumeMerge.getCandleTime(), startTime);
+            int idx = Candles.getOpenTimeIndex(candles, candleVolumeMerge.getCandleTime(), startTime);
 
             if(idx == -1){
                 this.candles = newCandles(time, openTime, range);

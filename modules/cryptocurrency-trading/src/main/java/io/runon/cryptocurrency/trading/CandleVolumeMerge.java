@@ -3,7 +3,7 @@ package io.runon.cryptocurrency.trading;
 import com.seomse.commons.utils.time.Times;
 import io.runon.trading.TradingTimes;
 import io.runon.trading.data.csv.CsvCandle;
-import io.runon.trading.technical.analysis.candle.TaCandles;
+import io.runon.trading.technical.analysis.candle.Candles;
 import io.runon.trading.technical.analysis.candle.TradeCandle;
 
 import java.io.File;
@@ -75,7 +75,7 @@ public class CandleVolumeMerge {
 
             TradeCandle [] addCandles = CsvCandle.load(addAbsolutePath +"/" + interval, candleTime, startTime, endTime, zoneId);
             for(TradeCandle addCandle : addCandles){
-                int openTimeIndex = TaCandles.getOpenTimeIndex(candles, candleTime, addCandle.getOpenTime());
+                int openTimeIndex = Candles.getOpenTimeIndex(candles, candleTime, addCandle.getOpenTime());
                 if(openTimeIndex < 0){
                     continue;
                 }
@@ -105,7 +105,7 @@ public class CandleVolumeMerge {
     public static void merge(TradeCandle [] candles, List<TradeCandle [] > addCandlesList, long candleTime) {
         for (TradeCandle [] addCandles : addCandlesList) {
             for(TradeCandle addCandle : addCandles){
-                int openTimeIndex = TaCandles.getOpenTimeIndex(candles, candleTime, addCandle.getOpenTime());
+                int openTimeIndex = Candles.getOpenTimeIndex(candles, candleTime, addCandle.getOpenTime());
                 if(openTimeIndex < 0){
                     continue;
                 }
