@@ -3,7 +3,7 @@
 - 암호화폐 자동매매와 관련된 기술 모듈들이 제공 됩니다. 
 - 서비스에 직접적인 영향을 주는 부분은 제공되지 않습니다.
 - 모듈명이 겹칠만한 내용들은 cryptocurrency-name 형태로 사용됩니다.
-- 
+
 # 개발환경
 - open jdk 17
 
@@ -48,6 +48,9 @@ implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.8'
 
 ### email
 - iorunon@gmail.com
+
+### cafe
+- [cafe.naver.com/radvisor](https://cafe.naver.com/radvisor)
 
 ## main developer
 - macle
