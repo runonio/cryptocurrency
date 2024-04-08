@@ -1,6 +1,6 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
-import com.seomse.crawling.core.http.HttpUrl;
+import com.seomse.commons.http.HttpApis;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -14,7 +14,7 @@ public class BinanceSpotApis {
     public static final String URL ="https://api.binance.com";
 
     public static String getOrderBook(String symbol){
-        return HttpUrl.get(URL + "/api/v3/depth?symbol=" + symbol);
+        return HttpApis.getMessage(URL + "/api/v3/depth?symbol=" + symbol);
     }
 
 

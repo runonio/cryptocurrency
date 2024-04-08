@@ -1,6 +1,6 @@
 package io.runon.cryptocurrency.exchanges.ftx;
 
-import com.seomse.crawling.core.http.HttpUrl;
+import com.seomse.commons.http.HttpApis;
 import io.runon.cryptocurrency.trading.MarketSymbol;
 
 /**
@@ -11,7 +11,7 @@ import io.runon.cryptocurrency.trading.MarketSymbol;
 public class FtxExchange {
 
     public static String getTickers(){
-        return HttpUrl.get("https://ftx.com/api/markets");
+        return HttpApis.getMessage("https://ftx.com/api/markets");
     }
 
     public static MarketSymbol getMarketSymbol(String cryptocurrencyId) {

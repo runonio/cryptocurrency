@@ -1,6 +1,6 @@
 package io.runon.cryptocurrency.exchanges.kraken;
 
-import com.seomse.crawling.core.http.HttpUrl;
+import com.seomse.commons.http.HttpApis;
 
 /**
  * Kraken 실시간 거래정보
@@ -16,7 +16,7 @@ public class KrakenExchange {
      * @return tickers 현물거래소
      */
     public static String getTickers(){
-        return HttpUrl.get("https://www.kraken.com/api/internal/cryptowatch/markets/assets?asset=USD&limit=200&assetName=new");
+        return HttpApis.getMessage("https://www.kraken.com/api/internal/cryptowatch/markets/assets?asset=USD&limit=200&assetName=new");
     }
 
     public static void main(String[] args) {

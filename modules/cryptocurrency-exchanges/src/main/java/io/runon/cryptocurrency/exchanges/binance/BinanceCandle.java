@@ -2,8 +2,8 @@ package io.runon.cryptocurrency.exchanges.binance;
 
 import com.seomse.commons.config.Config;
 import com.seomse.commons.exception.IORuntimeException;
+import com.seomse.commons.http.HttpApis;
 import com.seomse.commons.utils.FileUtil;
-import com.seomse.crawling.core.http.HttpUrl;
 import io.runon.cryptocurrency.trading.CryptocurrencyDataPath;
 import io.runon.trading.TradingTimes;
 import io.runon.trading.data.csv.CsvTimeFile;
@@ -367,7 +367,7 @@ public class BinanceCandle {
         if(limit != null){
             queryBuilder.append("&limit=").append(limit);
         }
-        return HttpUrl.get(queryBuilder.toString());
+        return HttpApis.getMessage(queryBuilder.toString());
     }
 
     /**

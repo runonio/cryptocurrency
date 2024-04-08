@@ -3,7 +3,8 @@ package io.runon.cryptocurrency.exchanges.coinbase;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.seomse.crawling.core.http.HttpUrl;
+import com.seomse.commons.http.HttpApis;
+
 
 /**
  * 코인베이스 거래소
@@ -13,7 +14,7 @@ import com.seomse.crawling.core.http.HttpUrl;
 public class CoinbaseExchange {
 
     public static String getTickers(){
-        return HttpUrl.get("https://api.exchange.coinbase.com/products");
+        return HttpApis.getMessage("https://api.exchange.coinbase.com/products");
     }
 
     public static String getSubscribeMessage(String symbols, String markets){

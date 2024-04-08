@@ -1,12 +1,12 @@
 package io.runon.cryptocurrency.exchanges;
 
+import jakarta.websocket.ContainerProvider;
+import jakarta.websocket.WebSocketContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 
-import javax.websocket.ContainerProvider;
-import javax.websocket.WebSocketContainer;
 import java.net.URI;
 import java.net.URISyntaxException;
 

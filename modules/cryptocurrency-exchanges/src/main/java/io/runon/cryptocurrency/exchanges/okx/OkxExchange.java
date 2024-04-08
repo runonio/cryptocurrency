@@ -3,7 +3,7 @@ package io.runon.cryptocurrency.exchanges.okx;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.seomse.crawling.core.http.HttpUrl;
+import com.seomse.commons.http.HttpApis;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -32,7 +32,7 @@ public class OkxExchange {
      * @return tickers json
      */
     public static String getTickers(String type){
-        return HttpUrl.get("https://www.okx.com/api/v5/market/tickers?instType=" + type);
+        return HttpApis.getMessage("https://www.okx.com/api/v5/market/tickers?instType=" + type);
     }
 
     /**

@@ -5,7 +5,7 @@ import com.binance.client.model.market.MarkPrice;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.seomse.crawling.core.http.HttpUrl;
+import com.seomse.commons.http.HttpApis;
 import io.runon.cryptocurrency.trading.MarketSymbol;
 import io.runon.cryptocurrency.trading.exception.IdNotPatternException;
 import io.runon.trading.BigDecimals;
@@ -58,14 +58,14 @@ public class BinanceExchange {
      * @return json array
      */
     public static String getTickers() {
-        return HttpUrl.get(BinanceSpotApis.URL + "/api/v3/ticker/price");
+        return HttpApis.getMessage(BinanceSpotApis.URL + "/api/v3/ticker/price");
     }
 
     /**
      * @return json array
      */
     public static String getTickers24h() {
-        return HttpUrl.get(BinanceSpotApis.URL + "/api/v3/ticker/24hr");
+        return HttpApis.getMessage(BinanceSpotApis.URL + "/api/v3/ticker/24hr");
     }
 
     /**
