@@ -1,7 +1,7 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
 import com.seomse.commons.exception.IORuntimeException;
-import com.seomse.crawling.core.http.HttpUrl;
+import com.seomse.commons.http.HttpApis;
 
 /**
  * 바이낸스 선물 api 에서 활용될 유틸관련 메소드 모음
@@ -18,12 +18,12 @@ public class BinanceFuturesReTryApis {
         int check = tryCount-1;
         for (int i = 0; i < check ; i++) {
             try {
-                return HttpUrl.get(BinanceFuturesApis.URL + "/fapi/v1/openInterest?symbol=" + symbol);
+                return HttpApis.getMessage(BinanceFuturesApis.URL + "/fapi/v1/openInterest?symbol=" + symbol);
             }catch (IORuntimeException e){
                 try{Thread.sleep(sleepTime);}catch(Exception ignore){}
             }
         }
-        return HttpUrl.get(BinanceFuturesApis.URL + "/fapi/v1/openInterest?symbol=" + symbol);
+        return HttpApis.getMessage(BinanceFuturesApis.URL + "/fapi/v1/openInterest?symbol=" + symbol);
     }
 
 

@@ -6,7 +6,7 @@
 
     <groupId>io.runon.cryptocurrency</groupId>
     <artifactId>cryptocurrency-exchanges</artifactId>
-    <version>0.5.1</version>
+    <version>0.5.2</version>
     <packaging>jar</packaging>
 
     <name>cryptocurrency-exchanges</name>
@@ -26,13 +26,13 @@
             <name>macle</name>
             <email>ysys86a@gmail.com</email>
             <id>macle86</id>
-            <organization>seomse</organization>
+            <organization>runon</organization>
         </developer>
         <developer>
             <name>ccsweets</name>
             <email>tramp0102@gmail.com</email>
             <id>ccsweets</id>
-            <organization>seomse</organization>
+            <organization>runon</organization>
         </developer>
     </developers>
 
@@ -55,6 +55,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>17</java.version>
     </properties>
+
 
     <build>
         <plugins>
@@ -96,7 +97,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.4.1</version>
+                <configuration>
+                    <doclint>none</doclint>
+                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -112,7 +116,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>3.0.1</version>
-
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -133,56 +136,41 @@
         <dependency>
             <groupId>com.seomse.commons</groupId>
             <artifactId>commons</artifactId>
-            <version>1.4.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.seomse.commons</groupId>
-            <artifactId>crawling</artifactId>
-            <version>0.9.0</version>
+            <version>1.6.0</version>
         </dependency>
 
         <dependency>
             <groupId>io.runon.commons</groupId>
             <artifactId>data-service</artifactId>
-            <version>0.1.61</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.runon.trading</groupId>
-            <artifactId>trading-data</artifactId>
-            <version>0.2.81</version>
+            <version>0.1.7</version>
         </dependency>
 
         <dependency>
             <groupId>io.runon.trading</groupId>
             <artifactId>trading</artifactId>
-            <version>0.4.6</version>
+            <version>0.4.7</version>
         </dependency>
 
-        <dependency>
-            <groupId>io.runon.trading</groupId>
-            <artifactId>technical-analysis</artifactId>
-            <version>0.4.61</version>
-        </dependency>
 
         <dependency>
             <groupId>io.runon.cryptocurrency</groupId>
             <artifactId>cryptocurrency-trading</artifactId>
-            <version>0.1.8</version>
+            <version>0.1.9</version>
         </dependency>
 
+
+        <!--exchange-binance-futures dependency-->
         <dependency>
-            <groupId>io.runon.cryptocurrency</groupId>
-            <artifactId>exchange-binance-futures</artifactId>
-            <version>1.0.92</version>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>2.0.48</version>
         </dependency>
 
         <!--exchange-binance-futures dependency-->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.83</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.6</version>
         </dependency>
 
 
@@ -207,13 +195,13 @@
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
             <artifactId>okhttp</artifactId>
-            <version>4.10.0</version>
+            <version>4.12.0</version>
         </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
-            <version>2.7.11</version>
+            <version>3.2.4</version>
         </dependency>
 
         <dependency>

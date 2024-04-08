@@ -1,6 +1,6 @@
 package io.runon.cryptocurrency.exchanges.bithumb;
 
-import com.seomse.crawling.core.http.HttpUrl;
+import com.seomse.commons.http.HttpApis;
 
 /**
  * 빗썸 거래소
@@ -28,7 +28,7 @@ public class BithumbExchange {
      * @return json object
      */
     public static String getTickers(String market){
-        return HttpUrl.get("https://api.bithumb.com/public/ticker/ALL_" + market.toUpperCase());
+        return HttpApis.getMessage("https://api.bithumb.com/public/ticker/ALL_" + market.toUpperCase());
     }
 
 }

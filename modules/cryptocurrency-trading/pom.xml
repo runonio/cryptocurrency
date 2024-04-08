@@ -6,7 +6,7 @@
 
     <groupId>io.runon.cryptocurrency</groupId>
     <artifactId>cryptocurrency-trading</artifactId>
-    <version>0.1.8</version>
+    <version>0.1.9</version>
     <packaging>jar</packaging>
 
     <name>cryptocurrency-trading</name>
@@ -125,44 +125,33 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>31.1-jre</version>
+            <version>33.0.0-jre</version>
         </dependency>
 
 
         <dependency>
             <groupId>com.seomse.commons</groupId>
             <artifactId>commons</artifactId>
-            <version>1.5.6</version>
+            <version>1.6.0</version>
         </dependency>
 
         <dependency>
             <groupId>io.runon.trading</groupId>
             <artifactId>trading</artifactId>
-            <version>0.4.6</version>
+            <version>0.4.7</version>
         </dependency>
 
-        <dependency>
-            <groupId>io.runon.trading</groupId>
-            <artifactId>trading-data</artifactId>
-            <version>0.2.81</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.runon.trading</groupId>
-            <artifactId>technical-analysis</artifactId>
-            <version>0.4.61</version>
-        </dependency>
 
         <dependency>
             <groupId>io.runon.commons</groupId>
             <artifactId>data-service</artifactId>
-            <version>0.1.61</version>
+            <version>0.1.7</version>
         </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
+            <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

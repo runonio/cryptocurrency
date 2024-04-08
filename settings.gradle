@@ -6,10 +6,3 @@ project(':cryptocurrency-trading').projectDir = new File(settingsDir,'modules/cr
 
 include ':trading'
 project(':trading').projectDir = new File(settingsDir,'../../runon/trading/modules/trading')
-
-include ':technical-analysis'
-project(':technical-analysis').projectDir = new File(settingsDir,'../../runon/trading/modules/technical-analysis')
-
-include ':trading-data'
-project(':trading-data').projectDir = new File(settingsDir,'../../runon/trading/modules/trading-data')
-

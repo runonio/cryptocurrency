@@ -5,7 +5,7 @@ import com.binance.client.model.trade.AccountInformation;
 import com.binance.client.model.trade.Asset;
 import com.binance.client.model.trade.Order;
 import com.binance.client.model.trade.Position;
-import com.seomse.crawling.core.http.HttpUrl;
+import com.seomse.commons.http.HttpApis;
 import io.runon.trading.account.FuturesPosition;
 import io.runon.trading.account.FuturesPositionData;
 
@@ -130,7 +130,7 @@ public class BinanceFuturesApis {
      * @return {"symbol":"BTCUSDT","openInterest":"98136.374","time":1655645629238}
      */
     public static String getOpenInterest(String symbol){
-        return HttpUrl.get(URL + "/fapi/v1/openInterest?symbol=" + symbol);
+        return HttpApis.getMessage(URL + "/fapi/v1/openInterest?symbol=" + symbol);
     }
 
     /**
@@ -223,11 +223,11 @@ public class BinanceFuturesApis {
             sb.append("&").append("endTime=").append(endTime);
         }
 
-        return HttpUrl.get(sb.toString());
+        return HttpApis.getMessage(sb.toString());
     }
 
     public static String getOrderBook(String symbol){
-        return HttpUrl.get(URL + "/fapi/v1/depth?symbol=" + symbol);
+        return HttpApis.getMessage(URL + "/fapi/v1/depth?symbol=" + symbol);
     }
 
 

@@ -3,7 +3,7 @@ package io.runon.cryptocurrency.exchanges.upbit;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.seomse.crawling.core.http.HttpUrl;
+import com.seomse.commons.http.HttpApis;
 
 /**
  * 업비트 거래소
@@ -13,7 +13,7 @@ import com.seomse.crawling.core.http.HttpUrl;
 public class UpbitExchange {
 
     public static String getTickers(){
-        return HttpUrl.get("https://api.upbit.com/v1/market/all");
+        return HttpApis.getMessage("https://api.upbit.com/v1/market/all");
     }
 
     public static String getSubscribeMessage(String symbols, String markets){
@@ -44,6 +44,6 @@ public class UpbitExchange {
     }
 
     public static void main(String[] args) {
-        System.out.println(HttpUrl.get("https://api.upbit.com/v1/market/all"));
+        System.out.println(HttpApis.getMessage("https://api.upbit.com/v1/market/all"));
     }
 }
