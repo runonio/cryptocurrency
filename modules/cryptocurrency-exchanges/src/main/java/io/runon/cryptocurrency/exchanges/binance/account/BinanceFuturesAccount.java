@@ -17,8 +17,6 @@ import io.runon.trading.account.FuturesPosition;
 import io.runon.trading.account.FuturesTradeAccount;
 import io.runon.trading.exception.MinOrderException;
 import io.runon.trading.exception.SymbolNotFoundException;
-import io.runon.trading.order.LimitOrder;
-import io.runon.trading.order.LimitOrderTrade;
 import io.runon.trading.order.MarketOrderTrade;
 import io.runon.trading.order.MarketOrderTradeData;
 
@@ -84,7 +82,7 @@ public class BinanceFuturesAccount implements FuturesTradeAccount {
     }
 
     @Override
-    public FuturesPosition getPosition(String symbol) {
+    public FuturesPosition getFuturesPosition(String symbol) {
         return BinanceFuturesApis.getPosition(symbol, syncRequestClient.getAccountInformation());
     }
 
@@ -124,14 +122,14 @@ public class BinanceFuturesAccount implements FuturesTradeAccount {
 
     @Override
     public BigDecimal getLeverage(String symbol) {
-        FuturesPosition futuresPosition = getPosition(symbol);
+        FuturesPosition futuresPosition = getFuturesPosition(symbol);
         return futuresPosition.getLeverage();
     }
 
     @Override
     public BigDecimal getAvailableBuyPrice(String symbol) {
         BigDecimal price = getCash();
-        FuturesPosition futuresPosition = getPosition(symbol);
+        FuturesPosition futuresPosition = getFuturesPosition(symbol);
         if(futuresPosition != null && futuresPosition.getPosition() == io.runon.trading.strategy.Position.SHORT){
             //실제 구매가 다 안되는 경우를 발견해서 금액을 줄임
             price = price.add(futuresPosition.getTradingPrice().multiply(new BigDecimal("0.9")));
@@ -143,7 +141,7 @@ public class BinanceFuturesAccount implements FuturesTradeAccount {
     @Override
     public BigDecimal getAvailableSellPrice(String symbol) {
         BigDecimal price = getCash();
-        FuturesPosition futuresPosition = getPosition(symbol);
+        FuturesPosition futuresPosition = getFuturesPosition(symbol);
         if(futuresPosition != null && futuresPosition.getPosition() == io.runon.trading.strategy.Position.LONG){
             //실제 구매가 다 안되는 경우를 발견해서 금액을 줄임
             price = price.add(futuresPosition.getTradingPrice().multiply(new BigDecimal("0.9")));
