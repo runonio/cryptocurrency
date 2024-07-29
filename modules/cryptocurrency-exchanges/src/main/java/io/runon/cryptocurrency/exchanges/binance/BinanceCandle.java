@@ -19,8 +19,8 @@ import java.util.List;
 
 /**
  * 바이낸스 캔들 데이터
- * https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md
- * https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#klinecandlestick-data
+ * github.com/binance/binance-spot-api-docs/blob/master/rest-api.md
+ * github.com/binance/binance-spot-api-docs/blob/master/rest-api.md#klinecandlestick-data
  * @author macle
  */
 public class BinanceCandle {
@@ -200,7 +200,7 @@ public class BinanceCandle {
 
     public static void csvNext(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime, long sleepTime){
 
-        long lastOpenTime = CsvTimeFile.getLastOpenTime(outDirPath +"/" + symbol + "/" + TradingTimes.getInterval(candleTime));
+        long lastOpenTime = CsvTimeFile.getLastTime(outDirPath +"/" + symbol + "/" + TradingTimes.getInterval(candleTime));
         if(lastOpenTime == -1){
             csvSplit(url, symbol, candleTime, zoneId, outDirPath, startOpenTime, sleepTime);
         }else{
