@@ -4,5 +4,21 @@ project(':cryptocurrency-exchanges').projectDir = new File(settingsDir,'modules/
 include ':cryptocurrency-trading'
 project(':cryptocurrency-trading').projectDir = new File(settingsDir,'modules/cryptocurrency-trading')
 
+
+
+//개발용 의존성 ( 봇만들면서 직접 모듈소스 추가)
 include ':trading'
 project(':trading').projectDir = new File(settingsDir,'../../runon/trading/modules/trading')
+
+include ':backtesting'
+project(':backtesting').projectDir = new File(settingsDir,'../../runon/trading/modules/backtesting')
+
+include ':chart-view'
+project(':chart-view').projectDir = new File(settingsDir,'../../runon/trading/modules/chart-view')
+
+
+include ':seomse-commons'
+project(':seomse-commons').projectDir = new File(settingsDir,'../../seomse/seomse-commons/modules/commons')
+
+include ':jdbc'
+project(':jdbc').projectDir = new File(settingsDir,'../../seomse/seomse-commons/modules/jdbc')
