@@ -19,7 +19,6 @@ public class CryptocurrencyDataPath {
     public static String getSpotCandleDirPath() {
         String dirPath = Config.getConfig("cryptocurrency.spot.candle.dir.path");
         if (dirPath == null) {
-            String fileSeparator = FileSystems.getDefault().getSeparator();
             dirPath = TradingConfig.getTradingDataPath() + "/cryptocurrency/spot/candle";
         }
 

@@ -15,14 +15,18 @@ dependencies {
     implementation project(path: ':trading')
     implementation project(path: ':seomse-commons')
 
+
+    testImplementation project(path: ':chart-view')
+
+
     implementation 'io.runon.commons:data-service:0.1.7'
 
 
     implementation group: 'org.json', name: 'json', version: '20240303'
     implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
 
-
     implementation group: 'com.google.guava', name: 'guava', version: '33.0.0-jre'
+
 
     compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
