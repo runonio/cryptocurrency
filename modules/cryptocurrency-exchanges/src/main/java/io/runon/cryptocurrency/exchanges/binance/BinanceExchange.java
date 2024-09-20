@@ -126,6 +126,7 @@ public class BinanceExchange {
         Arrays.sort(symbolNumbers, SymbolNumber.SORT_NUMBER_DESC_SYMBOL_ASC );
 
         Map<String, Integer> rankingMap = new HashMap<>();
+
         int ranking = 1;
         BigDecimal lastNumber = symbolNumbers[0].getNumber();
 
@@ -136,6 +137,8 @@ public class BinanceExchange {
             }
             rankingMap.put(symbolNumber.getSymbol(), ranking);
         }
+
+        rankingMap.remove("BTCSTUSDT");
         return rankingMap;
     }
 
