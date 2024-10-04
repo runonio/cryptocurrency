@@ -12,6 +12,7 @@ import io.runon.trading.account.FuturesPositionData;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -233,12 +234,15 @@ public class BinanceFuturesApis {
 
     public static String[] getAllSymbols() {
         List<MarkPrice> list = BinanceExchange.getFuturesTickers();
-        String [] allSymbols = new String[list.size()];
+        List<String> symbolList = new ArrayList<>();
 
-        for (int i = 0; i <allSymbols.length ; i++) {
-            allSymbols[i] = list.get(i).getSymbol();
+
+        for (int i = 0; i <list.size() ; i++) {
+            symbolList.add(list.get(i).getSymbol());
         }
-        return allSymbols;
+        symbolList.remove("BTCSTUSDT");
+
+        return symbolList.toArray(new String[0]);
     }
 
     public static void main(String[] args) {
