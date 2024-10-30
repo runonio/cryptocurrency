@@ -42,7 +42,7 @@ public class CryptocurrencyStv {
 
         SoaringTradingVolume stv = new SoaringTradingVolume(symbolCandleTimes);
         stv.setAverageCount(500);
-        stv.setMinTradingPrice(new BigDecimal(10000));
+        stv.setMinAmount(new BigDecimal(10000));
         stv.setDisparity(new BigDecimal(500));
 
         int n = 14;

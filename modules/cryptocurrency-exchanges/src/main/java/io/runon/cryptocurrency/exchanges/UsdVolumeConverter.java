@@ -11,7 +11,7 @@ import java.math.MathContext;
 public class UsdVolumeConverter implements TradeConverter{
     @Override
     public void convert(Trade trade) {
-        trade.setTradingPrice(trade.getVolume());
+        trade.setAmount(trade.getVolume());
         trade.setVolume(trade.getVolume().divide(trade.getPrice(), MathContext.DECIMAL128));
     }
 }

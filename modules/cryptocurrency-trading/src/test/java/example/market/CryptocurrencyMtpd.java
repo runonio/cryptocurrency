@@ -38,7 +38,7 @@ public class CryptocurrencyMtpd {
 
         Mtpd mtpd = new Mtpd(symbolCandleTimes);
         mtpd.setAverageCount(500);
-        mtpd.setMinTradingPrice(new BigDecimal(10000));
+        mtpd.setMinAmount(new BigDecimal(10000));
 
         int n = 14;
 

@@ -401,13 +401,13 @@ public class BinanceCandle {
             tradeCandle.setLow(data.getBigDecimal(3));
             tradeCandle.setPrevious(data.getBigDecimal(1));
             tradeCandle.setVolume(data.getBigDecimal(5));
-            tradeCandle.setTradingPrice(data.getBigDecimal(7));
+            tradeCandle.setAmount(data.getBigDecimal(7));
             tradeCandle.setTradeCount(data.getInt(8));
             tradeCandle.setBuyVolume(data.getBigDecimal(9));
-            tradeCandle.setBuyTradingPrice(data.getBigDecimal(10));
+            tradeCandle.setBuyAmount(data.getBigDecimal(10));
 
             tradeCandle.setSellVolume();
-            tradeCandle.setSellTradingPrice();
+            tradeCandle.setSellAmount();
             tradeCandle.setChange();
 
             candles[i] = tradeCandle;

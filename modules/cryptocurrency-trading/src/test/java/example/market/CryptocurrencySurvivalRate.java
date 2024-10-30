@@ -37,7 +37,7 @@ public class CryptocurrencySurvivalRate {
         IdCandleTimes symbolCandleTimes = new IdCandleTimes(symbolCandles);
 
         MarketSurvivalRate msr = new MarketSurvivalRate(symbolCandleTimes);
-        msr.setMinTradingPrice(new BigDecimal(10000));
+        msr.setMinAmount(new BigDecimal(10000));
 
         int n = 14;
 
