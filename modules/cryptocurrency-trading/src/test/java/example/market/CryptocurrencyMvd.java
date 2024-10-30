@@ -39,7 +39,7 @@ public class CryptocurrencyMvd {
 
         Mvd mvd = new Mvd(symbolCandleTimes);
         mvd.setAverageCount(500);
-        mvd.setMinTradingPrice(new BigDecimal(10000));
+        mvd.setMinAmount(new BigDecimal(10000));
 
         int n = 14;
 

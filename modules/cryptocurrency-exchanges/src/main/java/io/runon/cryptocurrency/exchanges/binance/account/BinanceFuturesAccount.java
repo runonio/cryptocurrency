@@ -132,7 +132,7 @@ public class BinanceFuturesAccount implements FuturesTradeAccount {
         FuturesPosition futuresPosition = getFuturesPosition(symbol);
         if(futuresPosition != null && futuresPosition.getPosition() == io.runon.trading.strategy.Position.SHORT){
             //실제 구매가 다 안되는 경우를 발견해서 금액을 줄임
-            price = price.add(futuresPosition.getTradingPrice().multiply(new BigDecimal("0.9")));
+            price = price.add(futuresPosition.getAmount().multiply(new BigDecimal("0.9")));
         }
 
         return price.subtract(price.multiply(fee));
@@ -144,7 +144,7 @@ public class BinanceFuturesAccount implements FuturesTradeAccount {
         FuturesPosition futuresPosition = getFuturesPosition(symbol);
         if(futuresPosition != null && futuresPosition.getPosition() == io.runon.trading.strategy.Position.LONG){
             //실제 구매가 다 안되는 경우를 발견해서 금액을 줄임
-            price = price.add(futuresPosition.getTradingPrice().multiply(new BigDecimal("0.9")));
+            price = price.add(futuresPosition.getAmount().multiply(new BigDecimal("0.9")));
         }
 
         return price.subtract(price.multiply(fee));

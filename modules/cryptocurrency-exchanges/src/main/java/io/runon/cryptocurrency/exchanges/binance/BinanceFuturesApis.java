@@ -101,7 +101,7 @@ public class BinanceFuturesApis {
 
         futuresPosition.setPrice(new BigDecimal(symbolPosition.getEntryPrice()));
 
-        futuresPosition.setTradingPrice(symbolPosition.getInitialMargin());
+        futuresPosition.setAmount(symbolPosition.getInitialMargin());
         futuresPosition.setLeverage(symbolPosition.getLeverage());
         futuresPosition.setQuantity(symbolPosition.getPositionAmt());
 

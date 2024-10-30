@@ -147,13 +147,13 @@ public abstract class BinanceCandleStream<T extends CryptocurrencyCandle> extend
 
                     tradeCandle.setTradeCount(messageObj.getInt("n"));
                     tradeCandle.setVolume(messageObj.getBigDecimal("v"));
-                    tradeCandle.setTradingPrice(messageObj.getBigDecimal("q"));
+                    tradeCandle.setAmount(messageObj.getBigDecimal("q"));
 
                     tradeCandle.setBuyVolume(messageObj.getBigDecimal("V"));
-                    tradeCandle.setBuyTradingPrice(messageObj.getBigDecimal("Q"));
+                    tradeCandle.setBuyAmount(messageObj.getBigDecimal("Q"));
 
                     tradeCandle.setSellVolume(tradeCandle.getVolume().subtract(tradeCandle.getBuyVolume()));
-                    tradeCandle.setSellTradingPrice(tradeCandle.getTradingPrice().subtract(tradeCandle.getBuyTradingPrice()));
+                    tradeCandle.setSellAmount(tradeCandle.getAmount().subtract(tradeCandle.getBuyAmount()));
 
                     addCandle(id, tradeCandle);
                 }catch(Exception e){
