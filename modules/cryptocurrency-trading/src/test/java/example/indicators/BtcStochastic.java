@@ -30,7 +30,7 @@ public class BtcStochastic {
         long startTime = YmdUtil.getTime("20180101", zoneId);
         long endTime = YmdUtil.getTime("20220922", zoneId);
 
-        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime, zoneId);
+        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime);
         Stochastic stochastic  = new Stochastic();
         StochasticData[] dataArray = stochastic.getEma(candles, 5000);
 

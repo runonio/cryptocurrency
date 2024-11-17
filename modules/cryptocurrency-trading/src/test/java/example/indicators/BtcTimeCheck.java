@@ -23,7 +23,7 @@ public class BtcTimeCheck {
         ZoneId zoneId = TradingTimes.UTC_ZONE_ID;
 
         long startTime = YmdUtil.getTime("20180101", zoneId);
-        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, System.currentTimeMillis(), zoneId);
+        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, System.currentTimeMillis());
 
         for(TradeCandle tradeCandle : candles){
             System.out.println( (tradeCandle.getOpenTime())==TradingTimes.getOpenTime(Times.HOUR_12, tradeCandle.getOpenTime(), TradingTimes.UTC_ZONE_ID));

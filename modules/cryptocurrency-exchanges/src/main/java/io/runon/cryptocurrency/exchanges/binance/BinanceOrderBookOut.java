@@ -4,7 +4,6 @@ import com.seomse.commons.utils.ExceptionUtil;
 import com.seomse.commons.utils.FileUtil;
 import com.seomse.commons.utils.time.Times;
 import io.runon.cryptocurrency.trading.SymbolsData;
-import io.runon.trading.TradingTimes;
 import io.runon.trading.data.file.TimeFiles;
 import io.runon.trading.data.file.TimeName;
 import lombok.extern.slf4j.Slf4j;
@@ -108,7 +107,7 @@ public abstract class BinanceOrderBookOut extends SymbolsData {
 
                     String line = BinanceExchange.getOrderBookLine(binanceOrderBookJson);
 
-                    String name = TimeName.getName(System.currentTimeMillis(), timeNameType, TradingTimes.UTC_ZONE_ID);
+                    String name = TimeName.getName(System.currentTimeMillis(), timeNameType);
 
                     String path = symbolDirPath+"/"+name;
 

@@ -28,7 +28,7 @@ public class BtcChaikinOscillator {
         long startTime = YmdUtil.getTime("20180101", zoneId);
         long endTime = YmdUtil.getTime("20220922", zoneId);
 
-        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime, zoneId);
+        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime);
         TimeNumber[] dataArray = Adi.getTimeNumbers(candles, 5000);
 
         TradingChart chart = new TradingChart(candles, 1700, 1000, TradingChart.ChartDateType.DAY);

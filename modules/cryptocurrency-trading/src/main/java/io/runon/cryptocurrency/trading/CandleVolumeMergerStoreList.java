@@ -26,7 +26,7 @@ public class CandleVolumeMergerStoreList extends CandleVolumeMergerStore{
     }
 
     public List<TradeCandle> getList(long time){
-        long openTime = TradingTimes.getOpenTime( candleVolumeMerge.getCandleTime(), time,  candleVolumeMerge.getZoneId());
+        long openTime = TradingTimes.getOpenTime( candleVolumeMerge.getCandleTime(), time,  TradingTimes.UTC_ZONE_ID);
         if(!isRealTime && openTime == lastOpenTime){
             return list;
         }

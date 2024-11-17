@@ -28,7 +28,7 @@ public class BtcMacd {
         long startTime = YmdUtil.getTime("20180101", zoneId);
         long endTime = System.currentTimeMillis();
 
-        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime, zoneId);
+        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime);
         MacdData[] dataArray = Macd.get(candles);
 
         TradingChart chart = new TradingChart(candles, 1700, 1000, TradingChart.ChartDateType.DAY);

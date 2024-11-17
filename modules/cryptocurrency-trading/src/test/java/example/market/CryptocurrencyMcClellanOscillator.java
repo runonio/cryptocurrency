@@ -25,7 +25,6 @@ public class CryptocurrencyMcClellanOscillator {
         ZoneId zoneId = TradingTimes.UTC_ZONE_ID;
 
         CsvSymbolCandle csvSymbolCandle = new CsvSymbolCandle(path,"15m");
-        csvSymbolCandle.setZoneId(zoneId);
 
         String [] endWiths = {"USDT"};
 

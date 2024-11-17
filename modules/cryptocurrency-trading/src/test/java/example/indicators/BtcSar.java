@@ -27,7 +27,7 @@ public class BtcSar {
         long startTime = YmdUtil.getTime("20220101", zoneId);
         long endTime = System.currentTimeMillis();
 
-        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime, zoneId);
+        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime);
 
         Sar sar = new Sar();
 

@@ -50,7 +50,7 @@ public class BinanceSpotCandleOut extends CandleOut {
 
                     try {
                         log.info("start symbol: " + symbol + ", interval: " + TradingTimes.getInterval(candleTime) +", try count: " + ++tryCount);
-                        BinanceCandle.csvNext(BinanceCandle.CANDLE, symbol, candleTime, zoneId, outDirPath, startOpenTime, sleepTime);
+                        BinanceCandle.csvNext(BinanceCandle.CANDLE, symbol, candleTime, outDirPath, startOpenTime, sleepTime);
                         break;
                     }catch (com.seomse.commons.exception.IORuntimeException | JSONException e){
 

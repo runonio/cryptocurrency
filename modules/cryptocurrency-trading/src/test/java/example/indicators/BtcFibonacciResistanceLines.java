@@ -28,7 +28,7 @@ public class BtcFibonacciResistanceLines {
         long startTime = YmdUtil.getTime("20180101", zoneId);
         long endTime = YmdUtil.getTime("20220924", zoneId);
 
-        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime, zoneId);
+        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime);
 
         // 연속 검색 범위
         FibonacciData[] dataArray = Fibonacci.resistanceLines(candles, candles.length,20, 5000);

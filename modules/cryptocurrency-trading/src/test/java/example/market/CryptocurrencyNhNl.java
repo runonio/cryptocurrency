@@ -33,7 +33,6 @@ public class CryptocurrencyNhNl {
         ZoneId zoneId = TradingTimes.UTC_ZONE_ID;
 
         CsvSymbolCandle csvSymbolCandle = new CsvSymbolCandle(path,interval);
-        csvSymbolCandle.setZoneId(zoneId);
 
         String [] endWiths = {"USDT"};
 

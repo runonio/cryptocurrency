@@ -23,7 +23,6 @@ public class BinanceFuturesCandleAllSymbolOutExample {
         candleOut.setSymbolsMarket(markets, BinanceExchange.getSymbolRankingMap());
         candleOut.setIntervals(intervals);
         candleOut.setStartOpenTime(startTime);
-        candleOut.setZoneId(TradingTimes.UTC_ZONE_ID);
 
         candleOut.out();
     }

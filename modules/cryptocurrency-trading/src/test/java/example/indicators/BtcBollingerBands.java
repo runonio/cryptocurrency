@@ -31,7 +31,7 @@ public class BtcBollingerBands {
         long startTime = YmdUtil.getTime("20180101", zoneId);
         long endTime = YmdUtil.getTime("20220922", zoneId);
 
-        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime, zoneId);
+        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime);
         //SMA
 //        BollingerBandsData[] dataArray = BollingerBands.getArray(candles, 5000);
 

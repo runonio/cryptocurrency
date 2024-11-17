@@ -33,7 +33,7 @@ public class BtcAdx {
         Adx adx = new Adx();
 //        rmi.setDefaultX(1);
 //        rmi.setDefaultN(14);
-        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime, zoneId);
+        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime);
         AdxData[] dataArray = adx.getArray(candles, 5000);
 
         TradingChart chart = new TradingChart(candles, 1700, 1000, TradingChart.ChartDateType.DAY);
