@@ -49,16 +49,10 @@ implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.9'
 
 
 ### email
-- iorunon@gmail.com
+- ysys86a@gmail.com
 
 ### cafe
 - [cafe.naver.com/radvisor](https://cafe.naver.com/radvisor)
-
-
-### talk
-- 로보어드바이저, 시스템트레이딩, 퀀트 단톡방
-  - https://open.kakao.com/o/g6vzOKqb
-  - 참여코드: runon
 
 
 ## main developer
