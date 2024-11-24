@@ -13,7 +13,6 @@ import org.json.JSONArray;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.time.ZoneId;
 import java.util.Collections;
 import java.util.List;
 
@@ -178,9 +177,9 @@ public class BinanceCandle {
 
     public static void csvNext(String url, String symbol, long candleTime, long startOpenTime){
         if(url.startsWith(BinanceFuturesApis.URL)){
-            csvNext(url, symbol, candleTime,  TradingTimes.UTC_ZONE_ID, CryptocurrencyDataPath.getFuturesCandleDirPath(), startOpenTime);
+            csvNext(url, symbol, candleTime, CryptocurrencyDataPath.getFuturesCandleDirPath(), startOpenTime);
         }else{
-            csvNext(url, symbol, candleTime,  TradingTimes.UTC_ZONE_ID, CryptocurrencyDataPath.getSpotCandleDirPath(), startOpenTime);
+            csvNext(url, symbol, candleTime, CryptocurrencyDataPath.getSpotCandleDirPath(), startOpenTime);
         }
     }
 
@@ -190,35 +189,34 @@ public class BinanceCandle {
      * @param url 바이낸스 현물, 혹은 선물
      * @param symbol 암호화폐 심볼
      * @param candleTime 캔들 시간갭 (1분 3분 5분) 유닉스 타임
-     * @param zoneId 타임존
      * @param outDirPath 파일 디렉토리 경로
      */
-    public static void csvNext(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime){
-        csvNext(url, symbol, candleTime, zoneId, outDirPath, startOpenTime, -1L);
+    public static void csvNext(String url, String symbol, long candleTime,  String outDirPath, long startOpenTime){
+        csvNext(url, symbol, candleTime, outDirPath, startOpenTime, -1L);
     }
 
 
-    public static void csvNext(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime, long sleepTime){
+    public static void csvNext(String url, String symbol, long candleTime,  String outDirPath, long startOpenTime, long sleepTime){
 
         long lastOpenTime = CsvTimeFile.getLastTime(outDirPath +"/" + symbol + "/" + TradingTimes.getInterval(candleTime));
         if(lastOpenTime == -1){
-            csvSplit(url, symbol, candleTime, zoneId, outDirPath, startOpenTime, sleepTime);
+            csvSplit(url, symbol, candleTime, outDirPath, startOpenTime, sleepTime);
         }else{
-            csvSplit(url, symbol, candleTime, zoneId, outDirPath, lastOpenTime, sleepTime);
+            csvSplit(url, symbol, candleTime, outDirPath, lastOpenTime, sleepTime);
         }
     }
 
 
     public static void csvSplit(String url, String symbol, long candleTime, long startOpenTime) {
         if(url.startsWith(BinanceFuturesApis.URL)){
-            csvSplit(url, symbol, candleTime, TradingTimes.UTC_ZONE_ID,  CryptocurrencyDataPath.getFuturesCandleDirPath(), startOpenTime);
+            csvSplit(url, symbol, candleTime,  CryptocurrencyDataPath.getFuturesCandleDirPath(), startOpenTime);
         }else{
-            csvSplit(url, symbol, candleTime, TradingTimes.UTC_ZONE_ID, CryptocurrencyDataPath.getSpotCandleDirPath(), startOpenTime);
+            csvSplit(url, symbol, candleTime, CryptocurrencyDataPath.getSpotCandleDirPath(), startOpenTime);
         }
 
     }
-    public static void csvSplit(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime){
-        csvSplit(url, symbol, candleTime, zoneId, outDirPath, startOpenTime, -1L);
+    public static void csvSplit(String url, String symbol, long candleTime, String outDirPath, long startOpenTime){
+        csvSplit(url, symbol, candleTime, outDirPath, startOpenTime, -1L);
     }
     //파일별로 나누어서 출력할때
     /**
@@ -227,14 +225,13 @@ public class BinanceCandle {
      * 년 ,년월, 년월일, 년월일시  등으로 활용
      * 단 전부 숫자로만 활용할것
      * @param url 바이낸스 현물, 혹은 선물
-     * @param zoneId 타임존
      * @param outDirPath 파일 디렉토리 경로
      * @param symbol 암호화폐 심볼
      * @param candleTime 시간갭 (1분 3분 5분) 유닉스 타임
      * @param startOpenTime 시작 오픈 시간
      */
     @SuppressWarnings("BusyWait")
-    public static void csvSplit(String url, String symbol, long candleTime, ZoneId zoneId, String outDirPath, long startOpenTime, long sleepTime){
+    public static void csvSplit(String url, String symbol, long candleTime,  String outDirPath, long startOpenTime, long sleepTime){
 
         String interval = TradingTimes.getInterval(candleTime);
 
@@ -271,7 +268,7 @@ public class BinanceCandle {
                 if(startOpenTime == nextTime){
                     break outer;
                 }
-                String outPath = outDirPath + CsvTimeName.getName(openTime, candleTime, zoneId);
+                String outPath = outDirPath + CsvTimeName.getName(openTime, candleTime);
 
                 if(lastOutPath == null || !lastOutPath.equals(outPath)){
 
@@ -338,7 +335,7 @@ public class BinanceCandle {
             }catch(Exception ignore){}
         }
 
-        if(sb != null && sb.length() > 0){
+        if(sb != null && !sb.isEmpty()){
             FileUtil.fileOutput(sb.toString(), lastOutPath, false);
         }
     }

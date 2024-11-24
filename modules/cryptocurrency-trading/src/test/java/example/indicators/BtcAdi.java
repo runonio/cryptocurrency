@@ -29,7 +29,7 @@ public class BtcAdi {
         long startTime = YmdUtil.getTime("20220101", zoneId);
         long endTime = YmdUtil.getTime("20240922", zoneId);
 
-        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime, zoneId);
+        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime);
 
         TimeNumber[] dataArray = Adi.getTimeNumbers(candles, 5000);
 

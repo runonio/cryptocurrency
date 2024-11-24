@@ -50,11 +50,6 @@ public class CandleVolumeMerge {
         this.addPaths = addPaths;
     }
 
-    private ZoneId zoneId = TradingTimes.UTC_ZONE_ID;
-
-    public void setZoneId(ZoneId zoneId) {
-        this.zoneId = zoneId;
-    }
 
     public TradeCandle [] load(long startTime, long endTime){
 
@@ -62,7 +57,7 @@ public class CandleVolumeMerge {
         //기준 캔들 불러요기
         String absolutePath = new File(this.path).getAbsolutePath();
 
-        TradeCandle [] candles = CsvCandle.load(absolutePath + "/" + interval, candleTime, startTime, endTime, zoneId);
+        TradeCandle [] candles = CsvCandle.load(absolutePath + "/" + interval, candleTime, startTime, endTime);
 
         // 거래량 추가하기
         for(String addPath : addPaths){
@@ -73,7 +68,7 @@ public class CandleVolumeMerge {
                 continue;
             }
 
-            TradeCandle [] addCandles = CsvCandle.load(addAbsolutePath +"/" + interval, candleTime, startTime, endTime, zoneId);
+            TradeCandle [] addCandles = CsvCandle.load(addAbsolutePath +"/" + interval, candleTime, startTime, endTime);
             for(TradeCandle addCandle : addCandles){
                 int openTimeIndex = Candles.getOpenTimeIndex(candles, candleTime, addCandle.getOpenTime());
                 if(openTimeIndex < 0){
@@ -96,11 +91,6 @@ public class CandleVolumeMerge {
     public long getCandleTime() {
         return candleTime;
     }
-
-    public ZoneId getZoneId() {
-        return zoneId;
-    }
-
 
     public static void merge(TradeCandle [] candles, List<TradeCandle [] > addCandlesList, long candleTime) {
         for (TradeCandle [] addCandles : addCandlesList) {

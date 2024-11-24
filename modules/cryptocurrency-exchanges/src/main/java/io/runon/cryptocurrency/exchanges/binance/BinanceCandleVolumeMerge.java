@@ -44,7 +44,6 @@ public class BinanceCandleVolumeMerge {
         CandleVolumeMerge candleVolumeMerge = new CandleVolumeMerge();
         String path = CryptocurrencyDataPath.getSpotCandleDirPath() + "/BTCBUSD";
         String[] addPaths = new String[]{CryptocurrencyDataPath.getSpotCandleDirPath() + "/BTCUSDT", CryptocurrencyDataPath.getFuturesCandleDirPath() + "/BTCUSDT", CryptocurrencyDataPath.getFuturesCandleDirPath() + "/BTCBUSD"};
-        candleVolumeMerge.setZoneId(TradingTimes.UTC_ZONE_ID);
         candleVolumeMerge.setPath(path);
         candleVolumeMerge.setAddPaths(addPaths);
         candleVolumeMerge.setInterval(interval);

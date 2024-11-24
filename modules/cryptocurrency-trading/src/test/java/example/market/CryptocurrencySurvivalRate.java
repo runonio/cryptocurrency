@@ -26,7 +26,6 @@ public class CryptocurrencySurvivalRate {
         ZoneId zoneId = TradingTimes.UTC_ZONE_ID;
 
         CsvSymbolCandle csvSymbolCandle = new CsvSymbolCandle(path, "1d");
-        csvSymbolCandle.setZoneId(zoneId);
 
         String[] endWiths = {"USDT","BUSD"};
 

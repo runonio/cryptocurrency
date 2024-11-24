@@ -30,7 +30,7 @@ public class BtcMfi {
 
         Mfi mfi = new Mfi();
 
-        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime, zoneId);
+        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime);
         TimeNumber[] dataArray = mfi.getArray(candles, 5000);
 
         TradingChart chart = new TradingChart(candles, 1700, 1000, TradingChart.ChartDateType.DAY);

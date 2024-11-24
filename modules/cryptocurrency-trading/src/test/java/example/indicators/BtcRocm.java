@@ -30,7 +30,7 @@ public class BtcRocm {
 
         Rocm roc = new Rocm();
 
-        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime, zoneId);
+        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime);
         TimeNumber[] dataArray = roc.getArray(candles, 5000);
 
         TradingChart chart = new TradingChart(candles, 1700, 1000, TradingChart.ChartDateType.DAY);

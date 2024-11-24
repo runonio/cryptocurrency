@@ -1,9 +1,7 @@
 package io.runon.cryptocurrency.trading;
 
-import io.runon.trading.TradingTimes;
 import io.runon.trading.symbol.SymbolInteger;
 
-import java.time.ZoneId;
 import java.util.*;
 
 /**
@@ -24,11 +22,7 @@ public abstract class SymbolsData {
         this.outDirPath = outDirPath;
     }
 
-    protected ZoneId zoneId = TradingTimes.UTC_ZONE_ID;
 
-    public void setZoneId(ZoneId zoneId) {
-        this.zoneId = zoneId;
-    }
 
     protected long startOpenTime = -1;
 

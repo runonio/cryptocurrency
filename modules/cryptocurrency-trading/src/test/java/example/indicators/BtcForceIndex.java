@@ -27,7 +27,7 @@ public class BtcForceIndex {
         long endTime = YmdUtil.getTime("20220922", zoneId);
 
         ForceIndex forceIndex = new ForceIndex();
-        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime, zoneId);
+        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime);
         ForceIndexData[] dataArray = forceIndex.getArray(candles, 5000);
 
         TradingChart chart = new TradingChart(candles, 1700, 1000, TradingChart.ChartDateType.DAY);

@@ -31,7 +31,7 @@ public class BtcRmi {
         Rmi rmi = new Rmi();
 //        rmi.setDefaultX(1);
 //        rmi.setDefaultN(14);
-        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime, zoneId);
+        TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime);
         TimeNumber[] dataArray = rmi.getArray(candles, 5000);
 
         TradingChart chart = new TradingChart(candles, 1700, 1000, TradingChart.ChartDateType.DAY);

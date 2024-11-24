@@ -11,7 +11,6 @@ import io.runon.trading.data.file.*;
 import io.runon.trading.data.json.JsonOrgUtils;
 import io.runon.trading.exception.TradingApiException;
 import lombok.extern.slf4j.Slf4j;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -67,7 +66,7 @@ public class CryptocurrencyRunonApisOut {
         for(String path : paths){
 
             long lastTime = jsonFileProperties.getLong(path, -1L );
-            TimeLineLock timeLineLock = lineOutManager.get(TradingDataPath.getAbsolutePath(path), PathTimeLine.CSV, TradingTimes.UTC_ZONE_ID, TimeName.Type.YEAR_1);
+            TimeLineLock timeLineLock = lineOutManager.get(TradingDataPath.getAbsolutePath(path), PathTimeLine.CSV, TimeName.Type.YEAR_1);
             for(;;){
 
                 try{
@@ -116,7 +115,7 @@ public class CryptocurrencyRunonApisOut {
 
     public void mergeVolumeOut(){
         LineOutManager lineOutManager = LineOutManager.getInstance();
-        TimeLineLock timeLineLock = lineOutManager.get(TradingDataPath.getAbsolutePath(mergeVolumePath), PathTimeLine.JSON, TradingTimes.UTC_ZONE_ID, TimeName.Type.DAY_5);
+        TimeLineLock timeLineLock = lineOutManager.get(TradingDataPath.getAbsolutePath(mergeVolumePath), PathTimeLine.JSON,  TimeName.Type.DAY_5);
 
         long lastTime = jsonFileProperties.getLong(mergeVolumePath, -1L );
         for(;;) {
