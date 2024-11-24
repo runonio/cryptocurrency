@@ -17,10 +17,8 @@ implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.9'
 - [github.com/seomse](https://github.com/seomse)
 - [www.seomse.com](https://www.seomse.com/)
 
-
 ### cafe
 - [cafe.naver.com/radvisor](https://cafe.naver.com/radvisor)
-
 
 ## main developer
 - macle
