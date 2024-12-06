@@ -3,8 +3,6 @@ plugins {
     id "com.github.johnrengelman.shadow" version "7.1.0"
 }
 
-group 'io.runon.cryptocurrency'
-version '0.1.9'
 
 repositories {
     mavenCentral()
@@ -13,23 +11,19 @@ repositories {
 dependencies {
 
     implementation project(path: ':trading')
-    implementation project(path: ':seomse-commons')
-
-
-    testImplementation project(path: ':chart-view')
-
-
-    implementation 'io.runon.commons:data-service:0.1.7'
-
-    implementation group: 'org.json', name: 'json', version: '20240303'
-    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
-
-    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.13'
+    implementation project(path: ':commons')
+    implementation project(path: ':collect')
+    implementation project(path: ':chart-view')
+    implementation project(path: ':data-service')
 
     implementation project(path: ':jdbc')
     //connection pool
     implementation 'com.zaxxer:HikariCP:4.0.3'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.3'
+    implementation group: 'org.json', name: 'json', version: '20240303'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.10.1'
+
+    implementation group: 'org.slf4j', name: 'slf4j-api', version: '2.0.13'
 
     implementation group: 'com.google.guava', name: 'guava', version: '33.0.0-jre'
 

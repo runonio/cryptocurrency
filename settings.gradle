@@ -4,8 +4,6 @@ project(':cryptocurrency-exchanges').projectDir = new File(settingsDir,'modules/
 include ':cryptocurrency-trading'
 project(':cryptocurrency-trading').projectDir = new File(settingsDir,'modules/cryptocurrency-trading')
 
-
-
 //개발용 의존성 ( 봇만들면서 직접 모듈소스 추가)
 include ':trading'
 project(':trading').projectDir = new File(settingsDir,'../../runon/trading/modules/trading')
@@ -17,8 +15,13 @@ include ':chart-view'
 project(':chart-view').projectDir = new File(settingsDir,'../../runon/trading/modules/chart-view')
 
 
-include ':seomse-commons'
-project(':seomse-commons').projectDir = new File(settingsDir,'../../seomse/seomse-commons/modules/commons')
-
-include ':jdbc'
-project(':jdbc').projectDir = new File(settingsDir,'../../seomse/seomse-commons/modules/jdbc')
+include 'commons'
+project(':commons').projectDir = new File(settingsDir,'../../runon/commons/modules/commons')
+include 'jdbc'
+project(':jdbc').projectDir = new File(settingsDir,'../../runon/commons/modules/jdbc')
+include 'data-service'
+project(':data-service').projectDir = new File(settingsDir,'../../runon/commons/modules/data-service')
+include 'collect'
+project(':collect').projectDir = new File(settingsDir,'../../runon/commons/modules/collect')
+include 'crawling'
+project(':crawling').projectDir = new File(settingsDir,'../../runon/commons/modules/crawling')

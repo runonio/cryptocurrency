@@ -3,8 +3,6 @@ plugins {
     id "com.github.johnrengelman.shadow" version "7.1.0"
 }
 
-group 'io.runon.cryptocurrency'
-version '0.5.2'
 
 repositories {
     mavenCentral()
@@ -13,26 +11,26 @@ repositories {
 
 dependencies {
 
-    implementation 'com.seomse.commons:commons:1.6.0'
+    implementation project(path: ':commons')
 
     implementation project(path: ':trading')
     implementation project(path: ':cryptocurrency-trading')
 
-    implementation 'io.runon.commons:data-service:0.1.7'
+    implementation project(path: ':data-service')
 
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation group: 'io.lettuce', name: 'lettuce-core', version: '6.3.2.RELEASE'
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '2.2'
     implementation group: 'com.alibaba.fastjson2', name: 'fastjson2', version: '2.0.48'
 
     implementation 'io.runon.cryptocurrency:exchange-houbi:2.0.42'
     implementation group: 'com.google.guava', name: 'guava', version: '33.0.0-jre'
     implementation group: 'org.json', name: 'json', version: '20240303'
 
-
     //websocket
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.12.0'
     //noinspection VulnerableLibrariesLocal
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '3.2.4'
-
-
 
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
 
