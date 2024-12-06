@@ -16,12 +16,12 @@ project(':chart-view').projectDir = new File(settingsDir,'../../runon/trading/mo
 
 
 include 'commons'
-findProject(':commons').projectDir = new File(settingsDir,'../../runon/commons-jdk8/modules/commons')
+project(':commons').projectDir = new File(settingsDir,'../../runon/commons/modules/commons')
 include 'jdbc'
-findProject(':jdbc').projectDir = new File(settingsDir,'../../runon/commons-jdk8/modules/jdbc')
+project(':jdbc').projectDir = new File(settingsDir,'../../runon/commons/modules/jdbc')
 include 'data-service'
-findProject(':data-service').projectDir = new File(settingsDir,'../../runon/commons-jdk8/modules/data-service')
+project(':data-service').projectDir = new File(settingsDir,'../../runon/commons/modules/data-service')
 include 'collect'
-findProject(':collect').projectDir = new File(settingsDir,'../../runon/commons-jdk8/modules/collect')
+project(':collect').projectDir = new File(settingsDir,'../../runon/commons/modules/collect')
 include 'crawling'
-findProject(':crawling').projectDir = new File(settingsDir,'../../runon/commons-jdk8/modules/crawling')
+project(':crawling').projectDir = new File(settingsDir,'../../runon/commons/modules/crawling')
