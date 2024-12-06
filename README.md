@@ -50,7 +50,9 @@ implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.9'
 ### cafe
 - [cafe.naver.com/radvisor](https://cafe.naver.com/radvisor)
 
+
 ## main developer
 - macle
   - github(source code): [github.com/macle86](https://github.com/macle86)
   - email: ysys86a@gmail.com
+  - kakaotalk(1:1): https://open.kakao.com/o/sspZGH3g
