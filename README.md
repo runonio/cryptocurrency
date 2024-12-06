@@ -31,14 +31,6 @@
 - 서비스에 직접적 영향이 있는 모듈은 private repository 에서 진행됩니다. 협업요청이나 투자 외주 문의는 따로 연락주세요. 
 - 대량채결(고래체결), 급등급락감지, 봇의 매수매도 시점 과 같이 서비스와 관련된 부분에 대한 내용 입니다.
 
-# gradle
-implementation 'io.runon.cryptocurrency:cryptocurrency-exchanges:0.5.2'
-- etc
-  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-exchanges/0.5.2
-
-implementation 'io.runon.cryptocurrency:cryptocurrency-trading:0.1.9'
-- etc
-  - https://mvnrepository.com/artifact/io.runon.cryptocurrency/cryptocurrency-trading/0.1.9
 
 # communication
 ### blog, homepage
