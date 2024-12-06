@@ -1,6 +1,6 @@
 package io.runon.cryptocurrency.exchanges.kraken;
 
-import com.seomse.commons.utils.ExceptionUtil;
+import io.runon.commons.utils.ExceptionUtil;
 import io.runon.cryptocurrency.exchanges.ExchangeWebSocketListener;
 import io.runon.cryptocurrency.exchanges.TradeConverter;
 import io.runon.cryptocurrency.trading.CryptocurrencyTrade;

@@ -1,6 +1,6 @@
 package com.binance.client.examples.trade;
 
-import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson2.JSONArray;
 import com.binance.client.RequestOptions;
 import com.binance.client.SyncRequestClient;
 import com.binance.client.examples.constants.PrivateConfig;

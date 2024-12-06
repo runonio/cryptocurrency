@@ -1,19 +1,17 @@
 rootProject.name = 'cryptocurrency'
-include ':cryptocurrency-exchanges'
-project(':cryptocurrency-exchanges').projectDir = new File(settingsDir,'modules/cryptocurrency-exchanges')
-include ':cryptocurrency-trading'
-project(':cryptocurrency-trading').projectDir = new File(settingsDir,'modules/cryptocurrency-trading')
+//cryptocurrency
+include 'cryptocurrency-exchanges'
+project(':cryptocurrency-exchanges').projectDir = new File(settingsDir,'../../runon/cryptocurrency/modules/cryptocurrency-exchanges')
+include 'cryptocurrency-trading'
+project(':cryptocurrency-trading').projectDir = new File(settingsDir,'../../runon/cryptocurrency/modules/cryptocurrency-trading')
 
-//개발용 의존성 ( 봇만들면서 직접 모듈소스 추가)
+//trading
 include ':trading'
 project(':trading').projectDir = new File(settingsDir,'../../runon/trading/modules/trading')
-
 include ':backtesting'
 project(':backtesting').projectDir = new File(settingsDir,'../../runon/trading/modules/backtesting')
-
 include ':chart-view'
 project(':chart-view').projectDir = new File(settingsDir,'../../runon/trading/modules/chart-view')
-
 
 include 'commons'
 project(':commons').projectDir = new File(settingsDir,'../../runon/commons/modules/commons')

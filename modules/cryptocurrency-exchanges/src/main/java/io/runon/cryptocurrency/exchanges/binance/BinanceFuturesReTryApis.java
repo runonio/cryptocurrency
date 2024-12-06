@@ -1,7 +1,7 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
-import com.seomse.commons.exception.IORuntimeException;
-import com.seomse.commons.http.HttpApis;
+import io.runon.commons.exception.IORuntimeException;
+import io.runon.commons.http.HttpApis;
 
 /**
  * 바이낸스 선물 api 에서 활용될 유틸관련 메소드 모음

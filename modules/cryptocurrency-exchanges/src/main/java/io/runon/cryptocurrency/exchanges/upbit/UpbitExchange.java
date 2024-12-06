@@ -3,7 +3,7 @@ package io.runon.cryptocurrency.exchanges.upbit;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.seomse.commons.http.HttpApis;
+import io.runon.commons.http.HttpApis;
 
 /**
  * 업비트 거래소

@@ -1,6 +1,6 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
-import com.seomse.commons.config.Config;
+import io.runon.commons.config.Config;
 import io.runon.cryptocurrency.trading.CryptocurrencyDataPath;
 import lombok.extern.slf4j.Slf4j;
 

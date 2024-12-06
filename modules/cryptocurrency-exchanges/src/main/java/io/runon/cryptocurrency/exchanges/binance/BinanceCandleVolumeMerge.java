@@ -1,11 +1,9 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
-import com.seomse.commons.config.Config;
 import io.runon.cryptocurrency.trading.CandleVolumeMerge;
 import io.runon.cryptocurrency.trading.CandleVolumeMergerStore;
 import io.runon.cryptocurrency.trading.CandleVolumeMergerStoreList;
 import io.runon.cryptocurrency.trading.CryptocurrencyDataPath;
-import io.runon.trading.TradingTimes;
 
 /**
  * 바이낸스 캔들 데이터

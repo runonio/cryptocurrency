@@ -1,7 +1,7 @@
 package io.runon.cryptocurrency.trading;
 
 import com.google.common.collect.ImmutableSet;
-import com.seomse.commons.config.Config;
+import io.runon.commons.config.Config;
 
 import java.util.Set;
 

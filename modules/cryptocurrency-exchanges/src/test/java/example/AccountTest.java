@@ -1,11 +1,7 @@
 package example;
 
-import com.seomse.commons.config.Config;
+import io.runon.commons.config.Config;
 import io.runon.cryptocurrency.exchanges.binance.account.BinanceFuturesAccount;
-import io.runon.trading.Trade;
-import io.runon.trading.order.MarketOrderTrade;
-
-import java.math.BigDecimal;
 
 /**
  * @author macle

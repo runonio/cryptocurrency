@@ -1,10 +1,8 @@
 package io.runon.cryptocurrency.trading;
 
-import com.seomse.commons.config.Config;
+import io.runon.commons.config.Config;
 import io.runon.trading.TradingConfig;
 import io.runon.trading.data.TradingDataPath;
-
-import java.nio.file.FileSystems;
 
 /**
  * 암호화폐 데이터 경로

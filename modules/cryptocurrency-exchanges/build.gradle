@@ -22,8 +22,10 @@ dependencies {
     implementation group: 'io.lettuce', name: 'lettuce-core', version: '6.3.2.RELEASE'
     implementation group: 'org.yaml', name: 'snakeyaml', version: '2.2'
     implementation group: 'com.alibaba.fastjson2', name: 'fastjson2', version: '2.0.48'
+    implementation group: 'commons-codec', name: 'commons-codec', version: '1.10'
+    implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.80'
 
-    implementation 'io.runon.cryptocurrency:exchange-houbi:2.0.42'
+//    implementation 'io.runon.cryptocurrency:exchange-houbi:2.0.42'
     implementation group: 'com.google.guava', name: 'guava', version: '33.0.0-jre'
     implementation group: 'org.json', name: 'json', version: '20240303'
 
