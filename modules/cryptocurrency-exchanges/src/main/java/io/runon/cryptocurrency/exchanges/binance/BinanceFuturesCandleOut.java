@@ -49,13 +49,13 @@ public class BinanceFuturesCandleOut  extends CandleOut {
                     }
 
                     try {
-                        log.info("start symbol: " + symbol + ", interval: " + TradingTimes.getInterval(candleTime) +", try count: " + ++tryCount);
+                        log.debug("start symbol: " + symbol + ", interval: " + TradingTimes.getInterval(candleTime) +", try count: " + ++tryCount);
                         BinanceCandle.csvNext(BinanceCandle.FUTURES_CANDLE, symbol, candleTime, outDirPath, startOpenTime, sleepTime);
                         break;
                     }catch (IORuntimeException | JSONException e){
 
                         if(tryCount > 10){
-                            log.error("candle out error symbol: " + symbol + ", interval: " + TradingTimes.getInterval(candleTime) +", try count: " +tryCount);
+                            log.debug("candle out error symbol: " + symbol + ", interval: " + TradingTimes.getInterval(candleTime) +", try count: " +tryCount);
                             break;
                         }
 
