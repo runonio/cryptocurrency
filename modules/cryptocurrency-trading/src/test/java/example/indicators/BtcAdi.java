@@ -8,6 +8,7 @@ import io.runon.trading.data.csv.CsvCandle;
 import io.runon.trading.technical.analysis.candle.TradeCandle;
 import io.runon.trading.technical.analysis.indicators.volume.Adi;
 import io.runon.trading.view.TradingChart;
+import io.runon.trading.view.TradingChartInit;
 
 import java.time.ZoneId;
 
@@ -16,7 +17,7 @@ import java.time.ZoneId;
  */
 public class BtcAdi {
     public static void main(String[] args) {
-
+        TradingChartInit.init();
         String symbol = "BTCUSDT";
         String interval = "1d";
 
