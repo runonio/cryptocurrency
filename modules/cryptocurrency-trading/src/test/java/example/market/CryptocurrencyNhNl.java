@@ -66,8 +66,6 @@ public class CryptocurrencyNhNl {
         candles = TradeCandles.getCandles(candles, candles.length-1, array.length);
 
 
-
-
         TradingChart chart  = new TradingChart(candles, 1700, 1000,  TradingChart.ChartDateType.MINUTE);
         chart.addVolume(candles);
         chart.addLine(emaArray, "black", 1, false);
