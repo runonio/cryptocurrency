@@ -151,7 +151,7 @@ public class BinanceFuturesAccount implements FuturesTradeAccount {
     }
 
     @Override
-    public MarketOrderTrade marketOrderQuantity(String symbol, Trade.Type type, BigDecimal quantity) {
+    public MarketOrderTrade marketOrderQuantity(String symbol, String exchange, Trade.Type type, BigDecimal quantity) {
 
         BigDecimal lastClosePrice;
         synchronized (symbolPriceLock){
@@ -187,7 +187,7 @@ public class BinanceFuturesAccount implements FuturesTradeAccount {
     }
 
     @Override
-    public MarketOrderTrade marketOrderCash(String symbol, Trade.Type type, BigDecimal cash) {
+    public MarketOrderTrade marketOrderCash(String symbol, String exchange, Trade.Type type, BigDecimal cash) {
         symbol = BinanceExchange.getSymbolMarket(symbol, market);
 
         ExchangeInformation exchangeInformation = syncRequestClient.getExchangeInformation();
@@ -224,7 +224,7 @@ public class BinanceFuturesAccount implements FuturesTradeAccount {
     }
 
     @Override
-    public MarketOrderTrade closePosition(String symbol) {
+    public MarketOrderTrade closePosition(String symbol, String exchange) {
 
         BigDecimal lastClosePrice;
         synchronized (symbolPriceLock){
