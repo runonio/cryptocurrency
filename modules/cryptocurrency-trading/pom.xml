@@ -130,7 +130,7 @@
 
 
         <dependency>
-            <groupId>com.seomse.commons</groupId>
+            <groupId>io.runon.commons</groupId>
             <artifactId>commons</artifactId>
             <version>1.6.0</version>
         </dependency>
