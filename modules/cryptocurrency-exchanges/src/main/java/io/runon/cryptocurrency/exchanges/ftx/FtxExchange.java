@@ -1,6 +1,6 @@
 package io.runon.cryptocurrency.exchanges.ftx;
 
-import io.runon.commons.http.HttpApis;
+import io.runon.commons.apis.http.HttpApis;
 import io.runon.cryptocurrency.trading.MarketSymbol;
 
 /**

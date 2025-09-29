@@ -1,6 +1,6 @@
 package io.runon.cryptocurrency.exchanges.bithumb;
 
-import io.runon.commons.http.HttpApis;
+import io.runon.commons.apis.http.HttpApis;
 
 /**
  * 빗썸 거래소

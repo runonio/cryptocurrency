@@ -1,6 +1,6 @@
 package io.runon.cryptocurrency.exchanges.kraken;
 
-import io.runon.commons.http.HttpApis;
+import io.runon.commons.apis.http.HttpApis;
 
 /**
  * Kraken 실시간 거래정보

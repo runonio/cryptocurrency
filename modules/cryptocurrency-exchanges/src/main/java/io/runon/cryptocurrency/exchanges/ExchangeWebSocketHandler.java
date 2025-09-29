@@ -3,7 +3,7 @@ package io.runon.cryptocurrency.exchanges;
 import jakarta.websocket.ContainerProvider;
 import jakarta.websocket.WebSocketContainer;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.concurrent.ListenableFuture;
+import java.util.concurrent.CompletableFuture;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 
@@ -100,11 +100,25 @@ public abstract class ExchangeWebSocketHandler implements WebSocketHandler {
             WebSocketContainer webSocketContainer = ContainerProvider.getWebSocketContainer();
             webSocketContainer.setDefaultMaxTextMessageBufferSize(1024*1024);
 
-            ListenableFuture<WebSocketSession> listenableFuture =
-                    new StandardWebSocketClient(webSocketContainer).doHandshake(this, headers, uri);
+//            ListenableFuture<WebSocketSession> listenableFuture =
+//                    new StandardWebSocketClient(webSocketContainer).doHandshake(this, headers, uri);
+//
+//            listenableFuture.addCallback(
+//                    result -> webSocketSession = result, ex -> log.error("WebSocketClient connect failed, error:{}, type{}, id: " + id , ex.getMessage(), ex.getClass().getCanonicalName()));
+            CompletableFuture<WebSocketSession> future =
+                    new StandardWebSocketClient(webSocketContainer).execute(this, headers, uri);
 
-            listenableFuture.addCallback(
-                    result -> webSocketSession = result, ex -> log.error("WebSocketClient connect failed, error:{}, type{}, id: " + id , ex.getMessage(), ex.getClass().getCanonicalName()));
+            future.whenComplete((session, ex) -> {
+                if (ex != null) {
+                    // 실패 시
+                    log.error("WebSocket connect failed, error: {}", ex.getMessage());
+                } else {
+                    // 성공 시
+                    this.webSocketSession = session;
+                    log.info("WebSocket connection successful. Session ID: {}", session.getId());
+                }
+            });
+
         } catch (URISyntaxException e) {
             log.error("server url syntax error:{}, type:{}", e.getMessage(), e.getClass().getCanonicalName());
         } catch (Exception e) {

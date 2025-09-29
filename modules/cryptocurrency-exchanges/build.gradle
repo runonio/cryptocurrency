@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id "com.github.johnrengelman.shadow" version "7.1.0"
+
 }
 
 
@@ -18,26 +18,29 @@ dependencies {
 
     implementation project(path: ':data-service')
 
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation group: 'io.lettuce', name: 'lettuce-core', version: '6.3.2.RELEASE'
-    implementation group: 'org.yaml', name: 'snakeyaml', version: '2.2'
+    implementation libs.gson
+    implementation libs.json
+
+    implementation libs.lettuceCore
+    implementation libs.snakeyaml
+
+
+    implementation libs.springBootStarterWebSocket
+//    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '3.2.4'
+
+    implementation libs.commonsLang3
+
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+
+
+    //아래 의존성을 추후에 작업, 암호화폐를 다시 한다면, 아래 의존성을 교체하는 대대적인 작업을 한다.
     implementation group: 'com.alibaba.fastjson2', name: 'fastjson2', version: '2.0.48'
     implementation group: 'commons-codec', name: 'commons-codec', version: '1.10'
     implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.80'
 
-//    implementation 'io.runon.cryptocurrency:exchange-houbi:2.0.42'
-    implementation group: 'com.google.guava', name: 'guava', version: '33.0.0-jre'
-    implementation group: 'org.json', name: 'json', version: '20240303'
-
     //websocket
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.12.0'
-    //noinspection VulnerableLibrariesLocal
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '3.2.4'
-
-    implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.6'
-
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.30'
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
 
 }
 compileJava.options.encoding = 'UTF-8'

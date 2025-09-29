@@ -1,8 +1,8 @@
 package io.runon.cryptocurrency.trading;
 
 import io.runon.commons.config.JsonFileProperties;
-import io.runon.commons.http.HttpApiResponse;
-import io.runon.commons.http.HttpApis;
+import io.runon.commons.apis.http.HttpApiResponse;
+import io.runon.commons.apis.http.HttpApis;
 import io.runon.commons.utils.ExceptionUtil;
 import io.runon.trading.TradingConfig;
 import io.runon.trading.TradingTimes;

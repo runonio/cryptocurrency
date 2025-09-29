@@ -5,7 +5,7 @@ import com.binance.client.model.market.MarkPrice;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import io.runon.commons.http.HttpApis;
+import io.runon.commons.apis.http.HttpApis;
 import io.runon.cryptocurrency.trading.MarketSymbol;
 import io.runon.cryptocurrency.trading.exception.IdNotPatternException;
 import io.runon.trading.BigDecimals;

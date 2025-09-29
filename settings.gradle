@@ -21,5 +21,3 @@ include 'data-service'
 project(':data-service').projectDir = new File(settingsDir,'../../runon/commons/modules/data-service')
 include 'collect'
 project(':collect').projectDir = new File(settingsDir,'../../runon/commons/modules/collect')
-include 'crawling'
-project(':crawling').projectDir = new File(settingsDir,'../../runon/commons/modules/crawling')
