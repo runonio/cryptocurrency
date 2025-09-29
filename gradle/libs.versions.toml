@@ -39,6 +39,8 @@ slf4jApi = "2.0.17"
 
 commonsText = "latest.release"
 commonsLang3 = "latest.release"
+commonsCodec = "latest.release"
+
 
 selenium = "latest.release"
 webdrivermanager = "latest.release"
@@ -79,4 +81,4 @@ guava = { module = "com.google.guava:guava", version.ref = "guava" }
 
 commonsText = { module = "org.apache.commons:commons-text", version.ref = "commonsText" }
 commonsLang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commonsLang3" }
-
+commonsCodec = { module = "commons-codec:commons-codec", version.ref = "commonsLang3" }

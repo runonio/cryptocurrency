@@ -24,22 +24,18 @@ dependencies {
     implementation libs.lettuceCore
     implementation libs.snakeyaml
 
-
     implementation libs.springBootStarterWebSocket
 //    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '3.2.4'
 
     implementation libs.commonsLang3
-
+    implementation libs.commonsCodec
     compileOnly libs.lombok
     annotationProcessor libs.lombok
 
 
-    //아래 의존성을 추후에 작업, 암호화폐를 다시 한다면, 아래 의존성을 교체하는 대대적인 작업을 한다.
+    //암호화폐 거래소 관련 의존성, 아래 의존성을 추후에 작업, 암호화폐를 다시 한다면, 아래 의존성을 교체하는 대대적인 작업을 한다.
     implementation group: 'com.alibaba.fastjson2', name: 'fastjson2', version: '2.0.48'
-    implementation group: 'commons-codec', name: 'commons-codec', version: '1.10'
     implementation group: 'com.alibaba', name: 'fastjson', version: '1.2.80'
-
-    //websocket
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.12.0'
 
 }
