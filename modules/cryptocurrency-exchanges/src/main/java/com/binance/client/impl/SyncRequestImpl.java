@@ -1,6 +1,6 @@
 package com.binance.client.impl;
 
-import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson2.JSONObject;
 import com.binance.client.SyncRequestClient;
 import com.binance.client.model.ResponseResult;
 import com.binance.client.model.enums.*;

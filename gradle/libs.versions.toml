@@ -5,6 +5,7 @@ lombok = "latest.release"
 
 gson = "latest.release"
 json = "latest.release"
+fastjson2 = "latest.release"
 
 # 1.8(jdk 8)에서는 1.2.13 으로 설정할 것
 logbackClassic = "latest.release"
@@ -13,6 +14,7 @@ logbackCore = "latest.release"
 # 1.8(jdk 8)에서는 2.7.18 으로 설정할 것
 springBootStarterWeb = "latest.release"
 springBootStarterWebSocket = "latest.release"
+okhttp = "latest.release"
 
 # 마지막 체크버전 'io.lettuce:lettuce-core:6.8.1.RELEASE'
 lettuceCore = "latest.release"
@@ -52,6 +54,7 @@ lombok =  { module = "org.projectlombok:lombok", version.ref = "lombok" }
 
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 json = { module = "org.json:json", version.ref = "json" }
+fastjson2 = { module = "com.alibaba.fastjson2:fastjson2", version.ref = "fastjson2" }
 
 logbackClassic = { module = "ch.qos.logback:logback-classic", version.ref = "logbackClassic" }
 logbackCore = { module = "ch.qos.logback:logback-core", version.ref = "logbackCore" }
@@ -59,6 +62,7 @@ slf4jApi = { module = "org.slf4j:slf4j-api", version.ref = "slf4jApi" }
 
 springBootStarterWeb = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "springBootStarterWeb" }
 springBootStarterWebSocket = { module = "org.springframework.boot:spring-boot-starter-websocket", version.ref = "springBootStarterWebSocket" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 
 lettuceCore = { module = "io.lettuce:lettuce-core", version.ref = "lettuceCore" }
 snakeyaml = { module = "org.yaml:snakeyaml", version.ref = "snakeyaml" }

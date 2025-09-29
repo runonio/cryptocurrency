@@ -1,6 +1,6 @@
 package com.binance.client.impl.utils;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.binance.client.exception.BinanceApiException;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
