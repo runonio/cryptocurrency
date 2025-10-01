@@ -1,11 +1,16 @@
 rootProject.name = 'cryptocurrency'
-//cryptocurrency
+// cryptocurrency
 include 'cryptocurrency-exchanges'
 project(':cryptocurrency-exchanges').projectDir = new File(settingsDir,'../../runon/cryptocurrency/modules/cryptocurrency-exchanges')
 include 'cryptocurrency-trading'
 project(':cryptocurrency-trading').projectDir = new File(settingsDir,'../../runon/cryptocurrency/modules/cryptocurrency-trading')
+include 'cryptocurrency-merge-volume'
+project(':cryptocurrency-merge-volume').projectDir = new File(settingsDir,'../../runon/cryptocurrency/modules/cryptocurrency-merge-volume')
+include 'cryptocurrency-collect'
+project(':cryptocurrency-collect').projectDir = new File(settingsDir,'../../runon/cryptocurrency/modules/cryptocurrency-collect')
 
-//trading
+
+// trading
 include ':trading'
 project(':trading').projectDir = new File(settingsDir,'../../runon/trading/modules/trading')
 include ':backtesting'
@@ -13,6 +18,7 @@ project(':backtesting').projectDir = new File(settingsDir,'../../runon/trading/m
 include ':chart-view'
 project(':chart-view').projectDir = new File(settingsDir,'../../runon/trading/modules/chart-view')
 
+// commons
 include 'commons'
 project(':commons').projectDir = new File(settingsDir,'../../runon/commons/modules/commons')
 include 'jdbc'
