@@ -9,26 +9,30 @@ repositories {
 
 dependencies {
 
+    implementation project(path: ':cryptocurrency-trading')
+    implementation project(path: ':cryptocurrency-exchanges')
+    implementation project(path: ':cryptocurrency-merge-volume')
+
     implementation project(path: ':trading')
+    implementation project(path: ':chart-view')
+    implementation project(path: ':backtesting')
+
     implementation project(path: ':commons')
-
     implementation project(path: ':jdbc')
+    implementation project(path: ':collect')
 
-    implementation libs.logbackCore
-    implementation libs.logbackClassic
-
-    implementation libs.gson
-    implementation libs.json
-    implementation libs.jsoup
-
-    implementation libs.slf4jApi
-
-    //connection pool
     implementation libs.hikariCP
     implementation libs.postgresql
 
-    implementation libs.zip4j
-//    implementation project(path: ':modules:investing')
+    implementation libs.gson
+    implementation libs.json
+    implementation libs.fastjson2
+
+    implementation libs.commonsLang3
+
+    //noinspection VulnerableLibrariesLocal
+    implementation libs.springBootStarterWebSocket
+    implementation libs.okhttp
 
     compileOnly libs.lombok
     annotationProcessor libs.lombok
