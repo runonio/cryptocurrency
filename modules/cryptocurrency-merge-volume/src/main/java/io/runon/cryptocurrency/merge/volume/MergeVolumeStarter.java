@@ -1,6 +1,7 @@
 package io.runon.cryptocurrency.merge.volume;
 
 import io.runon.commons.config.Config;
+import io.runon.commons.utils.ExceptionUtils;
 import io.runon.commons.utils.time.Times;
 import io.runon.commons.data.service.collect.CollectErrorMonitoringService;
 import io.runon.cryptocurrency.merge.volume.exchanges.binance.*;

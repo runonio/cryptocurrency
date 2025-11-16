@@ -1,6 +1,7 @@
 package io.runon.cryptocurrency.collect.fearandgreed;
 
 import io.runon.commons.service.Service;
+import io.runon.commons.utils.ExceptionUtils;
 import io.runon.commons.utils.time.Times;
 import lombok.extern.slf4j.Slf4j;
 

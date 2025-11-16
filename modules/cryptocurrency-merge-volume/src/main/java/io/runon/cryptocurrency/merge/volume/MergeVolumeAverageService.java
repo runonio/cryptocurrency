@@ -1,6 +1,7 @@
 package io.runon.cryptocurrency.merge.volume;
 
 import io.runon.commons.service.Service;
+import io.runon.commons.utils.ExceptionUtils;
 import io.runon.commons.utils.time.Times;
 import io.runon.cryptocurrency.exchanges.binance.BinanceFuturesCandleOut;
 import io.runon.cryptocurrency.exchanges.binance.BinanceSpotCandleOut;

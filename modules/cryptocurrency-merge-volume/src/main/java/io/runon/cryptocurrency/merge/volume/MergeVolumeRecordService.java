@@ -1,6 +1,7 @@
 package io.runon.cryptocurrency.merge.volume;
 
 import io.runon.commons.service.Service;
+import io.runon.commons.utils.ExceptionUtils;
 import io.runon.cryptocurrency.trading.CryptocurrencyDataPath;
 import io.runon.trading.data.TradingDataPath;
 import io.runon.trading.data.file.LineOutManager;

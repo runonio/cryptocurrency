@@ -5,6 +5,7 @@ import io.runon.commons.config.JsonFilePropertiesManager;
 import io.runon.commons.apis.http.HttpApiResponse;
 import io.runon.commons.apis.http.HttpApis;
 import io.runon.commons.service.Service;
+import io.runon.commons.utils.ExceptionUtils;
 import io.runon.commons.utils.time.Times;
 import io.runon.cryptocurrency.merge.volume.MergeVolumeService;
 import io.runon.cryptocurrency.collect.open.interest.binance.BinanceOpenInterestCollect;
