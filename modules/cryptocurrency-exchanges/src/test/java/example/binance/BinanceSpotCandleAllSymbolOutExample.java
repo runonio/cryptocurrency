@@ -1,6 +1,6 @@
 package example.binance;
 
-import io.runon.commons.utils.time.YmdUtil;
+import io.runon.commons.utils.time.YmdUtils;
 import io.runon.cryptocurrency.exchanges.binance.BinanceExchange;
 import io.runon.cryptocurrency.exchanges.binance.BinanceSpotCandleOut;
 import io.runon.trading.TradingTimes;
@@ -13,7 +13,7 @@ import io.runon.trading.TradingTimes;
 public class BinanceSpotCandleAllSymbolOutExample {
     public static void main(String[] args) {
 
-        long startTime = YmdUtil.getTime("20180101", TradingTimes.UTC_ZONE_ID);
+        long startTime = YmdUtils.getTime("20180101", TradingTimes.UTC_ZONE_ID);
 
         String [] markets = {"USDT","BUSD"};
         String [] intervals = {"1m","5m","15m","1h","4h","6h","1d"};

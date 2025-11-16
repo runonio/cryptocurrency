@@ -2,7 +2,7 @@ package io.runon.cryptocurrency.trading.service;
 
 import io.runon.commons.config.Config;
 import io.runon.commons.service.Service;
-import io.runon.commons.utils.ExceptionUtil;
+import io.runon.commons.utils.ExceptionUtils;
 import io.runon.commons.utils.time.Times;
 import io.runon.commons.data.service.collect.LastCollectTime;
 import io.runon.cryptocurrency.trading.DataStream;
@@ -55,7 +55,7 @@ public class DataStreamKeepAliveService extends Service {
                         try {
                             stream.connect();
                         } catch (Exception e) {
-                            log.error(ExceptionUtil.getStackTrace(e));
+                            log.error(ExceptionUtils.getStackTrace(e));
                         }
                         connectMap.put(stream.getStreamId(), System.currentTimeMillis());
                     }
@@ -68,7 +68,7 @@ public class DataStreamKeepAliveService extends Service {
             LastCollectTime.put(times);
 
         }catch(Exception e){
-            log.error(ExceptionUtil.getStackTrace(e));
+            log.error(ExceptionUtils.getStackTrace(e));
         }
     }
 }

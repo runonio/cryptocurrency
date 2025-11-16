@@ -1,7 +1,6 @@
 package io.runon.cryptocurrency.merge.volume;
 
 import io.runon.commons.config.Config;
-import io.runon.commons.utils.ExceptionUtil;
 import io.runon.commons.utils.time.Times;
 import io.runon.commons.data.service.collect.CollectErrorMonitoringService;
 import io.runon.cryptocurrency.merge.volume.exchanges.binance.*;
@@ -87,7 +86,7 @@ public class MergeVolumeStarter {
 //        new KrakenXbtTradeStream("kraken_xbt_trade", mergeCandles).connect();
 //        new KrakenFuturesXbtTradeStream("kraken_futures_xbt_trade", mergeCandles).connect();
         }catch (Exception e){
-            log.error(ExceptionUtil.getStackTrace(e));
+            log.error(ExceptionUtils.getStackTrace(e));
         }
     }
 

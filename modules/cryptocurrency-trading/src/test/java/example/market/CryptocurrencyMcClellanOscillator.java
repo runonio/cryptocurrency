@@ -1,6 +1,6 @@
 package example.market;
 
-import io.runon.commons.utils.time.YmdUtil;
+import io.runon.commons.utils.time.YmdUtils;
 import io.runon.cryptocurrency.trading.CryptocurrencySymbolCandle;
 import io.runon.trading.TimeNumber;
 import io.runon.trading.TradingTimes;
@@ -28,7 +28,7 @@ public class CryptocurrencyMcClellanOscillator {
 
         String [] endWiths = {"USDT"};
 
-        IdCandles[] symbolCandles = csvSymbolCandle.load(YmdUtil.getTime("20220101",zoneId),  System.currentTimeMillis()
+        IdCandles[] symbolCandles = csvSymbolCandle.load(YmdUtils.getTime("20220101",zoneId),  System.currentTimeMillis()
                 , null, endWiths
         );
 

@@ -1,8 +1,8 @@
 package example.indicators;
 
 import io.runon.commons.utils.time.Times;
-import io.runon.commons.utils.time.YmdUtil;
-import io.runon.trading.BigDecimals;
+import io.runon.commons.utils.time.YmdUtils;
+import io.runon.commons.math.BigDecimals;
 import io.runon.trading.TimeNumber;
 import io.runon.trading.TradingTimes;
 import io.runon.trading.data.csv.CsvCandle;
@@ -29,9 +29,9 @@ public class BtcHpi {
         ZoneId zoneId = TradingTimes.UTC_ZONE_ID;
         long candleTime = TradingTimes.getIntervalTime(interval);
 
-//        YmdUtil.getTime("20180101", zoneId), YmdUtil.getTime("20220922", zoneId
-        long startTime = YmdUtil.getTime("20220720", zoneId);
-        long endTime = YmdUtil.getTime("20220929", zoneId);
+//        YmdUtils.getTime("20180101", zoneId), YmdUtils.getTime("20220922", zoneId
+        long startTime = YmdUtils.getTime("20220720", zoneId);
+        long endTime = YmdUtils.getTime("20220929", zoneId);
 
         OpenInterestSymbolStorage usdtOpenInterestStorage = new OpenInterestSymbolStorage();
         usdtOpenInterestStorage.setDataTimeGap(Times.MINUTE_5);

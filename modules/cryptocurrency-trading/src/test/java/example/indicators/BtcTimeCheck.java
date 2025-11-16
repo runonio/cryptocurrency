@@ -1,7 +1,7 @@
 package example.indicators;
 
 import io.runon.commons.utils.time.Times;
-import io.runon.commons.utils.time.YmdUtil;
+import io.runon.commons.utils.time.YmdUtils;
 import io.runon.cryptocurrency.trading.CryptocurrencySymbolCandle;
 import io.runon.trading.TradingTimes;
 import io.runon.trading.data.csv.CsvCandle;
@@ -22,7 +22,7 @@ public class BtcTimeCheck {
 
         ZoneId zoneId = TradingTimes.UTC_ZONE_ID;
 
-        long startTime = YmdUtil.getTime("20180101", zoneId);
+        long startTime = YmdUtils.getTime("20180101", zoneId);
         TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, System.currentTimeMillis());
 
         for(TradeCandle tradeCandle : candles){

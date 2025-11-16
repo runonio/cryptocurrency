@@ -1,9 +1,8 @@
 package io.runon.cryptocurrency.collect.starter;
 
 import io.runon.commons.service.Service;
-import io.runon.commons.utils.ExceptionUtil;
 import io.runon.commons.utils.time.Times;
-import io.runon.commons.utils.time.YmdUtil;
+import io.runon.commons.utils.time.YmdUtils;
 import io.runon.cryptocurrency.exchanges.binance.BinanceExchange;
 import io.runon.cryptocurrency.exchanges.binance.BinanceSpotCandleOut;
 import io.runon.trading.TradingTimes;
@@ -17,7 +16,7 @@ public class BinanceSpotCandleCollectService extends Service {
     private final String [] markets = {"USDT","BUSD"};
     private final String [] intervals = {"1m","5m","15m","1h","2h","4h","6h","1d"};
 
-    private final long startTime = YmdUtil.getTime("20000101", TradingTimes.UTC_ZONE_ID);
+    private final long startTime = YmdUtils.getTime("20000101", TradingTimes.UTC_ZONE_ID);
 
     public BinanceSpotCandleCollectService(){
         setDelayStartTime(5000L);
@@ -34,7 +33,7 @@ public class BinanceSpotCandleCollectService extends Service {
             candleOut.setStartOpenTime(startTime);
             candleOut.out();
         }catch(Exception e){
-            log.error(ExceptionUtil.getStackTrace(e));
+            log.error(ExceptionUtils.getStackTrace(e));
         }
     }
 }

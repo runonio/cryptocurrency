@@ -3,7 +3,7 @@ package io.runon.cryptocurrency.trading;
 import io.runon.commons.config.JsonFileProperties;
 import io.runon.commons.apis.http.HttpApiResponse;
 import io.runon.commons.apis.http.HttpApis;
-import io.runon.commons.utils.ExceptionUtil;
+import io.runon.commons.utils.ExceptionUtils;
 import io.runon.trading.TradingConfig;
 import io.runon.trading.TradingTimes;
 import io.runon.trading.data.TradingDataPath;
@@ -106,7 +106,7 @@ public class CryptocurrencyRunonApisOut {
                     lastTime = maxTime+1;
                     jsonFileProperties.set(path, lastTime);
                 }catch (Exception e){
-                    log.error(ExceptionUtil.getStackTrace(e));
+                    log.error(ExceptionUtils.getStackTrace(e));
                     break;
                 }
             }
@@ -155,7 +155,7 @@ public class CryptocurrencyRunonApisOut {
                 jsonFileProperties.set(mergeVolumePath, lastTime);
 
             }catch (Exception e){
-                log.error(ExceptionUtil.getStackTrace(e));
+                log.error(ExceptionUtils.getStackTrace(e));
                 break;
             }
         }

@@ -1,7 +1,6 @@
 package io.runon.cryptocurrency.merge.volume;
 
 import io.runon.commons.service.Service;
-import io.runon.commons.utils.ExceptionUtil;
 import io.runon.cryptocurrency.trading.CryptocurrencyDataPath;
 import io.runon.trading.data.TradingDataPath;
 import io.runon.trading.data.file.LineOutManager;
@@ -54,10 +53,10 @@ public class MergeVolumeRecordService extends Service {
 //
 //            String volumeDirPath = CryptocurrencyDataPath.getMergeVolumeDirPath();
 //            String volumePath = volumeDirPath+ "/" + TimeName.getName(time, TIME_NAME_TYPE, ZONE_ID);
-//            FileUtil.fileOutput(volumeJson + "\n", volumePath, true);
+//            FileUtils.fileOutput(volumeJson + "\n", volumePath, true);
 
         }catch (Exception e){
-            log.error(ExceptionUtil.getStackTrace(e));
+            log.error(ExceptionUtils.getStackTrace(e));
         }
     }
 }

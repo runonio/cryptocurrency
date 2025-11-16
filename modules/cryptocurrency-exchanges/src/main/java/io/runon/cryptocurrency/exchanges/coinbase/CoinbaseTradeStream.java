@@ -1,6 +1,6 @@
 package io.runon.cryptocurrency.exchanges.coinbase;
 
-import io.runon.commons.utils.ExceptionUtil;
+import io.runon.commons.utils.ExceptionUtils;
 import io.runon.cryptocurrency.exchanges.DelimiterMarketSymbol;
 import io.runon.cryptocurrency.exchanges.ExchangeWebSocketListener;
 import io.runon.cryptocurrency.trading.CryptocurrencyTrade;
@@ -71,7 +71,7 @@ public abstract class CoinbaseTradeStream <T extends CryptocurrencyTrade> extend
                     Trade trade = new Trade(tradeType, object.getBigDecimal("price"),object.getBigDecimal("last_size"), System.currentTimeMillis());
                     addTrade(id, trade);
                 }catch(Exception e){
-                    log.error(ExceptionUtil.getStackTrace(e));
+                    log.error(ExceptionUtils.getStackTrace(e));
                 }
             }
         };

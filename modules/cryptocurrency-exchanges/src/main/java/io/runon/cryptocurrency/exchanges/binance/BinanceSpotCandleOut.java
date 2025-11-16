@@ -1,7 +1,7 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
-import io.runon.commons.utils.ExceptionUtil;
 import io.runon.commons.exception.IORuntimeException;
+import io.runon.commons.utils.ExceptionUtils;
 import io.runon.commons.utils.time.Times;
 import io.runon.cryptocurrency.trading.CandleOut;
 import io.runon.cryptocurrency.trading.CryptocurrencyDataPath;
@@ -69,7 +69,7 @@ public class BinanceSpotCandleOut extends CandleOut {
                         }
 
                     }catch (Exception e){
-                        log.error(ExceptionUtil.getStackTrace(e));
+                        log.error(ExceptionUtils.getStackTrace(e));
                         break;
                     }
                 }

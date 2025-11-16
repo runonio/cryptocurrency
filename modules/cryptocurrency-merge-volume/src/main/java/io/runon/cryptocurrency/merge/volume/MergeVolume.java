@@ -5,7 +5,7 @@ import io.runon.cryptocurrency.exchanges.binance.BinanceCandle;
 import io.runon.cryptocurrency.trading.CandleVolumeMerge;
 import io.runon.cryptocurrency.trading.CandleVolumeMergerStore;
 import io.runon.cryptocurrency.trading.CryptocurrencyDataPath;
-import io.runon.trading.BigDecimals;
+import io.runon.commons.math.BigDecimals;
 import io.runon.trading.Trade;
 import io.runon.trading.TradingTimes;
 import io.runon.trading.data.csv.CsvTimeFile;

@@ -1,7 +1,7 @@
 package example.binance;
 
 import io.runon.commons.utils.time.Times;
-import io.runon.commons.utils.time.YmdUtil;
+import io.runon.commons.utils.time.YmdUtils;
 import io.runon.cryptocurrency.exchanges.binance.BinanceCandle;
 import io.runon.cryptocurrency.exchanges.binance.BinanceSpotCandleOut;
 
@@ -17,6 +17,6 @@ public class BinanceCandleCandleSplitNextOutExample {
 
 
 //        Config.setConfig("cryptocurrency.candle.dir.path","data/cryptocurrency/candle");
-        BinanceCandle.csvNext(BinanceCandle.FUTURES_CANDLE, "BTCUSDT" , Times.MINUTE_1, YmdUtil.getTime("20220101"));
+        BinanceCandle.csvNext(BinanceCandle.FUTURES_CANDLE, "BTCUSDT" , Times.MINUTE_1, YmdUtils.getTime("20220101"));
     }
 }

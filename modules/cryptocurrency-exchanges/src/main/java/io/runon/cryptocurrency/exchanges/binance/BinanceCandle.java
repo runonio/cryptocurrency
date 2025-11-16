@@ -3,7 +3,7 @@ package io.runon.cryptocurrency.exchanges.binance;
 import io.runon.commons.config.Config;
 import io.runon.commons.exception.IORuntimeException;
 import io.runon.commons.apis.http.HttpApis;
-import io.runon.commons.utils.FileUtil;
+import io.runon.commons.utils.FileUtils;
 import io.runon.cryptocurrency.trading.CryptocurrencyDataPath;
 import io.runon.trading.TradingTimes;
 import io.runon.trading.data.csv.CsvTimeFile;
@@ -94,10 +94,10 @@ public class BinanceCandle {
             sb.append("\n").append(getCsv(data));
         }
 
-        if(FileUtil.isFile(outPath)){
-            FileUtil.fileOutput(sb.toString(),outPath, true);
+        if(FileUtils.isFile(outPath)){
+            FileUtils.fileOutput(sb.toString(),outPath, true);
         }else{
-            FileUtil.fileOutput(sb.substring(1),outPath, false);
+            FileUtils.fileOutput(sb.substring(1),outPath, false);
         }
     }
 
@@ -154,19 +154,19 @@ public class BinanceCandle {
                 startTime = nextTime;
 
                 if(total >= count){
-                    if(FileUtil.isFile(outPath)){
-                        FileUtil.fileOutput(sb.toString(),outPath, true);
+                    if(FileUtils.isFile(outPath)){
+                        FileUtils.fileOutput(sb.toString(),outPath, true);
                     }else{
-                        FileUtil.fileOutput(sb.substring(1),outPath, false);
+                        FileUtils.fileOutput(sb.substring(1),outPath, false);
                     }
                     break outer;
                 }
             }
 
-            if(FileUtil.isFile(outPath)){
-                FileUtil.fileOutput(sb.toString(),outPath, true);
+            if(FileUtils.isFile(outPath)){
+                FileUtils.fileOutput(sb.toString(),outPath, true);
             }else{
-                FileUtil.fileOutput(sb.substring(1),outPath, false);
+                FileUtils.fileOutput(sb.substring(1),outPath, false);
             }
 //            long last
             //너무 잦은 호출을 하면 차단당할걸 염두해서 sleep 설정
@@ -275,7 +275,7 @@ public class BinanceCandle {
                     if(sb != null){
 
 
-                        FileUtil.fileOutput(sb.toString(), lastOutPath, false);
+                        FileUtils.fileOutput(sb.toString(), lastOutPath, false);
                         sb.setLength(0);
                     }
 
@@ -287,8 +287,8 @@ public class BinanceCandle {
                     sb = new StringBuilder();
 
                     List<String> lineList = Collections.emptyList();
-                    if(FileUtil.isFile(outPath)){
-                        lineList = FileUtil.getLineList(new File(outPath), StandardCharsets.UTF_8);
+                    if(FileUtils.isFile(outPath)){
+                        lineList = FileUtils.getLineList(new File(outPath), StandardCharsets.UTF_8);
                     }
 
                     int size = lineList.size();
@@ -336,7 +336,7 @@ public class BinanceCandle {
         }
 
         if(sb != null && !sb.isEmpty()){
-            FileUtil.fileOutput(sb.toString(), lastOutPath, false);
+            FileUtils.fileOutput(sb.toString(), lastOutPath, false);
         }
     }
 
@@ -420,21 +420,21 @@ public class BinanceCandle {
      * @param symbol 필수 BTCUSDT, ETHUSDT ...
      */
     public static void csv(String url, String inPath, String symbol){
-        if(!FileUtil.isFile(inPath)){
+        if(!FileUtils.isFile(inPath)){
             throw new IORuntimeException("file not found : " + inPath);
         }
 
-        long lineCount = FileUtil.getLineCount(inPath);
+        long lineCount = FileUtils.getLineCount(inPath);
         if(lineCount < 2){
             throw new IllegalArgumentException("file line count > 2 , count: " + lineCount);
         }
 
-        String line = FileUtil.getLine(inPath, 0);
+        String line = FileUtils.getLine(inPath, 0);
         long firstTime = Long.parseLong(line.split(",")[0]);
-        line = FileUtil.getLine(inPath, 1);
+        line = FileUtils.getLine(inPath, 1);
         long time = Long.parseLong(line.split(",")[0]) - firstTime;
 
-        line = FileUtil.getLine(inPath, (int)(lineCount-1));
+        line = FileUtils.getLine(inPath, (int)(lineCount-1));
         long lastTime = Long.parseLong(line.split(",")[0]);
 
         long startTime = lastTime+time;

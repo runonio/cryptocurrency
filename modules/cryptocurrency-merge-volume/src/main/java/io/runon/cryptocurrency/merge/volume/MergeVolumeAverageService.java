@@ -1,7 +1,6 @@
 package io.runon.cryptocurrency.merge.volume;
 
 import io.runon.commons.service.Service;
-import io.runon.commons.utils.ExceptionUtil;
 import io.runon.commons.utils.time.Times;
 import io.runon.cryptocurrency.exchanges.binance.BinanceFuturesCandleOut;
 import io.runon.cryptocurrency.exchanges.binance.BinanceSpotCandleOut;
@@ -50,19 +49,19 @@ public class MergeVolumeAverageService extends Service {
         try{
             binanceSpotCandleOut.out();
         }catch(Exception e){
-            log.error(ExceptionUtil.getStackTrace(e));
+            log.error(ExceptionUtils.getStackTrace(e));
         }
 
         try{
             binanceFuturesCandleOut.out();
         }catch(Exception e){
-            log.error(ExceptionUtil.getStackTrace(e));
+            log.error(ExceptionUtils.getStackTrace(e));
         }
 
         try{
             mergeVolume.avg();
         }catch(Exception e){
-            log.error(ExceptionUtil.getStackTrace(e));
+            log.error(ExceptionUtils.getStackTrace(e));
         }
 
     }

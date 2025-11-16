@@ -1,7 +1,7 @@
 package example.binance;
 
 import io.runon.commons.utils.time.Times;
-import io.runon.commons.utils.time.YmdUtil;
+import io.runon.commons.utils.time.YmdUtils;
 import io.runon.cryptocurrency.exchanges.binance.BinanceCandle;
 
 /**
@@ -12,6 +12,6 @@ import io.runon.cryptocurrency.exchanges.binance.BinanceCandle;
 public class BinanceCandleCandleSplitOutExample {
 
     public static void main(String[] args) {
-        BinanceCandle.csvSplit(BinanceCandle.CANDLE,"BTCUSDT", Times.MINUTE_1, YmdUtil.getTime("20220101"));
+        BinanceCandle.csvSplit(BinanceCandle.CANDLE,"BTCUSDT", Times.MINUTE_1, YmdUtils.getTime("20220101"));
     }
 }

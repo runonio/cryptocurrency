@@ -8,7 +8,7 @@ import com.google.gson.JsonObject;
 import io.runon.commons.apis.http.HttpApis;
 import io.runon.cryptocurrency.trading.MarketSymbol;
 import io.runon.cryptocurrency.trading.exception.IdNotPatternException;
-import io.runon.trading.BigDecimals;
+import io.runon.commons.math.BigDecimals;
 import io.runon.trading.symbol.SymbolNumber;
 import io.runon.trading.symbol.SymbolPriceVolume;
 import org.json.JSONArray;

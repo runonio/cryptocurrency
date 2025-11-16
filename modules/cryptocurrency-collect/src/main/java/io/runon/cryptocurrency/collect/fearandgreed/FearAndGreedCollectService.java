@@ -1,7 +1,6 @@
 package io.runon.cryptocurrency.collect.fearandgreed;
 
 import io.runon.commons.service.Service;
-import io.runon.commons.utils.ExceptionUtil;
 import io.runon.commons.utils.time.Times;
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,7 +22,7 @@ public class FearAndGreedCollectService extends Service {
             log.info("update fear and greed");
             FearAndGreedAlternativeCollect.update(100);
         }catch (Exception e){
-            log.error(ExceptionUtil.getStackTrace(e));
+            log.error(ExceptionUtils.getStackTrace(e));
         }
     }
 }

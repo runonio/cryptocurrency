@@ -1,6 +1,6 @@
 package example.indicators;
 
-import io.runon.commons.utils.time.YmdUtil;
+import io.runon.commons.utils.time.YmdUtils;
 import io.runon.cryptocurrency.trading.CryptocurrencySymbolCandle;
 import io.runon.trading.TimeNumber;
 import io.runon.trading.TradingTimes;
@@ -24,9 +24,9 @@ public class BtcWpr {
         ZoneId zoneId = TradingTimes.UTC_ZONE_ID;
         long candleTime = TradingTimes.getIntervalTime(interval);
 
-//        YmdUtil.getTime("20180101", zoneId), YmdUtil.getTime("20220922", zoneId
-        long startTime = YmdUtil.getTime("20180101", zoneId);
-        long endTime = YmdUtil.getTime("20220922", zoneId);
+//        YmdUtils.getTime("20180101", zoneId), YmdUtils.getTime("20220922", zoneId
+        long startTime = YmdUtils.getTime("20180101", zoneId);
+        long endTime = YmdUtils.getTime("20220922", zoneId);
 
         Wpr wpr = new Wpr();
 

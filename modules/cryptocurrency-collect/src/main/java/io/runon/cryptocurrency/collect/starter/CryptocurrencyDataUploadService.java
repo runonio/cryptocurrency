@@ -5,7 +5,6 @@ import io.runon.commons.config.JsonFilePropertiesManager;
 import io.runon.commons.apis.http.HttpApiResponse;
 import io.runon.commons.apis.http.HttpApis;
 import io.runon.commons.service.Service;
-import io.runon.commons.utils.ExceptionUtil;
 import io.runon.commons.utils.time.Times;
 import io.runon.cryptocurrency.merge.volume.MergeVolumeService;
 import io.runon.cryptocurrency.collect.open.interest.binance.BinanceOpenInterestCollect;
@@ -52,14 +51,14 @@ public class CryptocurrencyDataUploadService extends Service {
             //미체결 약정
             sendOpenInterest();
         }catch (Exception e){
-            log.error(ExceptionUtil.getStackTrace(e));
+            log.error(ExceptionUtils.getStackTrace(e));
         }
 
         try{
             //볼륨 합산정보
             sendVolumeMerge();
         }catch (Exception e){
-            log.error(ExceptionUtil.getStackTrace(e));
+            log.error(ExceptionUtils.getStackTrace(e));
         }
     }
 

@@ -1,6 +1,6 @@
 package example.indicators;
 
-import io.runon.commons.utils.time.YmdUtil;
+import io.runon.commons.utils.time.YmdUtils;
 import io.runon.cryptocurrency.trading.CryptocurrencySymbolCandle;
 import io.runon.trading.TradingTimes;
 import io.runon.trading.data.csv.CsvCandle;
@@ -24,7 +24,7 @@ public class BtcSar {
         ZoneId zoneId = TradingTimes.UTC_ZONE_ID;
         long candleTime = TradingTimes.getIntervalTime(interval);
 
-        long startTime = YmdUtil.getTime("20220101", zoneId);
+        long startTime = YmdUtils.getTime("20220101", zoneId);
         long endTime = System.currentTimeMillis();
 
         TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime);

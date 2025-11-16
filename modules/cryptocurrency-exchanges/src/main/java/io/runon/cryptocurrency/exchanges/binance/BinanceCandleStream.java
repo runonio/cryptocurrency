@@ -3,7 +3,7 @@ package io.runon.cryptocurrency.exchanges.binance;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import io.runon.commons.utils.ExceptionUtil;
+import io.runon.commons.utils.ExceptionUtils;
 import io.runon.cryptocurrency.exchanges.ExchangeWebSocketListener;
 import io.runon.cryptocurrency.trading.CryptocurrencyCandle;
 import io.runon.cryptocurrency.trading.DataStreamCandle;
@@ -157,7 +157,7 @@ public abstract class BinanceCandleStream<T extends CryptocurrencyCandle> extend
 
                     addCandle(id, tradeCandle);
                 }catch(Exception e){
-                    log.error(ExceptionUtil.getStackTrace(e));
+                    log.error(ExceptionUtils.getStackTrace(e));
                 }
             }
         };

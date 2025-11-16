@@ -1,6 +1,6 @@
 package example.indicators;
 
-import io.runon.commons.utils.time.YmdUtil;
+import io.runon.commons.utils.time.YmdUtils;
 import io.runon.cryptocurrency.trading.CryptocurrencySymbolCandle;
 import io.runon.trading.TradingTimes;
 import io.runon.trading.data.csv.CsvCandle;
@@ -26,9 +26,9 @@ public class BtcStochastic {
 
         long candleTime = TradingTimes.getIntervalTime(interval);
 
-//        YmdUtil.getTime("20180101", zoneId), YmdUtil.getTime("20220922", zoneId
-        long startTime = YmdUtil.getTime("20180101", zoneId);
-        long endTime = YmdUtil.getTime("20220922", zoneId);
+//        YmdUtils.getTime("20180101", zoneId), YmdUtils.getTime("20220922", zoneId
+        long startTime = YmdUtils.getTime("20180101", zoneId);
+        long endTime = YmdUtils.getTime("20220922", zoneId);
 
         TradeCandle[] candles = CsvCandle.load(path, candleTime, startTime, endTime);
         Stochastic stochastic  = new Stochastic();

@@ -1,8 +1,8 @@
 package io.runon.cryptocurrency.exchanges.binance;
 
-import io.runon.commons.utils.ExceptionUtil;
-import io.runon.commons.utils.FileUtil;
 import io.runon.commons.exception.IORuntimeException;
+import io.runon.commons.utils.ExceptionUtils;
+import io.runon.commons.utils.FileUtils;
 import io.runon.commons.utils.time.Times;
 import io.runon.cryptocurrency.trading.SymbolsData;
 import io.runon.trading.data.file.TimeFiles;
@@ -114,9 +114,9 @@ public abstract class BinanceOrderBookOut extends SymbolsData {
 
                     File file = new File(path);
                     if(file.isFile()){
-                        FileUtil.fileOutput("\n" + line, path, true);
+                        FileUtils.fileOutput("\n" + line, path, true);
                     }else{
-                        FileUtil.fileOutput(line, path, false);
+                        FileUtils.fileOutput(line, path, false);
                     }
 
 
@@ -139,7 +139,7 @@ public abstract class BinanceOrderBookOut extends SymbolsData {
                     }
 
                 }catch (Exception e){
-                    log.error(ExceptionUtil.getStackTrace(e));
+                    log.error(ExceptionUtils.getStackTrace(e));
                     break;
                 }
 

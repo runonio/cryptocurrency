@@ -1,7 +1,6 @@
 package io.runon.cryptocurrency.merge.volume.exchanges.okx;
 
 import io.runon.commons.service.Service;
-import io.runon.commons.utils.ExceptionUtil;
 import io.runon.commons.utils.string.Strings;
 import io.runon.commons.utils.time.Times;
 import io.runon.cryptocurrency.exchanges.okx.OkxExchange;
@@ -46,7 +45,7 @@ public class OkxFuturesIdChangeService extends Service {
             stream.connect();
 
         }catch(Exception e){
-            log.error(ExceptionUtil.getStackTrace(e));
+            log.error(ExceptionUtils.getStackTrace(e));
         }
     }
 }

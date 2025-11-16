@@ -2,7 +2,7 @@ package io.runon.cryptocurrency.trading.service;
 
 import io.runon.commons.config.Config;
 import io.runon.commons.service.Service;
-import io.runon.commons.utils.FileUtil;
+import io.runon.commons.utils.FileUtils;
 import io.runon.commons.utils.time.DateUtil;
 import io.runon.cryptocurrency.trading.Cryptocurrency;
 import io.runon.cryptocurrency.trading.CryptocurrencyLastCandle;
@@ -79,7 +79,7 @@ public class CandleOutRealTimeService extends Service {
 
             Long lastTime = timeMap.get(cryptocurrency.getId());
             if(lastTime == null){
-                FileUtil.fileOutput(  CsvCandle.value(candleLastTime, tradeCandle)+"\n", path, true);
+                FileUtils.fileOutput(  CsvCandle.value(candleLastTime, tradeCandle)+"\n", path, true);
                 timeMap.put(cryptocurrency.getId(), candleLastTime);
                 continue;
             }
@@ -90,10 +90,10 @@ public class CandleOutRealTimeService extends Service {
             }
 
             if(previousCandle != null && previousTime > lastTime){
-                FileUtil.fileOutput(CsvCandle.value(previousTime, previousCandle)+"\n", path, true);
+                FileUtils.fileOutput(CsvCandle.value(previousTime, previousCandle)+"\n", path, true);
             }
 
-            FileUtil.fileOutput(CsvCandle.value(candleLastTime, tradeCandle)+"\n", path, true);
+            FileUtils.fileOutput(CsvCandle.value(candleLastTime, tradeCandle)+"\n", path, true);
 
             timeMap.put(cryptocurrency.getId(), candleLastTime);
 

@@ -1,6 +1,6 @@
 package io.runon.cryptocurrency.exchanges.kraken;
 
-import io.runon.commons.utils.ExceptionUtil;
+import io.runon.commons.utils.ExceptionUtils;
 import io.runon.cryptocurrency.exchanges.ExchangeWebSocketListener;
 import io.runon.cryptocurrency.exchanges.TradeConverter;
 import io.runon.cryptocurrency.trading.CryptocurrencyTrade;
@@ -85,7 +85,7 @@ public abstract class KrakenFuturesTradeStream <T extends CryptocurrencyTrade> e
                     addTrade(id, trade);
 
                 }catch(Exception e){
-                    log.error(ExceptionUtil.getStackTrace(e));
+                    log.error(ExceptionUtils.getStackTrace(e));
                 }
             }
         };
