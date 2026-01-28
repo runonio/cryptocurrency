@@ -101,8 +101,14 @@ public class BinanceFuturesAccount implements FuturesTradeAccount {
         return BinanceFuturesApis.getUsdtAsset(accountInformation);
     }
 
-    @Override
+
     public BigDecimal getCash() {
+        AccountInformation accountInformation = syncRequestClient.getAccountInformation();
+        return BinanceFuturesApis.getUsdtCash(accountInformation);
+    }
+
+    @Override
+    public BigDecimal getCash(int nextDay) {
         AccountInformation accountInformation = syncRequestClient.getAccountInformation();
         return BinanceFuturesApis.getUsdtCash(accountInformation);
     }

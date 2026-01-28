@@ -9,6 +9,8 @@ import io.runon.trading.TradingTimes;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 
+import java.util.Set;
+
 /**
  * 바이낸스 캔들 데이터
  * @author macle
@@ -17,6 +19,9 @@ import org.json.JSONException;
 public class BinanceFuturesCandleOut  extends CandleOut {
 
     private long sleepTime = 300L;
+
+    private final Set<String> outSet = Set.of("PLANCKUSDT","GAIBUSDT");
+
 
     public BinanceFuturesCandleOut(){
         outDirPath = CryptocurrencyDataPath.getFuturesCandleDirPath();
@@ -32,6 +37,7 @@ public class BinanceFuturesCandleOut  extends CandleOut {
 
     private int tryMaxCount =10;
 
+
     public void setTryMaxCount(int tryMaxCount) {
         this.tryMaxCount = tryMaxCount;
     }
@@ -39,6 +45,9 @@ public class BinanceFuturesCandleOut  extends CandleOut {
     public void out(){
         log.info("symbol length: " + symbols.length);
         for(String symbol : symbols){
+            if(outSet.contains(symbol)){
+                continue;
+            }
             for(long candleTime : candleTimes){
                 int tryCount = 0;
 
