@@ -10,7 +10,7 @@ import io.runon.trading.Trade;
 import io.runon.trading.TradingTimes;
 import io.runon.trading.data.csv.CsvTimeFile;
 import io.runon.trading.technical.analysis.candle.TradeCandle;
-import io.runon.trading.technical.analysis.candle.TradeCandles;
+import io.runon.trading.technical.analysis.candle.TradeCandlesGet;
 import io.runon.trading.technical.analysis.volume.Volumes;
 
 import java.math.BigDecimal;
@@ -27,7 +27,7 @@ public class MergeVolume {
 
 
     //10초
-    private final TradeCandles secondCandles;
+    private final TradeCandlesGet secondCandles;
     private final Object secondLock = new Object();
     private final Object volumeDataLock = new Object();
 
@@ -44,7 +44,7 @@ public class MergeVolume {
     BigDecimal avg5s;
 
     public MergeVolume(){
-        secondCandles = new TradeCandles(secondTime);
+        secondCandles = new TradeCandlesGet(secondTime);
         //30분까지 10초 단위면 180개 ( 보조로 200개까지 저장)
         secondCandles.setCount(200);
         secondCandles.setTradeRecord(false);
